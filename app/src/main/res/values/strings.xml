@@ -3,4 +3,14 @@
     <string name="title_home">Home</string>
     <string name="title_shop">Boutique</string>
     <string name="title_stats">Suivi</string>
+    <!-- Strings related to login -->
+    <string name="bienvenue">Bienvenue !</string>
+    <string name="log_in">Se connecter</string>
+    <string name="sign_in">Créer un compte</string>
+    <string name="pseudo">Entrez un pseudonyme :</string>
+    <string name="email">Entrez un email :</string>
+    <string name="password">Entrez un mot de passe :</string>
+    <string name="emailLI">Entrez votre email :</string>
+    <string name="passwordLI">Entrez votre mot de passe :</string>
+    <string name="validate">Valider</string>
 </resources>

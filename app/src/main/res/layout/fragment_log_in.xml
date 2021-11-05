@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.connexion.SignInFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+    <TextView
+        android:id="@+id/bienvenueSI"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginTop="70dp"
+        android:textAlignment="center"
+        android:text="@string/bienvenue"
+        android:textSize="30dp" />
+
+
+    <TextView
+        android:id="@+id/emailLI"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/bienvenueSI"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp"
+        android:text="@string/emailLI"
+        android:textSize="18dp" />
+
+    <EditText
+        android:id="@+id/enterEmailLI"
+        android:layout_width="250dp"
+        android:layout_height="50dp"
+        android:layout_below="@id/emailLI"
+        android:layout_centerHorizontal="true"
+        android:hint="example@gmail.com" />
+
+    <TextView
+        android:id="@+id/passwordLI"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/enterEmailLI"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp"
+        android:text="@string/passwordLI"
+        android:textSize="18dp" />
+
+    <EditText
+        android:id="@+id/enterPasswordLI"
+        android:layout_width="250dp"
+        android:layout_height="50dp"
+        android:layout_below="@id/passwordLI"
+        android:layout_centerHorizontal="true"
+        android:hint="mot de passe" />
+
+    <Button
+        android:id="@+id/btnLogIn"
+        android:layout_width="150dp"
+        android:layout_height="60dp"
+        android:layout_below="@+id/enterPasswordLI"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp"
+        android:backgroundTint="@color/medium_blue"
+        android:text="@string/validate" />
+
+</RelativeLayout>
