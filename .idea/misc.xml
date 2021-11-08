@@ -4,13 +4,16 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/Matis_CAFFIAUX/Documents/Cours/UQAC/Motivz/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.26614583333333336" />
+        <entry key="..\:/Users/Matis_CAFFIAUX/Documents/Cours/UQAC/Motivz/app/src/main/res/drawable/avataritemobject_border.xml" value="0.19739583333333333" />
         <entry key="..\:/Users/Matis_CAFFIAUX/Documents/Cours/UQAC/Motivz/app/src/main/res/drawable/ic_avatar.xml" value="0.19739583333333333" />
+        <entry key="..\:/Users/Matis_CAFFIAUX/Documents/Cours/UQAC/Motivz/app/src/main/res/drawable/ic_cloth_1.xml" value="0.26614583333333336" />
+        <entry key="..\:/Users/Matis_CAFFIAUX/Documents/Cours/UQAC/Motivz/app/src/main/res/drawable/ic_clothe_1.xml" value="0.26614583333333336" />
         <entry key="..\:/Users/Matis_CAFFIAUX/Documents/Cours/UQAC/Motivz/app/src/main/res/drawable/ic_dashboard_black_24dp.xml" value="0.23072916666666668" />
         <entry key="..\:/Users/Matis_CAFFIAUX/Documents/Cours/UQAC/Motivz/app/src/main/res/drawable/ic_home_black_24dp.xml" value="0.26614583333333336" />
         <entry key="..\:/Users/Matis_CAFFIAUX/Documents/Cours/UQAC/Motivz/app/src/main/res/drawable/ic_launcher_background.xml" value="0.26614583333333336" />
         <entry key="..\:/Users/Matis_CAFFIAUX/Documents/Cours/UQAC/Motivz/app/src/main/res/drawable/ic_notifications_black_24dp.xml" value="0.26614583333333336" />
         <entry key="..\:/Users/Matis_CAFFIAUX/Documents/Cours/UQAC/Motivz/app/src/main/res/layout/activity_main.xml" value="0.12708333333333333" />
-        <entry key="..\:/Users/Matis_CAFFIAUX/Documents/Cours/UQAC/Motivz/app/src/main/res/layout/fragment_avatar_shop.xml" value="0.1" />
+        <entry key="..\:/Users/Matis_CAFFIAUX/Documents/Cours/UQAC/Motivz/app/src/main/res/layout/fragment_avatar_shop.xml" value="0.4435857805255023" />
         <entry key="..\:/Users/Matis_CAFFIAUX/Documents/Cours/UQAC/Motivz/app/src/main/res/layout/fragment_dashboard.xml" value="0.18125" />
         <entry key="..\:/Users/Matis_CAFFIAUX/Documents/Cours/UQAC/Motivz/app/src/main/res/layout/fragment_home.xml" value="0.18125" />
         <entry key="..\:/Users/Matis_CAFFIAUX/Documents/Cours/UQAC/Motivz/app/src/main/res/layout/fragment_stats.xml" value="0.1" />

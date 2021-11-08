@@ -4,9 +4,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.RelativeLayout
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.uqac.motivz.R
 import com.uqac.motivz.databinding.FragmentAvatarShopBinding
+
+import android.widget.ImageView
+
 
 class AvatarShopFragment : Fragment() {
 
@@ -15,11 +20,9 @@ class AvatarShopFragment : Fragment() {
 
     private val binding get() = _binding!!
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
+    private var avatarBundle : RelativeLayout? = null
+
+    override fun onCreateView(inflater: LayoutInflater,container: ViewGroup?,savedInstanceState: Bundle?): View {
         avatarShopViewModel =
             ViewModelProvider(this).get(AvatarShopViewModel::class.java)
 
@@ -27,4 +30,27 @@ class AvatarShopFragment : Fragment() {
 
         return binding.root
     }
+
+    override fun onStart()  {
+        super.onStart()
+        avatarBundle  = view?.findViewById<RelativeLayout>(R.id.AvatarBundle)
+
+
+        val clothes  = arrayOf(R.drawable.ic_clothe_1 )
+
+        val imageView: ImageView = view?.findViewById(R.id.ClotheTop)!!
+
+
+        val button = view?.findViewById<RelativeLayout>(R.id.buttonObject1)
+        button?.setOnClickListener {
+            var id : Int = avatarBundle?.getChildAt(0)?.id!!
+            imageView.setImageResource(clothes[0])
+        }
+    }
+
+    override fun onStop() {
+        super.onStop()
+        // Made save of avatar
+    }
+
 }

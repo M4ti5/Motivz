@@ -12,12 +12,44 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <ImageView
-            android:id="@+id/Avatar"
+        <RelativeLayout
+            android:id="@+id/AvatarBundle"
             android:layout_width="match_parent"
-            android:layout_height="350dp"
-            android:layout_weight="2"
-            android:src="@drawable/ic_avatar" />
+            android:layout_height="match_parent"
+            android:layout_weight="2">
+
+            <ImageView
+                android:id="@+id/Avatar"
+                android:layout_width="match_parent"
+                android:layout_height="350dp"
+                android:layout_weight="2"
+                android:src="@drawable/ic_avatar"/>
+            <ImageView
+                android:id="@+id/Skin"
+                android:layout_width="match_parent"
+                android:layout_height="350dp"/>
+            <ImageView
+                android:id="@+id/Hair"
+                android:layout_width="match_parent"
+                android:layout_height="350dp"/>
+            <ImageView
+                android:id="@+id/ClotheTop"
+                android:layout_width="match_parent"
+                android:layout_height="350dp"/>
+            <ImageView
+                android:id="@+id/ClotheBottom"
+                android:layout_width="match_parent"
+                android:layout_height="350dp"/>
+            <ImageView
+                android:id="@+id/Shoes"
+                android:layout_width="match_parent"
+                android:layout_height="350dp"/>
+            <ImageView
+                android:id="@+id/Pet"
+                android:layout_width="match_parent"
+                android:layout_height="350dp"/>
+
+        </RelativeLayout>
 
         <LinearLayout
             android:id="@+id/customizationMenu"
@@ -31,8 +63,7 @@
                 android:id="@+id/TypesMenu"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginHorizontal="10dp"
-                >
+                android:layout_marginHorizontal="10dp">
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -86,6 +117,7 @@
                         android:layout_weight="1"
                         android:text="Type 6" />
                 </LinearLayout>
+
             </HorizontalScrollView>
 
             <HorizontalScrollView
@@ -96,16 +128,34 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    >
+                    android:layout_height="wrap_content">
 
-                    <Button
+                    <RelativeLayout
                         android:id="@+id/buttonObject1"
                         android:layout_width="100dp"
                         android:layout_height="150dp"
-                        android:layout_marginHorizontal="2dp"
                         android:layout_weight="1"
-                        android:text="Objet 1" />
+                        android:background="@drawable/avataritemobject_border">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="15dp"
+                            android:layout_marginVertical="1dp"
+                            android:gravity="center"
+                            android:padding="2dp"
+                            android:text=""
+                            />
+
+                        <ImageView
+                            android:id="@+id/imageView2"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_weight="2"
+                            android:src="@drawable/ic_clothe_1" />
+
+                    </RelativeLayout>
 
                     <Button
                         android:id="@+id/buttonObject2"
@@ -119,24 +169,24 @@
                         android:id="@+id/buttonObject3"
                         android:layout_width="100dp"
                         android:layout_height="150dp"
-                        android:layout_weight="1"
                         android:layout_marginHorizontal="2dp"
+                        android:layout_weight="1"
                         android:text="Objet 3" />
 
                     <Button
                         android:id="@+id/buttonObject4"
                         android:layout_width="100dp"
                         android:layout_height="150dp"
-                        android:layout_weight="1"
                         android:layout_marginHorizontal="2dp"
+                        android:layout_weight="1"
                         android:text="Objet 4" />
 
                     <Button
                         android:id="@+id/buttonObject5"
                         android:layout_width="100dp"
                         android:layout_height="150dp"
-                        android:layout_weight="1"
                         android:layout_marginHorizontal="2dp"
+                        android:layout_weight="1"
                         android:text="Objet 5" />
 
                 </LinearLayout>
