@@ -3,4 +3,5 @@
     <string name="title_home">Home</string>
     <string name="title_shop">Boutique</string>
     <string name="title_stats">Suivi</string>
+    <string name="goal_title">Mes Objectifs</string>
 </resources>
