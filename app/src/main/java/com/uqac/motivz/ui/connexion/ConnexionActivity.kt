@@ -18,6 +18,7 @@ class ConnexionActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityConnexionBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        replaceFragment(SignInFragment())
 
         binding.logInBtn.setOnClickListener(){
             replaceFragment(LogInFragment())
@@ -29,8 +30,8 @@ class ConnexionActivity : AppCompatActivity() {
     }
 
     private fun replaceFragment(fragment : Fragment){
-        val framgmentManager = supportFragmentManager
-        val fragmentTransaction = framgmentManager.beginTransaction()
+        val fragmentManager = supportFragmentManager
+        val fragmentTransaction = fragmentManager.beginTransaction()
         fragmentTransaction.replace(R.id.connexionFragContainer, fragment)
         fragmentTransaction.commit()
     }
