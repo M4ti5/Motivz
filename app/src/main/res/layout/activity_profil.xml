@@ -6,6 +6,119 @@
     android:layout_height="match_parent"
     tools:context=".ui.profil.ProfilActivity">>
 
+    <ImageButton
+        android:id="@+id/goBackBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:src="@drawable/arrow"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        tools:layout_constraintStart_toStartOf="parent"
+        tools:layout_constraintTop_toTopOf="parent" />
 
+    <ImageButton
+        android:id="@+id/logOutBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:src="@drawable/logout"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
+        tools:layout_constraintEnd_toEndOf="parent"
+        tools:layout_constraintTop_toTopOf="parent" />
+
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/bordure"
+        android:layout_width="85dp"
+        android:layout_height="85dp"
+        android:layout_centerHorizontal="true"
+        android:elevation="12dp"
+        tools:cardBackgroundColor="@color/black"
+        tools:cardCornerRadius="40dp"
+        tools:layout_constraintEnd_toEndOf="parent"
+        tools:layout_constraintStart_toStartOf="parent"
+        tools:layout_constraintTop_toBottomOf="@+id/goBackBtn">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/roundPicture"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:layout_gravity="center"
+            tools:cardCornerRadius="40dp"
+            tools:layout_constraintEnd_toEndOf="parent"
+            tools:layout_constraintStart_toStartOf="parent">
+
+            <ImageView
+                android:id="@+id/iprofilPitcure"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/profilPicture" />
+
+        </androidx.cardview.widget.CardView>
+
+    </androidx.cardview.widget.CardView>
+
+    <TextView
+        android:id="@+id/pseudoProfil"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="monPseudo"
+        android:layout_marginTop="10dp"
+        android:textSize="18dp"
+        tools:layout_constraintEnd_toEndOf="parent"
+        tools:layout_constraintStart_toStartOf="parent"
+        tools:layout_constraintTop_toBottomOf="@+id/bordure" />
+
+    <ImageView
+        android:id="@+id/ligne1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ligne"
+        tools:layout_constraintEnd_toEndOf="parent"
+        tools:layout_constraintStart_toStartOf="parent"
+        tools:layout_constraintTop_toBottomOf="@+id/pseudoProfil" />
+
+    <ImageView
+        android:id="@+id/fullAvatar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/fullAvatar"
+        tools:layout_constraintEnd_toEndOf="parent"
+        tools:layout_constraintStart_toStartOf="parent"
+        tools:layout_constraintTop_toBottomOf="@+id/ligne1" />
+
+    <Button
+        android:id="@+id/personnaliserBtn"
+        android:layout_width="160dp"
+        android:layout_height="60dp"
+        android:layout_centerHorizontal="true"
+        android:backgroundTint="@color/medium_blue"
+        android:text="Personnaliser"
+        tools:layout_constraintEnd_toEndOf="parent"
+        tools:layout_constraintStart_toStartOf="parent"
+        tools:layout_constraintTop_toBottomOf="@+id/fullAvatar" />
+
+    <ImageView
+        android:id="@+id/ligne2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ligne"
+        tools:layout_constraintEnd_toEndOf="parent"
+        tools:layout_constraintStart_toStartOf="parent"
+        tools:layout_constraintTop_toBottomOf="@+id/personnaliserBtn" />
+
+    <Button
+        android:id="@+id/preferences"
+        android:layout_width="160dp"
+        android:layout_height="60dp"
+        android:layout_centerHorizontal="true"
+        android:backgroundTint="@color/medium_blue"
+        android:text="Paramètres"
+        tools:layout_constraintEnd_toEndOf="parent"
+        tools:layout_constraintStart_toStartOf="parent"
+        tools:layout_constraintTop_toBottomOf="@+id/ligne2" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
