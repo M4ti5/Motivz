@@ -2,13 +2,10 @@ package com.uqac.motivz.ui.profil
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.databinding.DataBindingUtil
 import com.uqac.motivz.MainActivity
-import com.uqac.motivz.R
 import com.uqac.motivz.databinding.ActivityProfilBinding
-import com.uqac.motivz.ui.connexion.SignInFragment
+
 
 class ProfilActivity  : AppCompatActivity() {
 
@@ -26,6 +23,10 @@ class ProfilActivity  : AppCompatActivity() {
         binding.pseudoProfil.text = pseudo
 
         binding.goBackBtn.setOnClickListener(){
+            goToMainActivity()
+        }
+
+        binding.personnaliserBtn.setOnClickListener(){
             goToMainActivity()
         }
 
