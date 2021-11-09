@@ -33,6 +33,7 @@ class LogInFragment : Fragment()  {
 
     private fun goToMainActivity(){
         val intent = Intent(activity, MainActivity::class.java)
+
         startActivity(intent)
     }
 

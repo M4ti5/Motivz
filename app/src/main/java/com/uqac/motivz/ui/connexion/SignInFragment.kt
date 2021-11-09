@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.EditText
 import com.uqac.motivz.MainActivity
 import com.uqac.motivz.R
 
@@ -19,9 +20,12 @@ class SignInFragment : Fragment(R.layout.fragment_sign_in) {
     ): View? {
 
         val view = inflater.inflate(R.layout.fragment_sign_in, container, false)
+
         val btn = view.findViewById<Button>(R.id.btnSignIn)
+
         btn.setOnClickListener{
-            goToMainActivity()
+            val pseudo = view.findViewById<EditText>(R.id.enterPseudoSI).getText().toString()
+            goToMainActivity(pseudo)
         }
 
         // Inflate the layout for this fragment
@@ -29,8 +33,9 @@ class SignInFragment : Fragment(R.layout.fragment_sign_in) {
 
     }
 
-    private fun goToMainActivity(){
+    private fun goToMainActivity(pseudo: String ){
         val intent = Intent(activity, MainActivity::class.java)
+        intent.putExtra("PSEUDONYME", pseudo);
         startActivity(intent)
     }
 }
