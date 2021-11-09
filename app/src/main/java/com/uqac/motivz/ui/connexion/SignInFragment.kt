@@ -25,7 +25,7 @@ class SignInFragment : Fragment(R.layout.fragment_sign_in) {
 
         btn.setOnClickListener{
             val pseudo = view.findViewById<EditText>(R.id.enterPseudoSI).getText().toString()
-            goToMainActivity(pseudo)
+            goToMainActivity(pseudo, R.id.navigation_home)
         }
 
         // Inflate the layout for this fragment
@@ -33,9 +33,10 @@ class SignInFragment : Fragment(R.layout.fragment_sign_in) {
 
     }
 
-    private fun goToMainActivity(pseudo: String ){
+    private fun goToMainActivity(pseudo: String, fragmentSelected : Int ){
         val intent = Intent(activity, MainActivity::class.java)
         intent.putExtra("PSEUDONYME", pseudo);
+        intent.putExtra("NAV", fragmentSelected);
         startActivity(intent)
     }
 }

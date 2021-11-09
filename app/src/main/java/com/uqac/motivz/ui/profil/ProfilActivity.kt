@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.uqac.motivz.MainActivity
+import com.uqac.motivz.R
 import com.uqac.motivz.databinding.ActivityProfilBinding
 
 
@@ -23,18 +24,19 @@ class ProfilActivity  : AppCompatActivity() {
         binding.pseudoProfil.text = pseudo
 
         binding.goBackBtn.setOnClickListener(){
-            goToMainActivity()
+            goToMainActivity(R.id.navigation_home)
         }
 
         binding.personnaliserBtn.setOnClickListener(){
-            goToMainActivity()
+            goToMainActivity(R.id.navigation_shop)
         }
 
     }
 
-    private fun goToMainActivity(){
+    private fun goToMainActivity(fragmentSelected : Int){
         val intent = Intent(this,  MainActivity::class.java)
         intent.putExtra("PSEUDONYME", pseudo);
+        intent.putExtra("NAV", fragmentSelected);
         startActivity(intent)
     }
 }

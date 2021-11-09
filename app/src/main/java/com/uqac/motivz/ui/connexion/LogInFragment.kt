@@ -23,7 +23,7 @@ class LogInFragment : Fragment()  {
         val view = inflater.inflate(R.layout.fragment_log_in, container, false)
         val btn = view.findViewById<Button>(R.id.btnLogIn)
         btn.setOnClickListener{
-            goToMainActivity()
+            goToMainActivity(R.id.navigation_home)
         }
 
         // Inflate the layout for this fragment
@@ -31,9 +31,9 @@ class LogInFragment : Fragment()  {
 
     }
 
-    private fun goToMainActivity(){
+    private fun goToMainActivity(fragmentSelected : Int){
         val intent = Intent(activity, MainActivity::class.java)
-
+        intent.putExtra("NAV", fragmentSelected);
         startActivity(intent)
     }
 

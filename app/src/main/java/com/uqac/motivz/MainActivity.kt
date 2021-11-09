@@ -31,9 +31,12 @@ class MainActivity : AppCompatActivity() {
             R.id.navigation_shop, R.id.navigation_home,  R.id.navigation_stats))
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
-        navView.selectedItemId = R.id.navigation_home
+
+        val nav = intent.getIntExtra("NAV", R.id.navigation_home)
+        navView.selectedItemId = nav
 
         pseudo = intent.getStringExtra("PSEUDONYME").toString()
+
 
 
     }
