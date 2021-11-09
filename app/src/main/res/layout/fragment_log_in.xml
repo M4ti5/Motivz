@@ -62,7 +62,7 @@
         android:layout_below="@+id/enterPasswordLI"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="50dp"
-        android:backgroundTint="@color/medium_blue"
+        android:backgroundTint="@color/light_blue"
         android:text="@string/validate" />
 
 </RelativeLayout>
