@@ -25,7 +25,6 @@ class StatsFragment : Fragment() {
     private val binding get() = _binding!!
     private lateinit var statButtonController : Button
     private var currentDrawable = 0
-    lateinit var previousButton : Button
     private val statModel : StatsViewModel by activityViewModels()
     private val dataModel : DataViewModel by activityViewModels()
 
