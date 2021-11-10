@@ -8,6 +8,7 @@
     tools:context="ui.stats.StatsFragment"
     android:orientation="vertical"
 
+
     >
 
     <!-- TODO: Update blank fragment layout -->
@@ -33,6 +34,7 @@
                 android:name="com.uqac.motivz.ui.stats.HistogramFragment"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_marginTop="20dp"
 
                 android:layout_weight="0.6" />
 
