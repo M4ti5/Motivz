@@ -42,6 +42,12 @@ class HomeFragment : Fragment() {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
+        // Access to profile from profileButton
+//        val profileButton: Button = binding.profileButton
+//        profileButton.setOnClickListener {
+//            val pseudo: String = (activity as MainActivity).getPseudo()
+//            goToProfilActivity(pseudo)
+//        }
 
         val goalTitle: TextView = binding.goalTitle
         goalTitle.text = getString(R.string.goal_title)
@@ -64,6 +70,14 @@ class HomeFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
+
+
+//    private fun goToProfilActivity(pseudo: String){
+//        val intent = Intent(activity, ProfilActivity::class.java)
+//        intent.putExtra("PSEUDONYME", pseudo);
+//        startActivity(intent)
+//    }
+
 
     @SuppressLint("UseCompatLoadingForDrawables")
     private fun addGoal(goalName: String, progress: Int, goalLinearLayout: LinearLayout) {

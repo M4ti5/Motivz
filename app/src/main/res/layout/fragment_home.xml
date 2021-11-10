@@ -12,7 +12,14 @@
         android:layout_height="match_parent"
         android:layout_marginBottom="70dp"
         android:orientation="vertical">
-        
+
+        <Button
+            android:id="@+id/profileButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:text = "@string/profil"/>
+
         <TextView
             android:id="@+id/goalTitle"
             android:layout_width="wrap_content"

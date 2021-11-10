@@ -29,4 +29,9 @@ class MainActivity : AppCompatActivity() {
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
     }
+
+//    fun getPseudo(): String {
+//        val pseudo = "pseudo"
+//        return pseudo
+//    }
 }
