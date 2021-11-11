@@ -7,119 +7,128 @@
     android:layout_height="match_parent"
     tools:context=".ui.profil.ProfilActivity">
 
-    <ImageButton
-        android:id="@+id/goBackBtn"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/white"
-        android:src="@drawable/arrow"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="10dp"
-        tools:layout_constraintStart_toStartOf="parent"
-        tools:layout_constraintTop_toTopOf="parent" />
-
-    <ImageButton
-        android:id="@+id/logOutBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@color/white"
-        android:src="@drawable/logout"
-        android:layout_marginRight="10dp"
-        android:layout_marginTop="10dp"
-        tools:layout_constraintEnd_toEndOf="parent"
-        tools:layout_constraintTop_toTopOf="parent" />
-
-
-    <androidx.cardview.widget.CardView
-        android:id="@+id/bordure"
-        android:layout_width="85dp"
-        android:layout_height="85dp"
-        android:layout_centerHorizontal="true"
-        android:elevation="12dp"
-        tools:cardBackgroundColor="@color/black"
-        tools:cardCornerRadius="40dp"
-        tools:layout_constraintEnd_toEndOf="parent"
-        tools:layout_constraintStart_toStartOf="parent"
-        tools:layout_constraintTop_toBottomOf="@+id/goBackBtn">
-
-        <androidx.cardview.widget.CardView
-            android:id="@+id/roundPicture"
+        android:orientation="vertical">
+        <!-- A Changer car boutton retour redondant
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="80dp"
-            android:layout_gravity="center"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@+id/goBackBtn"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:background="@color/white"
+                android:src="@drawable/arrow"
+                android:layout_weight="1"/>
+
+            <RelativeLayout
+                android:id="@+id/RelativeSpace"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="6">
+            </RelativeLayout>
+
+            <ImageButton
+                android:id="@+id/logOutBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:src="@drawable/logout"
+                android:layout_weight="1"/>
+        </LinearLayout>
+        -->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/bordure"
+            android:layout_width="85dp"
+            android:layout_height="85dp"
+            android:layout_gravity="center_horizontal"
+            android:elevation="12dp"
+            tools:cardBackgroundColor="@color/black"
             tools:cardCornerRadius="40dp"
             tools:layout_constraintEnd_toEndOf="parent"
-            tools:layout_constraintStart_toStartOf="parent">
+            tools:layout_constraintStart_toStartOf="parent"
+            tools:layout_constraintTop_toBottomOf="@+id/goBackBtn">
 
-            <ImageView
-                android:id="@+id/iprofilPitcure"
+            <androidx.cardview.widget.CardView
+                android:id="@+id/roundPicture"
                 android:layout_width="match_parent"
                 android:layout_height="80dp"
-                android:scaleType="centerCrop"
-                android:src="@drawable/profil_picture" />
+                android:layout_gravity="center"
+                tools:cardCornerRadius="40dp"
+                tools:layout_constraintEnd_toEndOf="parent"
+                tools:layout_constraintStart_toStartOf="parent">
+
+                <ImageView
+                    android:id="@+id/iprofilPitcure"
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/profil_picture" />
+
+            </androidx.cardview.widget.CardView>
 
         </androidx.cardview.widget.CardView>
+        <TextView
+            android:id="@+id/pseudoProfil"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="monPseudo"
+            android:textSize="18dp"
+            android:layout_gravity="center_horizontal"
+            />
 
-    </androidx.cardview.widget.CardView>
 
-    <TextView
-        android:id="@+id/pseudoProfil"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="monPseudo"
-        android:layout_marginTop="10dp"
-        android:textSize="18dp"
-        tools:layout_constraintEnd_toEndOf="parent"
-        tools:layout_constraintStart_toStartOf="parent"
-        tools:layout_constraintTop_toBottomOf="@+id/bordure" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-    <ImageView
-        android:id="@+id/ligne1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ligne"
-        tools:layout_constraintEnd_toEndOf="parent"
-        tools:layout_constraintStart_toStartOf="parent"
-        tools:layout_constraintTop_toBottomOf="@+id/pseudoProfil" />
+            <ImageView
+                android:id="@+id/ligne1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:src="@drawable/ligne" />
 
-    <ImageView
-        android:id="@+id/fullAvatar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/full_avatar"
-        tools:layout_constraintEnd_toEndOf="parent"
-        tools:layout_constraintStart_toStartOf="parent"
-        tools:layout_constraintTop_toBottomOf="@+id/ligne1" />
+            <ImageView
+                android:id="@+id/fullAvatar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:src="@drawable/full_avatar" />
 
-    <Button
-        android:id="@+id/personnaliserBtn"
-        android:layout_width="160dp"
-        android:layout_height="60dp"
-        android:layout_centerHorizontal="true"
-        android:backgroundTint="@color/medium_blue"
-        android:text="Personnaliser"
-        tools:layout_constraintEnd_toEndOf="parent"
-        tools:layout_constraintStart_toStartOf="parent"
-        tools:layout_constraintTop_toBottomOf="@+id/fullAvatar" />
+            <Button
+                android:id="@+id/personnaliserBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="60dp"
+                android:layout_gravity="center_horizontal"
+                android:backgroundTint="@color/medium_blue"
+                android:text="Personnaliser" />
 
-    <ImageView
-        android:id="@+id/ligne2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ligne"
-        tools:layout_constraintEnd_toEndOf="parent"
-        tools:layout_constraintStart_toStartOf="parent"
-        tools:layout_constraintTop_toBottomOf="@+id/personnaliserBtn" />
+            <ImageView
+                android:id="@+id/ligne2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:src="@drawable/ligne" />
 
-    <Button
-        android:id="@+id/preferences"
-        android:layout_width="160dp"
-        android:layout_height="60dp"
-        android:layout_centerHorizontal="true"
-        android:backgroundTint="@color/medium_blue"
-        android:text="Paramètres"
-        tools:layout_constraintEnd_toEndOf="parent"
-        tools:layout_constraintStart_toStartOf="parent"
-        tools:layout_constraintTop_toBottomOf="@+id/ligne2" />
+            <Button
+                android:id="@+id/preferences"
+                android:layout_width="160dp"
+                android:layout_height="60dp"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center_horizontal"
+                android:backgroundTint="@color/medium_blue"
+                android:text="Paramètres"
+                tools:layout_constraintTop_toBottomOf="@+id/ligne2" />
+        </LinearLayout>
+
+    </LinearLayout>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
