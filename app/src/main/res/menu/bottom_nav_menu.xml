@@ -2,6 +2,10 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
+        android:id="@+id/navigation_shopItems"
+        android:icon="@drawable/ic_dashboard_black_24dp"
+        android:title="boutique items"/>
+    <item
         android:id="@+id/navigation_shop"
         android:icon="@drawable/ic_dashboard_black_24dp"
         android:title="@string/title_shop"/>
