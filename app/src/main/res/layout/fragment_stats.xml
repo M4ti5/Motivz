@@ -1,14 +1,103 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/frameLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="ui.stats.StatsFragment">
+    tools:context="ui.stats.StatsFragment"
+    android:orientation="vertical"
+
+
+    >
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
+
+
+    <TableLayout
+        android:id="@+id/simpleTableLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/title_stats" />
+        android:stretchColumns="0"
+        android:weightSum="1"> <!-- stretch the second column of the layout-->
+
+        <!-- first row of the table layout-->
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.6">
+
+
+            <fragment
+                android:id="@+id/fragment_chart"
+                android:name="com.uqac.motivz.ui.stats.HistogramFragment"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="20dp"
+
+                android:layout_weight="0.6" />
+
+
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/firstRow"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
+            android:layout_weight="0.1">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/year"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight=".30"
+                    android:background="@drawable/left_rounded_button"
+                    android:text="Année" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/month"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight=".30"
+                    android:background="@drawable/normal_button"
+                    android:text="Mois" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/week"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight=".30"
+                    android:background="@drawable/right_rounded_button"
+                    android:text="Semaine" />
+
+            </LinearLayout>
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.3"
+            >
+
+            <fragment
+                android:id="@+id/fragment_goals"
+                android:name="com.uqac.motivz.ui.stats.TypeGoalsFragment"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                 />
+
+
+        </TableRow>
+    </TableLayout>
+
 
 </FrameLayout>
