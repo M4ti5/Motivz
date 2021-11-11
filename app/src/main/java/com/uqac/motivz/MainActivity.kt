@@ -47,5 +47,7 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-
+    fun getPseudo(): String {
+        return pseudo
+    }
 }

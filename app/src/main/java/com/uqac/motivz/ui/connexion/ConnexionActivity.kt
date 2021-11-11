@@ -1,13 +1,10 @@
 package com.uqac.motivz.ui.connexion
 
-import android.app.Activity;
 import com.uqac.motivz.databinding.ActivityConnexionBinding
 import android.os.Bundle
-import android.view.LayoutInflater
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.uqac.motivz.R
-import com.uqac.motivz.databinding.FragmentAvatarShopBinding
 
 class ConnexionActivity : AppCompatActivity() {
 

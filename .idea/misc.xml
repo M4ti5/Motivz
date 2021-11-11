@@ -3,22 +3,40 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Matis_CAFFIAUX/Documents/Cours/UQAC/Motivz/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.26614583333333336" />
+        <entry key="..\:/Users/Matis_CAFFIAUX/Documents/Cours/UQAC/Motivz/app/src/main/res/drawable/avataritemobject_border.xml" value="0.19739583333333333" />
+        <entry key="..\:/Users/Matis_CAFFIAUX/Documents/Cours/UQAC/Motivz/app/src/main/res/drawable/ic_avatar.xml" value="0.19739583333333333" />
+        <entry key="..\:/Users/Matis_CAFFIAUX/Documents/Cours/UQAC/Motivz/app/src/main/res/drawable/ic_cloth_1.xml" value="0.26614583333333336" />
+        <entry key="..\:/Users/Matis_CAFFIAUX/Documents/Cours/UQAC/Motivz/app/src/main/res/drawable/ic_clothe_1.xml" value="0.26614583333333336" />
         <entry key="..\:/Users/Matis_CAFFIAUX/Documents/Cours/UQAC/Motivz/app/src/main/res/drawable/ic_dashboard_black_24dp.xml" value="0.23072916666666668" />
+        <entry key="..\:/Users/Matis_CAFFIAUX/Documents/Cours/UQAC/Motivz/app/src/main/res/drawable/ic_home_black_24dp.xml" value="0.26614583333333336" />
+        <entry key="..\:/Users/Matis_CAFFIAUX/Documents/Cours/UQAC/Motivz/app/src/main/res/drawable/ic_launcher_background.xml" value="0.26614583333333336" />
+        <entry key="..\:/Users/Matis_CAFFIAUX/Documents/Cours/UQAC/Motivz/app/src/main/res/drawable/ic_notifications_black_24dp.xml" value="0.26614583333333336" />
         <entry key="..\:/Users/Matis_CAFFIAUX/Documents/Cours/UQAC/Motivz/app/src/main/res/layout/activity_main.xml" value="0.12708333333333333" />
-        <entry key="..\:/Users/Matis_CAFFIAUX/Documents/Cours/UQAC/Motivz/app/src/main/res/layout/fragment_avatar_shop.xml" value="0.18125" />
+        <entry key="..\:/Users/Matis_CAFFIAUX/Documents/Cours/UQAC/Motivz/app/src/main/res/layout/fragment_avatar_shop.xml" value="0.4435857805255023" />
         <entry key="..\:/Users/Matis_CAFFIAUX/Documents/Cours/UQAC/Motivz/app/src/main/res/layout/fragment_dashboard.xml" value="0.18125" />
         <entry key="..\:/Users/Matis_CAFFIAUX/Documents/Cours/UQAC/Motivz/app/src/main/res/layout/fragment_home.xml" value="0.18125" />
         <entry key="..\:/Users/Matis_CAFFIAUX/Documents/Cours/UQAC/Motivz/app/src/main/res/layout/fragment_stats.xml" value="0.1" />
         <entry key="..\:/Users/Matis_CAFFIAUX/Documents/Cours/UQAC/Motivz/app/src/main/res/menu/bottom_nav_menu.xml" value="0.21458333333333332" />
-        <entry key="app/src/main/res/layout/activity_main.xml" value="0.1" />
-        <entry key="app/src/main/res/layout/fragment_histogram.xml" value="0.1528129599264976" />
-        <entry key="app/src/main/res/layout/fragment_item_list.xml" value="0.1" />
-        <entry key="app/src/main/res/layout/list_item.xml" value="0.13568634737925034" />
-        <entry key="app/src/main/res/menu/bottom_nav_menu.xml" value="0.16770833333333332" />
+        <entry key="..\:/Users/Nomanina/OneDrive/Bureau/Projet_Uqac/Motivz/app/src/main/res/drawable-test/test.xml" value="0.18871794871794872" />
+        <entry key="..\:/Users/Nomanina/OneDrive/Bureau/Projet_Uqac/Motivz/app/src/main/res/drawable/left_pressed_button.xml" value="0.1" />
+        <entry key="..\:/Users/Nomanina/OneDrive/Bureau/Projet_Uqac/Motivz/app/src/main/res/drawable/left_rounded_button.xml" value="0.19583333333333333" />
+        <entry key="..\:/Users/Nomanina/OneDrive/Bureau/Projet_Uqac/Motivz/app/src/main/res/drawable/normal_button.xml" value="0.19583333333333333" />
+        <entry key="..\:/Users/Nomanina/OneDrive/Bureau/Projet_Uqac/Motivz/app/src/main/res/drawable/normal_goal_button.xml" value="0.18871794871794872" />
+        <entry key="..\:/Users/Nomanina/OneDrive/Bureau/Projet_Uqac/Motivz/app/src/main/res/drawable/normal_pressed_button.xml" value="0.19583333333333333" />
+        <entry key="..\:/Users/Nomanina/OneDrive/Bureau/Projet_Uqac/Motivz/app/src/main/res/drawable/right_pressed_button.xml" value="0.19583333333333333" />
+        <entry key="..\:/Users/Nomanina/OneDrive/Bureau/Projet_Uqac/Motivz/app/src/main/res/drawable/right_rounded_button.xml" value="0.19583333333333333" />
+        <entry key="..\:/Users/Nomanina/OneDrive/Bureau/Projet_Uqac/Motivz/app/src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="..\:/Users/Nomanina/OneDrive/Bureau/Projet_Uqac/Motivz/app/src/main/res/layout/fragment_avatar_shop.xml" value="0.1" />
+        <entry key="..\:/Users/Nomanina/OneDrive/Bureau/Projet_Uqac/Motivz/app/src/main/res/layout/fragment_dashboard.xml" value="0.1" />
+        <entry key="..\:/Users/Nomanina/OneDrive/Bureau/Projet_Uqac/Motivz/app/src/main/res/layout/fragment_histogram.xml" value="0.1" />
+        <entry key="..\:/Users/Nomanina/OneDrive/Bureau/Projet_Uqac/Motivz/app/src/main/res/layout/fragment_home.xml" value="0.1" />
+        <entry key="..\:/Users/Nomanina/OneDrive/Bureau/Projet_Uqac/Motivz/app/src/main/res/layout/fragment_stats.xml" value="0.1" />
+        <entry key="..\:/Users/Nomanina/OneDrive/Bureau/Projet_Uqac/Motivz/app/src/main/res/layout/fragment_typegoals.xml" value="0.1" />
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" project-jdk-name="11" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">
