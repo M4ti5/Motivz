@@ -47,8 +47,7 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-//    fun getPseudo(): String {
-//        val pseudo = "pseudo"
-//        return pseudo
-//    }
+    fun getPseudo(): String {
+        return pseudo
+    }
 }

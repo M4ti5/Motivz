@@ -18,8 +18,7 @@ import androidx.core.content.res.ResourcesCompat.getDrawable
 import androidx.core.view.*
 import com.uqac.motivz.MainActivity
 import android.widget.LinearLayout
-
-
+import com.uqac.motivz.ui.profil.ProfilActivity
 
 
 class HomeFragment : Fragment() {
@@ -43,11 +42,11 @@ class HomeFragment : Fragment() {
         val root: View = binding.root
 
         // Access to profile from profileButton
-//        val profileButton: Button = binding.profileButton
-//        profileButton.setOnClickListener {
-//            val pseudo: String = (activity as MainActivity).getPseudo()
-//            goToProfilActivity(pseudo)
-//        }
+        val profileButton: Button = binding.profileButton
+        profileButton.setOnClickListener {
+            val pseudo: String = (activity as MainActivity).getPseudo()
+            goToProfilActivity(pseudo)
+        }
 
         val goalTitle: TextView = binding.goalTitle
         goalTitle.text = getString(R.string.goal_title)
@@ -72,11 +71,11 @@ class HomeFragment : Fragment() {
     }
 
 
-//    private fun goToProfilActivity(pseudo: String){
-//        val intent = Intent(activity, ProfilActivity::class.java)
-//        intent.putExtra("PSEUDONYME", pseudo);
-//        startActivity(intent)
-//    }
+    private fun goToProfilActivity(pseudo: String){
+        val intent = Intent(activity, ProfilActivity::class.java)
+        intent.putExtra("PSEUDONYME", pseudo)
+        startActivity(intent)
+    }
 
 
     @SuppressLint("UseCompatLoadingForDrawables")

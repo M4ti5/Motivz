@@ -1,5 +1,6 @@
 package com.uqac.motivz.ui.profil
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
@@ -17,7 +18,7 @@ class ProfilActivity  : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         binding = ActivityProfilBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+        setContentView(R.layout.activity_profil)
 
         pseudo = intent.getStringExtra("PSEUDONYME").toString()
 
