@@ -23,10 +23,11 @@ class ProfilActivity  : AppCompatActivity() {
         pseudo = intent.getStringExtra("PSEUDONYME").toString()
 
         binding.pseudoProfil.text = pseudo
-
+        /*
         binding.goBackBtn.setOnClickListener(){
             goToMainActivity(R.id.navigation_home)
         }
+        */
 
         binding.personnaliserBtn.setOnClickListener(){
             goToMainActivity(R.id.navigation_shop)
