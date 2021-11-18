@@ -44,6 +44,7 @@
         android:layout_below="@+id/enterEmailLI"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="50dp"
+        android:password="true"
         android:text="@string/passwordLI"
         android:textSize="18dp" />
 

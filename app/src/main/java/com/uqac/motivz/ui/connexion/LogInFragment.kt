@@ -7,6 +7,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.EditText
+import com.google.firebase.auth.FirebaseAuth
 import com.uqac.motivz.MainActivity
 import com.uqac.motivz.R
 
@@ -20,10 +22,24 @@ class LogInFragment : Fragment()  {
         savedInstanceState: Bundle?
     ): View? {
 
+        val auth= FirebaseAuth.getInstance()
         val view = inflater.inflate(R.layout.fragment_log_in, container, false)
         val btn = view.findViewById<Button>(R.id.btnLogIn)
+
         btn.setOnClickListener{
-            goToMainActivity(R.id.navigation_home)
+
+            val mail = view.findViewById<EditText>(R.id.enterEmailLI).text.toString()
+            val password = view.findViewById<EditText>(R.id.enterPasswordLI).text.toString()
+
+            auth.signInWithEmailAndPassword(mail,password).addOnCompleteListener { task ->
+                if(task.isSuccessful){
+                    goToMainActivity(R.id.navigation_home)
+                }
+            }.addOnFailureListener { exception ->
+
+            }
+
+
         }
 
         // Inflate the layout for this fragment

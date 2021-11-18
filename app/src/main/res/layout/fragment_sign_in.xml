@@ -72,7 +72,8 @@
         android:layout_height="50dp"
         android:layout_below="@id/passwordSI"
         android:layout_centerHorizontal="true"
-        android:hint="mot de passe" />
+        android:hint="mot de passe"
+        android:password="true" />
 
     <Button
         android:id="@+id/btnSignIn"

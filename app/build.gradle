@@ -1,5 +1,6 @@
 plugins {
     id 'com.android.application'
+    id 'com.google.gms.google-services'
     id 'kotlin-android'
 }
 
@@ -40,7 +41,18 @@ android {
 }
 
 dependencies {
+
+    //----------------FIREBASE-------------
+    // Import the BoM for the Firebase platform
+    implementation platform('com.google.firebase:firebase-bom:29.0.0')
+
+    // Declare the dependency for the Realtime Database library
+    // When using the BoM, you don't specify versions in Firebase library dependencies
+    implementation 'com.google.firebase:firebase-database-ktx'
+    implementation platform('com.google.firebase:firebase-bom:29.0.0')
+
     //round images
+    implementation 'com.firebaseui:firebase-ui-auth:7.2.0'
     implementation 'androidx.appcompat:appcompat:1.3.0-beta01'
     implementation 'androidx.cardview:cardview:1.0.0'
 
