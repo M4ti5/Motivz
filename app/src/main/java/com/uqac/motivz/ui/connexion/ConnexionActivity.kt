@@ -13,6 +13,7 @@ class ConnexionActivity : AppCompatActivity() {
     override fun onCreate (savedInstanceState : Bundle?){
         super.onCreate(savedInstanceState)
         binding = ActivityConnexionBinding.inflate(layoutInflater)
+        supportActionBar?.hide();
         setContentView(binding.root)
         replaceFragment(SignInFragment())
 
