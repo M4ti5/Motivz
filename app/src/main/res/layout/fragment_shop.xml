@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="ui.shop.ShopFragment">
+    <RelativeLayout
+        android:id="@+id/globalLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="70dp"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+            <TextView
+                android:id="@+id/shopTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="30dp"
+                android:layout_marginVertical="10dp"
+                android:text="@string/title_shop"
+                android:textSize="40sp"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:id="@+id/avatarItemsBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:layout_marginHorizontal="20dp">
+
+                <Button
+                    android:id="@+id/avatarBtn"
+                    android:layout_width="150dp"
+                    android:layout_height="60dp"
+                    android:layout_toEndOf="@+id/signInBtn"
+                    android:layout_weight="1"
+                    android:text="@string/title_avatar" />
+
+                <Button
+                    android:id="@+id/itemsBtn"
+                    android:layout_width="150dp"
+                    android:layout_height="60dp"
+                    android:layout_weight="1"
+                    android:text="@string/title_item" />
+            </LinearLayout>
+
+            <FrameLayout
+                android:id="@+id/connexionShopFrag"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/AvatarItemsBtn"
+                android:layout_marginTop="5dp" />
+        </LinearLayout>
+    </RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

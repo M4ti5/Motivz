@@ -4,18 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     app:startDestination="@+id/navigation_shop">
 
-
-    <fragment
-        android:id="@+id/navigation_shopItems"
-        android:name="com.uqac.motivz.ui.shop.ItemListFragment"
-        android:label="Items shop" />
-
-
     <fragment
         android:id="@+id/navigation_shop"
-        android:name="com.uqac.motivz.ui.shop.AvatarShopFragment"
-        android:label="Avatar Shop" />
-
+        android:name="com.uqac.motivz.ui.shop.ShopFragment"
+        android:label="Shop"
+        tools:layout="@layout/fragment_shop" />
 
 
     <fragment

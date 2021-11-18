@@ -6,10 +6,11 @@
     android:layout_height="match_parent">
 
     <LinearLayout
-        android:id="@+id/logSinBtn"
+        android:id="@+id/logSignBtn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="20dp">
+
         <Button
             android:id="@+id/logInBtn"
             android:layout_width="150dp"
@@ -37,6 +38,6 @@
         android:id="@+id/connexionFragContainer"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/logSinBtn"
+        android:layout_below="@+id/logSignBtn"
         android:layout_marginTop="-20dp" />
 </RelativeLayout>

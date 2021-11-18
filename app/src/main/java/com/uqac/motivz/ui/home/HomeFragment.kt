@@ -47,10 +47,7 @@ class HomeFragment : Fragment() {
             val pseudo: String = (activity as MainActivity).getPseudo()
             goToProfilActivity(pseudo)
         }
-
-        val goalTitle: TextView = binding.goalTitle
-        goalTitle.text = getString(R.string.goal_title)
-
+        
         val goalLinearLayout: LinearLayout = binding.goalLinearLayout
 
         // Temporary values
