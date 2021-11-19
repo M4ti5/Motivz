@@ -81,7 +81,7 @@ class HomeFragment : Fragment() {
         val parent = RelativeLayout(this.context)
         parent.layoutParams = RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT,
             RelativeLayout.LayoutParams.WRAP_CONTENT)
-        parent.setPadding(10)
+        parent.setPadding(25)
 
         // Create Goal Button
         val button = Button(this.context)
