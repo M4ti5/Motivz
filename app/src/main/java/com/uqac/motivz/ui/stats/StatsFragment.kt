@@ -14,6 +14,10 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
+
 import com.uqac.motivz.R
 import com.uqac.motivz.databinding.FragmentStatsBinding
 
@@ -27,6 +31,10 @@ class StatsFragment : Fragment() {
     private var currentDrawable = 0
     private val statModel : StatsViewModel by activityViewModels()
     private val dataModel : DataViewModel by activityViewModels()
+    private lateinit var auth : FirebaseAuth
+    val database = Firebase.database.reference
+
+
 
 
     fun selectIdButton(name : String) : Int{
@@ -133,6 +141,9 @@ class StatsFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+
+
+
         statsFragmentViewModel =
             ViewModelProvider(this).get(StatsViewModel::class.java)
         _binding = FragmentStatsBinding.inflate(inflater, container, false)

@@ -12,18 +12,31 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
 import com.uqac.motivz.databinding.ActivityMainBinding
 import com.uqac.motivz.ui.home.HomeFragment
+import java.time.LocalDateTime
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var pseudo: String
+    val database = Firebase.database.reference
 
+    override fun onStop() {
+        val auth = FirebaseAuth.getInstance()
+        val user = auth.currentUser
+        var uid = user?.uid
+        database.child("users").child(uid!!).child("dernière connexion").setValue(LocalDateTime.now().toString())
+        super.onStop()
+    }
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         supportActionBar?.hide();
