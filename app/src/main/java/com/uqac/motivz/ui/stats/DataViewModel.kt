@@ -11,6 +11,8 @@ class DataViewModel :ViewModel(){
     lateinit var statButtonController : Button
     var currentDrawable = 0
     var firstCreate = true
+    val previousConnexion = MutableLiveData<Int>()
+    val currentConnexion = MutableLiveData<Int>()
 
     fun setSavedButton(button : Button){
         this.statButtonController = button

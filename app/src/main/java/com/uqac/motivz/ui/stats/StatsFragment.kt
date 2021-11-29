@@ -9,17 +9,22 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.LinearLayout
+import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 
 import com.uqac.motivz.R
 import com.uqac.motivz.databinding.FragmentStatsBinding
+import java.time.LocalDateTime
 
 
 class StatsFragment : Fragment() {
@@ -31,8 +36,11 @@ class StatsFragment : Fragment() {
     private var currentDrawable = 0
     private val statModel : StatsViewModel by activityViewModels()
     private val dataModel : DataViewModel by activityViewModels()
-    private lateinit var auth : FirebaseAuth
     val database = Firebase.database.reference
+    private val auth = FirebaseAuth.getInstance()
+    private val user = auth.currentUser
+    private var uid = user?.uid
+
 
 
 
@@ -135,6 +143,26 @@ class StatsFragment : Fragment() {
         selectTime(statButtonController,statButtonController.id)
     }
 
+    fun updateAttendance(data : DataSnapshot){
+        val currentDay = LocalDateTime.now().dayOfYear
+        val currentYear = LocalDateTime.now().year
+        val lastConnexion = data.child("dernière connexion").getValue().toString().split("/")
+        val lastConnexionDay = lastConnexion[0].toInt()
+        val lastConnexionYear = lastConnexion[1].toInt()
+        var attendance = data.child("assiduité").getValue().toString().toInt()
+        if(lastConnexionYear == currentYear){
+            if(currentDay - lastConnexionDay == 1){
+                attendance = attendance + 1
+                database
+                    .child("users")
+                    .child(uid!!)
+                    .child("assiduité")
+                    .setValue(attendance.toString())
+            }
+        }
+
+    }
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -142,7 +170,41 @@ class StatsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
 
+        val attendanceRef = database.child("users")
+            .addListenerForSingleValueEvent( object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
 
+                    for (data in snapshot.getChildren()) {
+                        if(data.key.toString() == uid){
+                            val textViewAttendance = view!!.findViewById<TextView>(R.id.attendance)
+                            if (data.hasChild("assiduité")) {
+                                val attendance = data.child("assiduité").getValue().toString()
+                                if(attendance.toInt() < 10){
+                                    textViewAttendance.setText("0" + attendance)
+                                } else {
+                                    textViewAttendance.setText(attendance)
+                                }
+
+                            } else {
+                                textViewAttendance.setText("0")
+
+
+                                //database.child("users").child(uid!!).child("assiduité").setValue("0")
+                                //do something if not exists
+                            }
+
+                        }
+
+                    }
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                    TODO("Not yet implemented")
+                }
+
+            }
+
+            )
 
         statsFragmentViewModel =
             ViewModelProvider(this).get(StatsViewModel::class.java)
