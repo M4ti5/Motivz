@@ -44,6 +44,7 @@ class HomeFragment : Fragment() {
     private val user = auth.currentUser
     private var uid = user?.uid
     private var goalRef = database.child("objectifs")
+    private var goalUser = database.child("users").child(uid!!).child("objectifs")
     var goalNameList = ArrayList<String>()
     var goalProgressList = ArrayList<Int>()
     private val homeModel : HomeViewModel by activityViewModels()
@@ -60,6 +61,37 @@ class HomeFragment : Fragment() {
 
         super.onStop()
     }
+
+    fun getGoalsFromDatabase(goalLinearLayout: LinearLayout){
+        goalUser.addListenerForSingleValueEvent( object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                for (goal in snapshot.getChildren()) {
+                    val goalName = goal.key.toString()
+                    if(!goalNameList.contains(goalName)){
+                        goalNameList.add(goalName)
+                        goalRef.child(goalName).
+                        child("pourcentage").addListenerForSingleValueEvent(object: ValueEventListener{
+                            override fun onDataChange(snapshot: DataSnapshot) {
+                                val progress = snapshot.getValue().toString().toInt()
+                                goalProgressList.add(progress)
+                                addGoal(goalName, progress, goalLinearLayout)
+                            }
+                            override fun onCancelled(error: DatabaseError) {
+                                TODO("Not yet implemented")
+                            }
+                        })
+                    } else {
+
+                    }
+
+                }
+            }
+            override fun onCancelled(error: DatabaseError) {
+                TODO("Not yet implemented")
+            }
+        })
+    }
+
     override fun onCreateView(
             inflater: LayoutInflater,
             container: ViewGroup?,
@@ -81,26 +113,7 @@ class HomeFragment : Fragment() {
         val goalLinearLayout: LinearLayout = binding.goalLinearLayout
 
         if(!homeModel.cache){
-            goalRef.addListenerForSingleValueEvent( object : ValueEventListener {
-                override fun onDataChange(snapshot: DataSnapshot) {
-                    for (goal in snapshot.getChildren()) {
-                        if(!goalNameList.contains(goal.key.toString())){
-                            goalNameList.add(goal.key.toString())
-                            goalProgressList.add(goal.child("pourcentage").getValue().toString().toInt())
-                            addGoal(goal.key.toString(), goal.child("pourcentage").getValue().toString().toInt(), goalLinearLayout)
-
-                        } else {
-
-                        }
-
-                    }
-                }
-
-                override fun onCancelled(error: DatabaseError) {
-                    TODO("Not yet implemented")
-                }
-
-            })
+            getGoalsFromDatabase(goalLinearLayout)
 
         } else {
             // Temporary values
