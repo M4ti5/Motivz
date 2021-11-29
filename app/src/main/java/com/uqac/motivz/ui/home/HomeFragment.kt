@@ -6,19 +6,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.uqac.motivz.R
 import com.uqac.motivz.databinding.FragmentHomeBinding
-import android.app.ProgressDialog
 import android.content.Intent
 import android.view.Gravity
 import android.widget.*
-import androidx.core.content.res.ResourcesCompat.getDrawable
 import androidx.core.view.*
-import com.uqac.motivz.MainActivity
 import android.widget.LinearLayout
 import com.uqac.motivz.ui.profil.ProfilActivity
+import com.uqac.motivz.MainActivity
 
 
 class HomeFragment : Fragment() {
@@ -41,6 +38,7 @@ class HomeFragment : Fragment() {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
+
         // Access to profile from profileButton
         val profileButton: Button = binding.profileButton
         profileButton.setOnClickListener {
@@ -48,6 +46,13 @@ class HomeFragment : Fragment() {
             goToProfilActivity(pseudo)
         }
 
+        // Access goal creation fragment from + button
+        val createGoalButton : Button = binding.createGoalButton
+        createGoalButton.setOnClickListener {
+            goToCreateGoalActivity()
+        }
+
+        // Goals display
         val goalTitle: TextView = binding.goalTitle
         goalTitle.text = getString(R.string.goal_title)
 
@@ -77,6 +82,11 @@ class HomeFragment : Fragment() {
         startActivity(intent)
     }
 
+    private fun goToCreateGoalActivity(){
+        val intent = Intent(activity, GoalManagementActivity::class.java)
+        intent.putExtra("ACTION", "create")
+        startActivity(intent)
+    }
 
     @SuppressLint("UseCompatLoadingForDrawables")
     private fun addGoal(goalName: String, progress: Int, goalLinearLayout: LinearLayout) {
@@ -113,5 +123,34 @@ class HomeFragment : Fragment() {
         // Add everything to the goalLinearLayout
         goalLinearLayout.addView(parent)
     }
+
+
+//    private fun createGoal() {
+////        val createGoalFragment = CreateGoalFragment()
+////        val fragmentManager = activity.supportFragmentManager
+////        val fragmentTransaction = fragmentManager.beginTransaction()
+////        fragmentTransaction.replace(R.id.nav_host_fragment_activity_main, createGoalFragment)
+////        fragmentTransaction.commit()
+//
+////        val myActivity = activity
+////        val fragmentManager = myActivity?.supportFragmentManager
+////        var transaction = fragmentManager?.beginTransaction()
+////        //transaction?.replace(R.id.nav_host_fragment_activity_main, CreateGoalFragment())
+////        transaction?.replace(R.id.container, CreateGoalFragment())
+////        //transaction?.disallowAddToBackStack()
+////        transaction?.commit()
+//
+//        val intent = Intent(this,  com.uqac.motivz.MainActivity::class.java)
+//        intent.putExtra("NAV", fragmentSelected);
+//        startActivity(intent)
+//
+//
+////        private fun goToMainActivity(fragmentSelected : Int){
+////            val intent = Intent(this,  com.uqac.motivz.MainActivity::class.java)
+////            intent.putExtra("PSEUDONYME", pseudo);
+////            intent.putExtra("NAV", fragmentSelected);
+////            startActivity(intent)
+////        }
+//    }
 
 }
