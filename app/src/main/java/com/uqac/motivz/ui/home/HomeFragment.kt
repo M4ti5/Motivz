@@ -12,13 +12,22 @@ import com.uqac.motivz.R
 import com.uqac.motivz.databinding.FragmentHomeBinding
 import android.app.ProgressDialog
 import android.content.Intent
+import android.util.Log
 import android.view.Gravity
 import android.widget.*
 import androidx.core.content.res.ResourcesCompat.getDrawable
 import androidx.core.view.*
 import com.uqac.motivz.MainActivity
 import android.widget.LinearLayout
+import androidx.fragment.app.activityViewModels
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.ValueEventListener
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
 import com.uqac.motivz.ui.profil.ProfilActivity
+import com.uqac.motivz.ui.stats.DataViewModel
 
 
 class HomeFragment : Fragment() {
@@ -30,6 +39,27 @@ class HomeFragment : Fragment() {
     // onDestroyView.
     private val binding get() = _binding!!
 
+    val database = Firebase.database.reference
+    private val auth = FirebaseAuth.getInstance()
+    private val user = auth.currentUser
+    private var uid = user?.uid
+    private var goalRef = database.child("objectifs")
+    var goalNameList = ArrayList<String>()
+    var goalProgressList = ArrayList<Int>()
+    private val homeModel : HomeViewModel by activityViewModels()
+    var cache = false
+
+
+    override fun onStop() {
+        if(!homeModel.cache){
+            homeModel.goalNameList = goalNameList
+            homeModel.goalProgressList = goalProgressList
+        }
+
+        homeModel.cache = true
+
+        super.onStop()
+    }
     override fun onCreateView(
             inflater: LayoutInflater,
             container: ViewGroup?,
@@ -50,14 +80,39 @@ class HomeFragment : Fragment() {
         
         val goalLinearLayout: LinearLayout = binding.goalLinearLayout
 
-        // Temporary values
-        val goalNameList = listOf("Objectif 1", "Objectif 2", "Objectif 3", "Objectif 4", "Objectif 5",
-            "Objectif 6", "Objectif 7", "Objectif 8", "Objectif 9", "Objectif 10")
-        val goalProgressList = listOf(95, 75, 100, 43, 25, 50, 0, 5, 69, 0)
-        val lastIndex = goalNameList.size - 1
-        for (i in 0..lastIndex) {
-            addGoal(goalNameList[i], goalProgressList[i], goalLinearLayout)
+        if(!homeModel.cache){
+            goalRef.addListenerForSingleValueEvent( object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    for (goal in snapshot.getChildren()) {
+                        if(!goalNameList.contains(goal.key.toString())){
+                            goalNameList.add(goal.key.toString())
+                            goalProgressList.add(goal.child("pourcentage").getValue().toString().toInt())
+                            addGoal(goal.key.toString(), goal.child("pourcentage").getValue().toString().toInt(), goalLinearLayout)
+
+                        } else {
+
+                        }
+
+                    }
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                    TODO("Not yet implemented")
+                }
+
+            })
+
+        } else {
+            // Temporary values
+
+            val lastIndex = homeModel.goalNameList.size - 1
+            for (i in 0..lastIndex) {
+                addGoal(homeModel.goalNameList.get(i), homeModel.goalProgressList.get(i), goalLinearLayout)
+            }
+
         }
+
+
 
         return root
     }

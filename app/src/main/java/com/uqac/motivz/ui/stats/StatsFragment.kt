@@ -187,8 +187,6 @@ class StatsFragment : Fragment() {
 
                             } else {
                                 textViewAttendance.setText("0")
-
-
                                 //database.child("users").child(uid!!).child("assiduité").setValue("0")
                                 //do something if not exists
                             }
