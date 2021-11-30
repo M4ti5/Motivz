@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginTop="100dp"
+    android:layout_marginTop="20dp"
     android:orientation="vertical"
     tools:context=".ui.home.CreateGoalFragment">
 
@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="30dp"
         android:layout_marginVertical="10dp"
-        android:text="Créer un objectif"
+        android:text="@string/titleCG"
         android:textStyle="bold"
         android:textSize="30dp"/>
 
@@ -23,8 +23,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/TitleCG"
-        android:layout_marginTop="20dp"
-        android:text="Nom de l'objectif :"
+        android:layout_marginTop="50dp"
+        android:text="@string/nameCG"
         android:layout_centerHorizontal="true"
         android:textSize="18dp"/>
 
@@ -40,21 +40,44 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/EnterNameCG"
-        android:layout_marginTop="20dp"
-        android:text="Type d'objectif :"
+        android:layout_marginTop="30dp"
+        android:text="@string/goalTypeCG"
+        android:layout_centerHorizontal="true"
+        android:textSize="18dp"/>
+
+    <Spinner
+        android:id="@+id/EnterGoalTypeCG"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_below="@+id/GoalTypeCG"
+        android:layout_marginHorizontal="30dp"
+        android:entries="@array/goal_type_list" />
+
+    <TextView
+        android:id="@+id/ValueCG"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/EnterGoalTypeCG"
+        android:layout_marginTop="30dp"
+        android:text="@string/valueCG"
         android:layout_centerHorizontal="true"
         android:textSize="18dp"/>
 
     <EditText
-        android:id="@+id/EnterGoalTypeCG"
+        android:id="@+id/EnterValueCG"
         android:layout_width="250dp"
         android:layout_height="50dp"
-        android:layout_below="@id/GoalTypeCG"
+        android:layout_below="@id/ValueCG"
         android:layout_centerHorizontal="true"/>
 
-    <Spinner android:id="@+id/spinner1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/EnterGoalTypeCG"/>
+    <Button
+        android:id="@+id/btnSignIn"
+        android:layout_width="150dp"
+        android:layout_height="60dp"
+        android:layout_below="@+id/EnterValueCG"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="80dp"
+        android:backgroundTint="@color/medium_blue"
+        android:text="@string/save" />
 
 </RelativeLayout>

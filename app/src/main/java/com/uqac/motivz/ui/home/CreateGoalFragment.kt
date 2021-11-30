@@ -16,13 +16,20 @@ class CreateGoalFragment : Fragment() {
 
         val view = inflater.inflate(R.layout.fragment_create_goal, container, false)
 
-//        val spinner = view.findViewById<Spinner>(R.id.spinner1)
-//        val goalNameList = listOf("Nombre de pas", "Distance parcourue", "Nombre de pompes", "Nombres de squats", "Nombre d'abdos")
-
+//        // Create an ArrayAdapter
+//        val adapter = ArrayAdapter.createFromResource(this, R.array.goal_type_list, android.R.layout.simple_spinner_item)
+//        // Specify the layout to use when the list of choices appears
+//        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+//        // Apply the adapter to the spinner
+//        spinner.adapter = adapter
 
         // Inflate the layout for this fragment
         return view
 
     }
+
+//    fun getValues(view: View) {
+//        Toast.makeText(this,"" + spinner2.selectedItem.toString(), Toast.LENGTH_LONG).show()
+//    }
 
 }

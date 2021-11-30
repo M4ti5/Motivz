@@ -10,7 +10,7 @@
         android:id="@+id/globalLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="70dp"
+        android:layout_marginBottom="60dp"
         android:orientation="vertical">
 
         <Button
@@ -34,6 +34,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fillViewport="false"
+            android:layout_marginBottom="60dp"
             android:layout_below="@+id/goalTitle">
 
             <LinearLayout
@@ -50,10 +51,11 @@
             android:id="@+id/createGoalButton"
             android:layout_width="60dp"
             android:layout_height="60dp"
-            android:layout_margin="10dp"
+            android:layout_marginHorizontal="10dp"
             android:text="+"
             android:textStyle="bold"
             android:textSize="20sp"
+            android:backgroundTint="@color/medium_blue"
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"/>
 

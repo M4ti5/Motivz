@@ -17,4 +17,19 @@
     <string name="validate">Valider</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <!-- Strings related to goal creation-->
+    <string name="titleCG">Créer un objectif</string>
+    <string name="nameCG">Nom de l\'objectif :</string>
+    <string name="goalTypeCG">Type d\'objectif :</string>
+    <string name="valueCG">Valeur visée :</string>
+    <string-array name="goal_type_list">
+        <item>Pas</item>
+        <item>Distance parcourue (en km)</item>
+        <item>Pompes</item>
+        <item>Squats</item>
+        <item>Abdos</item>
+    </string-array>
+    <string name="save">Enregistrer</string>
+
 </resources>
