@@ -1,7 +1,6 @@
 package com.uqac.motivz.ui.home
 
 import android.os.Bundle
-import android.widget.TextView
 import com.uqac.motivz.databinding.ActivityGoalManagementBinding
 import com.uqac.motivz.R
 import androidx.fragment.app.Fragment

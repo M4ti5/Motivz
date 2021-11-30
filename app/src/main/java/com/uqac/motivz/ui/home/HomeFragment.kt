@@ -124,33 +124,4 @@ class HomeFragment : Fragment() {
         goalLinearLayout.addView(parent)
     }
 
-
-//    private fun createGoal() {
-////        val createGoalFragment = CreateGoalFragment()
-////        val fragmentManager = activity.supportFragmentManager
-////        val fragmentTransaction = fragmentManager.beginTransaction()
-////        fragmentTransaction.replace(R.id.nav_host_fragment_activity_main, createGoalFragment)
-////        fragmentTransaction.commit()
-//
-////        val myActivity = activity
-////        val fragmentManager = myActivity?.supportFragmentManager
-////        var transaction = fragmentManager?.beginTransaction()
-////        //transaction?.replace(R.id.nav_host_fragment_activity_main, CreateGoalFragment())
-////        transaction?.replace(R.id.container, CreateGoalFragment())
-////        //transaction?.disallowAddToBackStack()
-////        transaction?.commit()
-//
-//        val intent = Intent(this,  com.uqac.motivz.MainActivity::class.java)
-//        intent.putExtra("NAV", fragmentSelected);
-//        startActivity(intent)
-//
-//
-////        private fun goToMainActivity(fragmentSelected : Int){
-////            val intent = Intent(this,  com.uqac.motivz.MainActivity::class.java)
-////            intent.putExtra("PSEUDONYME", pseudo);
-////            intent.putExtra("NAV", fragmentSelected);
-////            startActivity(intent)
-////        }
-//    }
-
 }
