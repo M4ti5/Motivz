@@ -51,7 +51,7 @@ class CreateGoalFragment : Fragment() {
 //        }
 
         var goalCount = -1
-        val ref = database.child("users").child(userId).child("goalCount")
+        val ref = database.child("objectifs").child("goalCount")
         ref.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 // This method is called once with the initial value and again
@@ -92,18 +92,18 @@ class CreateGoalFragment : Fragment() {
             return
         }
 
-        val userPath = database.child("users").child(userId)
         // Create goal in database
         // TODO : get last "objectif" id and create the next (if "objectif 2", create "objectif 3")
         val goalId = goalCount + 1
-        val goalPath = userPath.child("objectifs").child("objectif $goalId")
+        val goalPath = database.child("objectifs").child("objectif $goalId")
+        goalPath.child("user").setValue(userId)
         goalPath.child("name").setValue(name)
         goalPath.child("type").setValue(type)
         goalPath.child("value").setValue(value)
         goalPath.child("progression").setValue(0)
 
         // Update user's goalCount
-        userPath.child("goalCount").setValue(goalId)
+        database.child("objectifs").child("goalCount").setValue(goalId)
 
         goBackToMainActivity()
     }
