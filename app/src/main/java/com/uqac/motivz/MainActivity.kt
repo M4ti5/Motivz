@@ -69,7 +69,7 @@ class MainActivity : AppCompatActivity() {
 
     }
     override fun onStop() {
-        auth.signOut()
+        //auth.signOut()
         if(auth.currentUser != null){
             database.child("users")
                 .child(uid!!)

@@ -72,11 +72,10 @@ class CreateGoalFragment : Fragment() {
 
             val value = view.findViewById<EditText>(R.id.EnterValueCG).text.toString().toInt()
 
-            val textTest = view.findViewById<TextView>(R.id.TestCG)
-            textTest.text = "goalCount: $goalCount"
+            //val textTest = view.findViewById<TextView>(R.id.TestCG)
+            //textTest.text = "goalCount: $goalCount"
 
             addToDatabase(database, userId, goalCount, name, selectedType, value)
-
         }
 
         // Inflate the layout for this fragment
@@ -100,10 +99,14 @@ class CreateGoalFragment : Fragment() {
         goalPath.child("name").setValue(name)
         goalPath.child("type").setValue(type)
         goalPath.child("value").setValue(value)
-        goalPath.child("progression").setValue(0)
+        goalPath.child("pourcentage").setValue(0)
 
-        // Update user's goalCount
+        // Update goalCount
         database.child("objectifs").child("goalCount").setValue(goalId)
+
+        // Set goal true in user's
+        database.child("users").child(userId).child("objectifs")
+            .child("objectif $goalId").setValue(true)
 
         goBackToMainActivity()
     }

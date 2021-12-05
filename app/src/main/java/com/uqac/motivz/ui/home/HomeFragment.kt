@@ -10,7 +10,6 @@ import androidx.lifecycle.ViewModelProvider
 import com.uqac.motivz.R
 import com.uqac.motivz.databinding.FragmentHomeBinding
 import android.content.Intent
-import android.util.Log
 import android.view.Gravity
 import android.widget.*
 import androidx.core.view.*
@@ -25,11 +24,7 @@ import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import com.uqac.motivz.ui.profil.ProfilActivity
-<<<<<<< HEAD
 import com.uqac.motivz.MainActivity
-=======
-import com.uqac.motivz.ui.stats.DataViewModel
->>>>>>> dev
 
 
 class HomeFragment : Fragment() {
@@ -63,19 +58,19 @@ class HomeFragment : Fragment() {
         super.onStop()
     }
 
-    fun getGoalsFromDatabase(goalLinearLayout: LinearLayout, goalRef: DatabaseReference, goalUser:DatabaseReference){
+    private fun getGoalsFromDatabase(goalLinearLayout: LinearLayout, goalRef: DatabaseReference, goalUser:DatabaseReference){
         goalUser.addListenerForSingleValueEvent( object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 for (goal in snapshot.getChildren()) {
                     val goalName = goal.key.toString()
                     if(!goalNameList.contains(goalName)){
                         goalNameList.add(goalName)
-                        goalRef.child(goalName).
-                        child("pourcentage").addListenerForSingleValueEvent(object: ValueEventListener{
+                        goalRef.child(goalName).addListenerForSingleValueEvent(object: ValueEventListener{
                             override fun onDataChange(snapshot: DataSnapshot) {
-                                val progress = snapshot.getValue().toString().toInt()
+                                val name = snapshot.child("name").getValue().toString()
+                                val progress = snapshot.child("pourcentage").getValue().toString().toInt()
                                 goalProgressList.add(progress)
-                                addGoal(goalName, progress, goalLinearLayout)
+                                addGoal(name, progress, goalLinearLayout)
                             }
                             override fun onCancelled(error: DatabaseError) {
                                 TODO("Not yet implemented")
@@ -93,21 +88,19 @@ class HomeFragment : Fragment() {
         })
     }
 
-
-
     override fun onCreateView(
             inflater: LayoutInflater,
             container: ViewGroup?,
             savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
         val database = Firebase.database.reference
         val auth = FirebaseAuth.getInstance()
         if(auth.currentUser != null){
             user = auth.currentUser!!
-            uid = user?.uid
+            uid = user.uid
             goalRef = database.child("objectifs")
-            goalUser = database.child("users").child(uid!!).child("objectifs")
+            goalUser = database.child("users").child(uid).child("objectifs")
         }
         homeViewModel =
                 ViewModelProvider(this).get(HomeViewModel::class.java)
@@ -176,7 +169,7 @@ class HomeFragment : Fragment() {
         val parent = RelativeLayout(this.context)
         parent.layoutParams = RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT,
             RelativeLayout.LayoutParams.WRAP_CONTENT)
-        parent.setPadding(25)
+        parent.setPadding(15)
 
         // Create Goal Button
         val button = Button(this.context)
