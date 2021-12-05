@@ -37,6 +37,14 @@ class MainActivity : AppCompatActivity() {
     private lateinit var user : FirebaseUser
     private lateinit var uid : String
 
+    fun resetAttendance(){
+        database
+            .child("users")
+            .child(uid!!)
+            .child("assiduité")
+            .setValue(0)
+    }
+
     fun updateAttendance(data : DataSnapshot){
         val currentDay = LocalDateTime.now().dayOfYear
         val currentYear = LocalDateTime.now().year
@@ -52,12 +60,15 @@ class MainActivity : AppCompatActivity() {
                     .child(uid!!)
                     .child("assiduité")
                     .setValue(attendance.toString())
+            } else {
+                resetAttendance()
             }
+        } else {
+            resetAttendance()
         }
 
     }
     override fun onStop() {
-        Log.v("signing out","yeeeah")
         auth.signOut()
         if(auth.currentUser != null){
             database.child("users")
@@ -74,7 +85,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onDestroy() {
-        Log.v("signing out","yeeeah")
+
         auth.signOut()
         super.onDestroy()
     }

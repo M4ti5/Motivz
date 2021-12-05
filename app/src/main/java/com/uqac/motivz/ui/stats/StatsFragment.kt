@@ -134,10 +134,16 @@ class StatsFragment : Fragment() {
         }
     }
 
-    //save the last clicked button
-    override fun onDestroyView() {
+    override fun onStop() {
         dataModel.setSavedButton(statButtonController)
         dataModel.setSavedDrawable(currentDrawable)
+        super.onStop()
+    }
+
+    //save the last clicked button
+    override fun onDestroyView() {
+        //dataModel.setSavedButton(statButtonController)
+        //dataModel.setSavedDrawable(currentDrawable)
         super.onDestroyView()
     }
 
