@@ -16,8 +16,10 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
@@ -36,10 +38,10 @@ class StatsFragment : Fragment() {
     private var currentDrawable = 0
     private val statModel : StatsViewModel by activityViewModels()
     private val dataModel : DataViewModel by activityViewModels()
-    val database = Firebase.database.reference
-    private val auth = FirebaseAuth.getInstance()
-    private val user = auth.currentUser
-    private var uid = user?.uid
+    lateinit var database : DatabaseReference
+    private lateinit var auth : FirebaseAuth
+    private lateinit var user : FirebaseUser
+    private lateinit var uid : String
 
 
 
@@ -54,6 +56,15 @@ class StatsFragment : Fragment() {
             return R.id.week
         }
     }
+    fun initDataBase(){
+        database = Firebase.database.reference
+        auth = FirebaseAuth.getInstance()
+        if(auth.currentUser != null){
+            user = auth.currentUser!!
+            uid = user?.uid
+        }
+    }
+
 
     /*get the background of a button when pressed or not pressed
     * button : the button whose background we want to find when pressed or not pressed
@@ -170,39 +181,44 @@ class StatsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
 
-        val attendanceRef = database.child("users")
-            .addListenerForSingleValueEvent( object : ValueEventListener {
-                override fun onDataChange(snapshot: DataSnapshot) {
+        initDataBase()
+        if(auth.currentUser != null){
+            val attendanceRef = database.child("users")
+                .addListenerForSingleValueEvent( object : ValueEventListener {
+                    override fun onDataChange(snapshot: DataSnapshot) {
 
-                    for (data in snapshot.getChildren()) {
-                        if(data.key.toString() == uid){
-                            val textViewAttendance = view!!.findViewById<TextView>(R.id.attendance)
-                            if (data.hasChild("assiduité")) {
-                                val attendance = data.child("assiduité").getValue().toString()
-                                if(attendance.toInt() < 10){
-                                    textViewAttendance.setText("0" + attendance)
+                        for (data in snapshot.getChildren()) {
+                            if(data.key.toString() == uid){
+                                val textViewAttendance = view!!.findViewById<TextView>(R.id.attendance)
+                                if (data.hasChild("assiduité")) {
+                                    val attendance = data.child("assiduité").getValue().toString()
+                                    if(attendance.toInt() < 10){
+                                        textViewAttendance.setText("0" + attendance)
+                                    } else {
+                                        textViewAttendance.setText(attendance)
+                                    }
+
                                 } else {
-                                    textViewAttendance.setText(attendance)
+                                    textViewAttendance.setText("0")
+                                    //database.child("users").child(uid!!).child("assiduité").setValue("0")
+                                    //do something if not exists
                                 }
 
-                            } else {
-                                textViewAttendance.setText("0")
-                                //database.child("users").child(uid!!).child("assiduité").setValue("0")
-                                //do something if not exists
                             }
 
                         }
-
                     }
+
+                    override fun onCancelled(error: DatabaseError) {
+                        TODO("Not yet implemented")
+                    }
+
                 }
 
-                override fun onCancelled(error: DatabaseError) {
-                    TODO("Not yet implemented")
-                }
+                )
 
-            }
+        }
 
-            )
 
         statsFragmentViewModel =
             ViewModelProvider(this).get(StatsViewModel::class.java)

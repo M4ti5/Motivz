@@ -16,8 +16,10 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.internal.ContextUtils.getActivity
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
@@ -30,10 +32,10 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var pseudo: String
-    val database = Firebase.database.reference
-    private val auth = FirebaseAuth.getInstance()
-    private val user = auth.currentUser
-    private var uid = user?.uid
+    private lateinit var database : DatabaseReference
+    private lateinit var auth : FirebaseAuth
+    private lateinit var user : FirebaseUser
+    private lateinit var uid : String
 
     fun updateAttendance(data : DataSnapshot){
         val currentDay = LocalDateTime.now().dayOfYear
@@ -55,63 +57,89 @@ class MainActivity : AppCompatActivity() {
 
     }
     override fun onStop() {
+        Log.v("signing out","yeeeah")
+        auth.signOut()
+        if(auth.currentUser != null){
+            database.child("users")
+                .child(uid!!)
+                .child("dernière connexion")
+                .setValue(LocalDateTime.now()
+                    .dayOfYear
+                    .toString()
+                        + "/"
+                        + LocalDateTime.now().year.toString())
+        }
 
-        database.child("users")
-            .child(uid!!)
-            .child("dernière connexion")
-            .setValue(LocalDateTime.now()
-                .dayOfYear
-                .toString()
-                + "/"
-                + LocalDateTime.now().year.toString())
         super.onStop()
+    }
+
+    override fun onDestroy() {
+        Log.v("signing out","yeeeah")
+        auth.signOut()
+        super.onDestroy()
+    }
+
+    fun initDatabase(){
+        database = Firebase.database.reference
+        auth = FirebaseAuth.getInstance()
+        if(auth.currentUser != null){
+            user = auth.currentUser!!
+            uid = user?.uid
+        }
+
     }
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        initDatabase()
 
-        val attendanceRef = database.child("users")
-            .addListenerForSingleValueEvent( object : ValueEventListener {
-                override fun onDataChange(snapshot: DataSnapshot) {
 
-                    for (data in snapshot.getChildren()) {
-                        if(data.key.toString() == uid){
-                            if (data.hasChild("assiduité")) {
-                                updateAttendance(data)
-                               /* val lastConnexion = data.child("dernière connexion").getValue().toString().split("/")
-                                val lastConnexionDay = lastConnexion[0].toInt()
-                                val lastConnexionYear = lastConnexion[1].toInt()
-                                var attendance = data.child("assiduité").getValue().toString().toInt()
-                                if(lastConnexionYear == currentYear){
-                                    if(currentDay - lastConnexionDay == 1){
-                                        attendance = attendance + 1
-                                        database
-                                            .child("users")
-                                            .child(uid!!)
-                                            .child("assiduité")
-                                            .setValue(attendance.toString())
-                                    }
-                                }*/
-                            } else {
+        if(auth.currentUser != null){
+            val attendanceRef = database.child("users")
+                .addListenerForSingleValueEvent( object : ValueEventListener {
+                    override fun onDataChange(snapshot: DataSnapshot) {
 
-                                database.child("users").child(uid!!).child("assiduité").setValue("0")
-                                //do something if not exists
+                        for (data in snapshot.getChildren()) {
+                            if(data.key.toString() == uid){
+                                if (data.hasChild("assiduité")) {
+                                    updateAttendance(data)
+                                    /* val lastConnexion = data.child("dernière connexion").getValue().toString().split("/")
+                                     val lastConnexionDay = lastConnexion[0].toInt()
+                                     val lastConnexionYear = lastConnexion[1].toInt()
+                                     var attendance = data.child("assiduité").getValue().toString().toInt()
+                                     if(lastConnexionYear == currentYear){
+                                         if(currentDay - lastConnexionDay == 1){
+                                             attendance = attendance + 1
+                                             database
+                                                 .child("users")
+                                                 .child(uid!!)
+                                                 .child("assiduité")
+                                                 .setValue(attendance.toString())
+                                         }
+                                     }*/
+                                } else {
+
+                                    database.child("users").child(uid!!).child("assiduité").setValue("0")
+                                    //do something if not exists
+                                }
+
                             }
 
                         }
-
                     }
+
+                    override fun onCancelled(error: DatabaseError) {
+                        TODO("Not yet implemented")
+                    }
+
                 }
 
-                override fun onCancelled(error: DatabaseError) {
-                    TODO("Not yet implemented")
-                }
+                )
 
-            }
 
-        )
+        }
 
 
         binding = ActivityMainBinding.inflate(layoutInflater)

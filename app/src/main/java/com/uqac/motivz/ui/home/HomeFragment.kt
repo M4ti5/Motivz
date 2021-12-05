@@ -21,8 +21,10 @@ import com.uqac.motivz.MainActivity
 import android.widget.LinearLayout
 import androidx.fragment.app.activityViewModels
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
@@ -39,14 +41,13 @@ class HomeFragment : Fragment() {
     // onDestroyView.
     private val binding get() = _binding!!
 
-    val database = Firebase.database.reference
-    private val auth = FirebaseAuth.getInstance()
-    private val user = auth.currentUser
-    private var uid = user?.uid
-    private var goalRef = database.child("objectifs")
-    private var goalUser = database.child("users").child(uid!!).child("objectifs")
+
     var goalNameList = ArrayList<String>()
     var goalProgressList = ArrayList<Int>()
+    private lateinit var user: FirebaseUser
+    private lateinit var uid:String
+    private lateinit var goalUser: DatabaseReference
+    private lateinit var goalRef: DatabaseReference
     private val homeModel : HomeViewModel by activityViewModels()
     var cache = false
 
@@ -62,7 +63,7 @@ class HomeFragment : Fragment() {
         super.onStop()
     }
 
-    fun getGoalsFromDatabase(goalLinearLayout: LinearLayout){
+    fun getGoalsFromDatabase(goalLinearLayout: LinearLayout, goalRef: DatabaseReference, goalUser:DatabaseReference){
         goalUser.addListenerForSingleValueEvent( object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 for (goal in snapshot.getChildren()) {
@@ -92,11 +93,22 @@ class HomeFragment : Fragment() {
         })
     }
 
+
+
     override fun onCreateView(
             inflater: LayoutInflater,
             container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View? {
+
+        val database = Firebase.database.reference
+        val auth = FirebaseAuth.getInstance()
+        if(auth.currentUser != null){
+            user = auth.currentUser!!
+            uid = user?.uid
+            goalRef = database.child("objectifs")
+            goalUser = database.child("users").child(uid!!).child("objectifs")
+        }
         homeViewModel =
                 ViewModelProvider(this).get(HomeViewModel::class.java)
 
@@ -112,8 +124,8 @@ class HomeFragment : Fragment() {
         
         val goalLinearLayout: LinearLayout = binding.goalLinearLayout
 
-        if(!homeModel.cache){
-            getGoalsFromDatabase(goalLinearLayout)
+        if(!homeModel.cache && auth.currentUser!=null){
+            getGoalsFromDatabase(goalLinearLayout,goalRef,goalUser)
 
         } else {
             // Temporary values
