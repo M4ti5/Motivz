@@ -9,5 +9,10 @@ class HomeViewModel : ViewModel() {
     private val _text = MutableLiveData<String>().apply {
         value = "This is home Fragment"
     }
+
+
+    var cache = false
+    var goalNameList = ArrayList<String>()
+    var goalProgressList =  ArrayList<Int>()
     val text: LiveData<String> = _text
 }

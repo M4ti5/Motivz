@@ -15,7 +15,7 @@ import android.widget.ImageView
 
 class AvatarShopFragment : Fragment() {
 
-    private lateinit var avatarShopViewModel: AvatarShopViewModel
+    private lateinit var shopViewModel: ShopViewModel
     private var _binding: FragmentAvatarShopBinding? = null
 
     private val binding get() = _binding!!
@@ -23,8 +23,8 @@ class AvatarShopFragment : Fragment() {
     private var avatarBundle : RelativeLayout? = null
 
     override fun onCreateView(inflater: LayoutInflater,container: ViewGroup?,savedInstanceState: Bundle?): View {
-        avatarShopViewModel =
-            ViewModelProvider(this).get(AvatarShopViewModel::class.java)
+        shopViewModel =
+            ViewModelProvider(this).get(ShopViewModel::class.java)
 
         _binding = FragmentAvatarShopBinding.inflate(inflater, container, false)
 
