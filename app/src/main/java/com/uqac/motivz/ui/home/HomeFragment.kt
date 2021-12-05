@@ -44,24 +44,24 @@ class HomeFragment : Fragment() {
     private lateinit var uid:String
     private lateinit var goalUser: DatabaseReference
     private lateinit var goalRef: DatabaseReference
-    private val homeModel : HomeViewModel by activityViewModels()
-    var cache = false
+    /*private val homeModel : HomeViewModel by activityViewModels()
+    var cache = false*/
 
 
-    override fun onStop() {
-        if(!homeModel.cache){
-            homeModel.goalNameList = goalNameList
-            homeModel.goalProgressList = goalProgressList
-            homeModel.goalDisplayNameList = goalDisplayNameList
-        }
+  /*  override fun onStop() {
+//        if(!homeModel.cache){
+//            homeModel.goalNameList = goalNameList
+//            homeModel.goalProgressList = goalProgressList
+//            homeModel.goalDisplayNameList = goalDisplayNameList
+//        }
 
         homeModel.cache = true
 
         super.onStop()
-    }
+    }*/
 
     private fun getGoalsFromDatabase(goalLinearLayout: LinearLayout, goalRef: DatabaseReference, goalUser:DatabaseReference){
-        goalUser.addListenerForSingleValueEvent( object : ValueEventListener {
+        goalUser.addValueEventListener( object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 for (goal in snapshot.getChildren()) {
                     val goalName = goal.key.toString()
@@ -130,10 +130,10 @@ class HomeFragment : Fragment() {
         // Goals display
         val goalTitle: TextView = binding.goalTitle
         goalTitle.text = getString(R.string.goal_title)
-        if(!homeModel.cache && auth.currentUser!=null){
+        //if(!homeModel.cache && auth.currentUser!=null){
             getGoalsFromDatabase(goalLinearLayout,goalRef,goalUser)
 
-        } else {
+        /*} else {
             // Temporary values
 
             val lastIndex = homeModel.goalNameList.size - 1
@@ -141,7 +141,7 @@ class HomeFragment : Fragment() {
                 addGoal(homeModel.goalDisplayNameList.get(i), homeModel.goalProgressList.get(i), goalLinearLayout)
             }
 
-        }
+        }*/
 
 
 

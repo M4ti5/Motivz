@@ -68,6 +68,11 @@ class ProfilActivity  : AppCompatActivity() {
 
     }
 
+//    override fun onStart() {
+//        auth.signOut()
+//        super.onStart()
+//    }
+
     private fun goToMainActivity(fragmentSelected : Int){
         val intent = Intent(this,  MainActivity::class.java)
         intent.putExtra("PSEUDONYME", pseudo);
