@@ -38,6 +38,7 @@ class HomeFragment : Fragment() {
 
 
     var goalNameList = ArrayList<String>()
+    var goalDisplayNameList = ArrayList<String>()
     var goalProgressList = ArrayList<Int>()
     private lateinit var user: FirebaseUser
     private lateinit var uid:String
@@ -51,6 +52,7 @@ class HomeFragment : Fragment() {
         if(!homeModel.cache){
             homeModel.goalNameList = goalNameList
             homeModel.goalProgressList = goalProgressList
+            homeModel.goalDisplayNameList = goalDisplayNameList
         }
 
         homeModel.cache = true
@@ -67,10 +69,11 @@ class HomeFragment : Fragment() {
                         goalNameList.add(goalName)
                         goalRef.child(goalName).addListenerForSingleValueEvent(object: ValueEventListener{
                             override fun onDataChange(snapshot: DataSnapshot) {
-                                val name = snapshot.child("name").getValue().toString()
+                                val displayName = snapshot.child("name").getValue().toString()
                                 val progress = snapshot.child("pourcentage").getValue().toString().toInt()
                                 goalProgressList.add(progress)
-                                addGoal(name, progress, goalLinearLayout)
+                                goalDisplayNameList.add(displayName)
+                                addGoal(displayName, progress, goalLinearLayout)
                             }
                             override fun onCancelled(error: DatabaseError) {
                                 TODO("Not yet implemented")
@@ -135,7 +138,7 @@ class HomeFragment : Fragment() {
 
             val lastIndex = homeModel.goalNameList.size - 1
             for (i in 0..lastIndex) {
-                addGoal(homeModel.goalNameList.get(i), homeModel.goalProgressList.get(i), goalLinearLayout)
+                addGoal(homeModel.goalDisplayNameList.get(i), homeModel.goalProgressList.get(i), goalLinearLayout)
             }
 
         }

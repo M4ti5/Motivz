@@ -13,6 +13,7 @@ class HomeViewModel : ViewModel() {
 
     var cache = false
     var goalNameList = ArrayList<String>()
+    var goalDisplayNameList = ArrayList<String>()
     var goalProgressList =  ArrayList<Int>()
     val text: LiveData<String> = _text
 }
