@@ -1,6 +1,8 @@
 package com.uqac.motivz.ui.home
 
 import android.annotation.SuppressLint
+import android.app.AlertDialog
+import android.content.DialogInterface
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,6 +12,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.uqac.motivz.R
 import com.uqac.motivz.databinding.FragmentHomeBinding
 import android.content.Intent
+import android.graphics.Color
 import android.view.Gravity
 import android.widget.*
 import androidx.core.view.*
@@ -44,21 +47,20 @@ class HomeFragment : Fragment() {
     private lateinit var uid:String
     private lateinit var goalUser: DatabaseReference
     private lateinit var goalRef: DatabaseReference
-    /*private val homeModel : HomeViewModel by activityViewModels()
-    var cache = false*/
+    private val homeModel : HomeViewModel by activityViewModels()
+    var cache = false
 
-
-  /*  override fun onStop() {
-//        if(!homeModel.cache){
-//            homeModel.goalNameList = goalNameList
-//            homeModel.goalProgressList = goalProgressList
-//            homeModel.goalDisplayNameList = goalDisplayNameList
-//        }
+    override fun onStop() {
+        if(!homeModel.cache){
+            homeModel.goalNameList = goalNameList
+            homeModel.goalProgressList = goalProgressList
+            homeModel.goalDisplayNameList = goalDisplayNameList
+        }
 
         homeModel.cache = true
 
         super.onStop()
-    }*/
+    }
 
     private fun getGoalsFromDatabase(goalLinearLayout: LinearLayout, goalRef: DatabaseReference, goalUser:DatabaseReference){
         goalUser.addValueEventListener( object : ValueEventListener {
@@ -73,7 +75,8 @@ class HomeFragment : Fragment() {
                                 val progress = snapshot.child("pourcentage").getValue().toString().toInt()
                                 goalProgressList.add(progress)
                                 goalDisplayNameList.add(displayName)
-                                addGoal(displayName, progress, goalLinearLayout)
+                                //goalDisplayNameList.l
+                                addGoal(goalName, displayName, progress, goalLinearLayout, index)
                             }
                             override fun onCancelled(error: DatabaseError) {
                                 TODO("Not yet implemented")
@@ -130,18 +133,18 @@ class HomeFragment : Fragment() {
         // Goals display
         val goalTitle: TextView = binding.goalTitle
         goalTitle.text = getString(R.string.goal_title)
-        //if(!homeModel.cache && auth.currentUser!=null){
+        if(!homeModel.cache && auth.currentUser!=null){
             getGoalsFromDatabase(goalLinearLayout,goalRef,goalUser)
 
-        /*} else {
+        } else {
             // Temporary values
 
             val lastIndex = homeModel.goalNameList.size - 1
             for (i in 0..lastIndex) {
-                addGoal(homeModel.goalDisplayNameList.get(i), homeModel.goalProgressList.get(i), goalLinearLayout)
+                addGoal(homeModel.goalNameList.get(i), homeModel.goalDisplayNameList.get(i), homeModel.goalProgressList.get(i), goalLinearLayout, i)
             }
 
-        }*/
+        }
 
 
 
@@ -167,7 +170,7 @@ class HomeFragment : Fragment() {
     }
 
     @SuppressLint("UseCompatLoadingForDrawables")
-    private fun addGoal(goalName: String, progress: Int, goalLinearLayout: LinearLayout) {
+    private fun addGoal(goalName: String, goalDisplayName: String, progress: Int, goalLinearLayout: LinearLayout, index: Int) {
         // RelativeLayout (button and progress bar) to add to goalLinearLayout
         val parent = RelativeLayout(this.context)
         parent.layoutParams = RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT,
@@ -179,7 +182,7 @@ class HomeFragment : Fragment() {
         button.layoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 250)
         button.setPaddingRelative(250, 10, 10, 10)
         button.gravity = Gravity.CENTER_VERTICAL
-        button.text = goalName
+        button.text = goalDisplayName
         // Add Goal Button to RelativeLayout
         parent.addView(button)
 
@@ -200,6 +203,54 @@ class HomeFragment : Fragment() {
 
         // Add everything to the goalLinearLayout
         goalLinearLayout.addView(parent)
+
+
+        // Set button on clickMethod
+        button.setOnClickListener {
+            showDialog(goalName, button, progressCircle, index)
+        }
     }
+
+    private fun showDialog(goalName: String, button: Button, progressCircle: ProgressBar, index: Int) {
+        val builder = AlertDialog.Builder(this.context)
+        with(builder) {
+            // setIcon(R.drawable.ic_hello)
+            // setTitle("Hello")
+            setMessage("Voulez vous valider cet objectif ?")
+            setPositiveButton("Valider") { _, _ ->
+                toast("clicked valider button")
+                goalValidation(goalName, button, progressCircle, index)
+            }
+            setNegativeButton("Annuler", null)
+        }
+        val alertDialog = builder.create()
+        alertDialog.show()
+
+        val buttonPositive = alertDialog.getButton(DialogInterface.BUTTON_POSITIVE)
+        with(buttonPositive) {
+            setBackgroundColor(Color.BLACK)
+            setPadding(20, 0, 20, 0)
+            setTextColor(Color.WHITE)
+        }
+        val buttonNegative = alertDialog.getButton(DialogInterface.BUTTON_NEGATIVE)
+        with(buttonNegative) {
+            setPadding(20, 0, 40, 0)
+            setTextColor(Color.BLACK)
+        }
+    }
+
+    private fun goalValidation(goalName: String, button: Button, progressCircle: ProgressBar, index: Int) {
+        // update database
+        goalRef.child(goalName).child("pourcentage").setValue(100)
+        // update cache
+        homeViewModel.goalProgressList.set(index, 100)
+        // update progress on circle
+        progressCircle.progress = 100
+        // disable button click
+        //button.isEnabled = false
+        button.isClickable = false
+    }
+
+    private fun toast(text: String) = Toast.makeText(this.context, text, Toast.LENGTH_SHORT).show()
 
 }
