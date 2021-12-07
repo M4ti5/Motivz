@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -10,7 +9,7 @@
         android:id="@+id/globalLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="70dp"
+        android:layout_marginBottom="60dp"
         android:orientation="vertical">
         <RelativeLayout
             android:layout_width="match_parent"
@@ -30,10 +29,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:layout_below="@+id/profileButton"
             android:layout_marginHorizontal="30dp"
             android:layout_marginVertical="10dp"
-            android:textSize="40dp"
+            android:textSize="40sp"
             android:text="@string/title_goal"
             android:textStyle="bold"/>
 
@@ -42,7 +40,7 @@
             android:layout_height="250dp"
             android:layout_weight="15"
             android:fillViewport="false"
-            android:layout_below="@+id/goalTitle">
+            android:layout_marginBottom="60dp">
 
             <LinearLayout
                 android:id="@+id/goalLinearLayout"
@@ -55,14 +53,15 @@
         </ScrollView>
 
         <Button
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_margin="10dp"
-            android:layout_weight="1"
-            android:layout_gravity="end"
+            android:id="@+id/createGoalButton"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginEnd="10dp"
+            android:backgroundTint="@color/medium_blue"
             android:text="+"
+            android:textSize="20sp"
             android:textStyle="bold"
-            android:textSize="20dp"/>
+            android:layout_gravity="end"/>
 
     </LinearLayout>
 

@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginTop="20dp"
+    android:orientation="vertical"
+    tools:context=".ui.home.CreateGoalFragment">
+
+    <TextView
+        android:id="@+id/TitleCG"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="30dp"
+        android:layout_marginVertical="10dp"
+        android:text="@string/titleCG"
+        android:textStyle="bold"
+        android:textSize="30dp"/>
+
+    <TextView
+        android:id="@+id/NameCG"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/TitleCG"
+        android:layout_marginTop="50dp"
+        android:text="@string/nameCG"
+        android:layout_centerHorizontal="true"
+        android:textSize="18dp"/>
+
+    <EditText
+        android:id="@+id/EnterNameCG"
+        android:layout_width="250dp"
+        android:layout_height="50dp"
+        android:layout_below="@id/NameCG"
+        android:layout_centerHorizontal="true"/>
+
+    <TextView
+        android:id="@+id/GoalTypeCG"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/EnterNameCG"
+        android:layout_marginTop="30dp"
+        android:text="@string/goalTypeCG"
+        android:layout_centerHorizontal="true"
+        android:textSize="18dp"/>
+
+    <Spinner
+        android:id="@+id/EnterGoalTypeCG"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_below="@+id/GoalTypeCG"
+        android:layout_marginHorizontal="30dp"/>
+
+    <TextView
+        android:id="@+id/ValueCG"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/EnterGoalTypeCG"
+        android:layout_marginTop="30dp"
+        android:text="@string/valueCG"
+        android:layout_centerHorizontal="true"
+        android:textSize="18dp"/>
+
+    <EditText
+        android:id="@+id/EnterValueCG"
+        android:layout_width="250dp"
+        android:layout_height="50dp"
+        android:layout_below="@id/ValueCG"
+        android:layout_centerHorizontal="true"/>
+
+    <Button
+        android:id="@+id/BtnSaveCG"
+        android:layout_width="150dp"
+        android:layout_height="60dp"
+        android:layout_below="@+id/EnterValueCG"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="80dp"
+        android:backgroundTint="@color/medium_blue"
+        android:text="@string/save" />
+
+    <TextView
+        android:id="@+id/TestCG"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/BtnSaveCG"
+        android:layout_marginTop="5dp"
+        android:layout_centerHorizontal="true"
+        android:textSize="18dp"/>
+
+</RelativeLayout>
