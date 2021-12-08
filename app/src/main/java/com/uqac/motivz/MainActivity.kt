@@ -1,5 +1,6 @@
 package com.uqac.motivz
 
+import android.content.ContentValues
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -167,15 +168,35 @@ class MainActivity : AppCompatActivity() {
             R.id.navigation_shop, R.id.navigation_home,  R.id.navigation_stats ))
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
-
         val nav = intent.getIntExtra("NAV", R.id.navigation_home)
         navView.selectedItemId = nav
 
-        pseudo = intent.getStringExtra("PSEUDONYME").toString()
+        val auth= FirebaseAuth.getInstance()
+
+        val database = Firebase.database
+
+        val myRef = database.getReference("users").child(auth.uid.toString()).child("pseudo")
+
+        myRef.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                // This method is called once with the initial value and again
+                // whenever data at this location is updated.
+
+                val value = dataSnapshot.getValue<String>()
+                pseudo = dataSnapshot.getValue<String>().toString()
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                // Failed to read value
+                Log.w(ContentValues.TAG, "Failed to read value.", error.toException())
+            }
+        })
 
 
 
     }
+
+
 
     fun getPseudo(): String {
         return pseudo
