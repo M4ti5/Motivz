@@ -3,10 +3,22 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Matis_CAFFIAUX/Documents/Cours/UQAC/Motivz/app/src/main/res/drawable/ic_avatar.xml" value="0.19739583333333333" />
+        <entry key="..\:/Users/Matis_CAFFIAUX/Documents/Cours/UQAC/Motivz/app/src/main/res/drawable/ic_clothe_1.xml" value="0.26614583333333336" />
         <entry key="..\:/Users/Matis_CAFFIAUX/Documents/Cours/UQAC/Motivz/app/src/main/res/drawable/ic_dashboard_black_24dp.xml" value="0.23072916666666668" />
         <entry key="..\:/Users/Matis_CAFFIAUX/Documents/Cours/UQAC/Motivz/app/src/main/res/drawable/ic_home_black_24dp.xml" value="0.26614583333333336" />
         <entry key="..\:/Users/Matis_CAFFIAUX/Documents/Cours/UQAC/Motivz/app/src/main/res/drawable/ic_launcher_background.xml" value="0.26614583333333336" />
         <entry key="..\:/Users/Matis_CAFFIAUX/Documents/Cours/UQAC/Motivz/app/src/main/res/drawable/ic_notifications_black_24dp.xml" value="0.26614583333333336" />
+        <entry key="..\:/Users/Matis_CAFFIAUX/Documents/Cours/UQAC/Motivz/app/src/main/res/drawable/jean_blue.xml" value="0.16" />
+        <entry key="..\:/Users/Matis_CAFFIAUX/Documents/Cours/UQAC/Motivz/app/src/main/res/drawable/jean_gray.xml" value="0.26614583333333336" />
+        <entry key="..\:/Users/Matis_CAFFIAUX/Documents/Cours/UQAC/Motivz/app/src/main/res/drawable/right_pressed_button.xml" value="0.19739583333333333" />
+        <entry key="..\:/Users/Matis_CAFFIAUX/Documents/Cours/UQAC/Motivz/app/src/main/res/drawable/right_rounded_button.xml" value="0.19739583333333333" />
+        <entry key="..\:/Users/Matis_CAFFIAUX/Documents/Cours/UQAC/Motivz/app/src/main/res/drawable/shirt_blue.xml" value="0.26614583333333336" />
+        <entry key="..\:/Users/Matis_CAFFIAUX/Documents/Cours/UQAC/Motivz/app/src/main/res/drawable/shirt_red.xml" value="0.26614583333333336" />
+        <entry key="..\:/Users/Matis_CAFFIAUX/Documents/Cours/UQAC/Motivz/app/src/main/res/drawable/skin1.xml" value="0.26614583333333336" />
+        <entry key="..\:/Users/Matis_CAFFIAUX/Documents/Cours/UQAC/Motivz/app/src/main/res/drawable/skin2.xml" value="0.26614583333333336" />
+        <entry key="..\:/Users/Matis_CAFFIAUX/Documents/Cours/UQAC/Motivz/app/src/main/res/drawable/skin3.xml" value="0.26614583333333336" />
+        <entry key="..\:/Users/Matis_CAFFIAUX/Documents/Cours/UQAC/Motivz/app/src/main/res/drawable/skin4.xml" value="0.26614583333333336" />
         <entry key="..\:/Users/Matis_CAFFIAUX/Documents/Cours/UQAC/Motivz/app/src/main/res/layout/activity_connexion.xml" value="0.18125" />
         <entry key="..\:/Users/Matis_CAFFIAUX/Documents/Cours/UQAC/Motivz/app/src/main/res/layout/activity_main.xml" value="0.12708333333333333" />
         <entry key="..\:/Users/Matis_CAFFIAUX/Documents/Cours/UQAC/Motivz/app/src/main/res/layout/activity_profil.xml" value="0.18125" />
@@ -44,7 +56,7 @@
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">

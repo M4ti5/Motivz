@@ -15,18 +15,14 @@ import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import com.uqac.motivz.MainActivity
 import com.uqac.motivz.R
+import com.uqac.motivz.ui.shop.AvatarShopFragment
 
 class SignInFragment : Fragment(R.layout.fragment_sign_in) {
 
 
 
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-
-
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val auth = FirebaseAuth.getInstance()
 
         val view = inflater.inflate(R.layout.fragment_sign_in, container, false)
@@ -39,10 +35,14 @@ class SignInFragment : Fragment(R.layout.fragment_sign_in) {
             val password = view.findViewById<EditText>(R.id.enterPasswordSI).text.toString()
 
             auth.createUserWithEmailAndPassword(mail,password).addOnCompleteListener { task ->
-                if(task.isSuccessful){
+                if(task.isSuccessful) {
                     val database = Firebase.database
-                    val myRef = database.getReference("users").child(auth.uid.toString()).child("pseudo")
+                    val myRef =
+                        database.getReference("users").child(auth.uid.toString()).child("pseudo")
                     myRef.setValue(pseudo)
+
+                    //Add avatar Cloths
+                    database.getReference("users").child(auth.uid.toString()).child("cloths").setValue(AvatarShopFragment.Cloths("0", "0", "0", "0"))
                     goToMainActivity(pseudo, R.id.navigation_home)
                 }
             }.addOnFailureListener { exception ->
@@ -50,7 +50,7 @@ class SignInFragment : Fragment(R.layout.fragment_sign_in) {
                 Toast.makeText(this.context,exception.localizedMessage,Toast.LENGTH_LONG).show()
             }
         }
-        // Inflate the layout for this fragment
+            // Inflate the layout for this fragment
         return view
     }
 
