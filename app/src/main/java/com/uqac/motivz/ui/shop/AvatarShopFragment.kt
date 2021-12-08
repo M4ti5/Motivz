@@ -11,12 +11,18 @@ import com.uqac.motivz.R
 import com.uqac.motivz.databinding.FragmentAvatarShopBinding
 
 import android.widget.ImageView
+import android.widget.Toast
+import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ktx.database
+import com.google.firebase.database.ktx.getValue
+import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.ktx.Firebase
+import com.uqac.motivz.MainActivity
 
 
 class AvatarShopFragment : Fragment() {
@@ -32,19 +38,49 @@ class AvatarShopFragment : Fragment() {
     private lateinit var user: FirebaseUser
     private lateinit var uid:String
 
+
+
+    // Layer Avatar Cloth
+    private val listOfClothArea = mapOf("skin" to 0, "hair" to 1 , "top" to 2, "bottom" to 3, "shoes" to 4, "pet" to 5)
+    private var currentCloths:Cloths = setCloths("null","null","null","null")
+
     data class Cloths(val _skin:String? = null, val _top:String? = null, val _bottom:String? = null, val _shoes:String? = null)
 
-    private fun setCloths(skin:String, top:String, bottom:String, shoes:String ){
-        val cloths = Cloths(skin,top,bottom,shoes)
-        database.reference.child("users").child(uid).child("cloths").setValue(cloths)
+    fun setCloths(skin:String, top:String, bottom:String, shoes:String ): Cloths {
+        return Cloths(skin,top,bottom,shoes)
     }
 
-    fun getCloths(uid:String){
-        database.reference.child("users").child(uid).child("cloths").get()
+    fun setCloths(cloths: Cloths, area:String, value:String ): Cloths {
+        when (area) {
+            "skin"-> return Cloths(value,cloths._top,cloths._bottom,cloths._shoes)
+            "top" -> return Cloths(cloths._skin,value,cloths._bottom,cloths._shoes)
+            "bottom" -> return Cloths(cloths._skin,cloths._top,value,cloths._shoes)
+            "shoes" -> return Cloths(cloths._skin,cloths._top,cloths._bottom,value)
+        }
+        return cloths
+    }
+
+    fun setDataBaseCloths(){
+        database.reference.child("users").child(uid).child("cloths").setValue(currentCloths)
+    }
+
+    fun getDataBaseCloths() {
+
+        database.reference.child("users").child(uid).child("cloths").get().addOnSuccessListener{
+            currentCloths = setCloths(
+                it.child("_skin").value.toString(),
+                it.child("_top").value.toString(),
+                it.child("_bottom").value.toString(),
+                it.child("_shoes").value.toString()
+            )
+        }
+
+
     }
 
 
     override fun onCreateView(inflater: LayoutInflater,container: ViewGroup?,savedInstanceState: Bundle?): View {
+
         database = Firebase.database
 
         shopViewModel = ViewModelProvider(this).get(ShopViewModel::class.java)
@@ -60,36 +96,46 @@ class AvatarShopFragment : Fragment() {
         return binding.root
     }
 
-
     override fun onStart()  {
         super.onStart()
+
         avatarBundle  = view?.findViewById<RelativeLayout>(R.id.AvatarBundle)
 
-
-        val clothes  = arrayOf(R.drawable.ic_clothe_1, R.drawable.shirt_blue)
-        val skins = arrayOf(R.drawable.shirt_red)
+        val clothesDrawable  = arrayOf(R.drawable.ic_clothe_1, R.drawable.shirt_blue)
 
 
-        setCloths("0","0","0","0")
-        val imageView: ImageView = view?.findViewById(R.id.ClotheTop)!!
+        //layers Cloth Avatar
+        // 0:skin  1:hair 2:top 3:bottom 4:shoes 5:pet
+
+        fun toChangeCloth(clothArea:String , clothIndex:Int ){
+            var id : Int = avatarBundle?.getChildAt(listOfClothArea.getValue(clothArea))?.id!!
+            val imageView: ImageView? = view?.findViewById(id)
+            imageView?.setImageResource(clothesDrawable[clothIndex])
+            currentCloths = setCloths(currentCloths ,clothArea, clothIndex.toString())
+        }
 
         val button = view?.findViewById<RelativeLayout>(R.id.buttonObject1)
         button?.setOnClickListener {
-            var id : Int = avatarBundle?.getChildAt(0)?.id!!
-            imageView.setImageResource(clothes[0])
+            toChangeCloth("bottom", 0)
         }
 
 
-        val button2 = view?.findViewById<RelativeLayout>(R.id.buttonObject3)
+        val button2 = view?.findViewById<RelativeLayout>(R.id.buttonObject2)
         button2?.setOnClickListener {
-            var id : Int = avatarBundle?.getChildAt(0)?.id!!
-            imageView.setImageResource(clothes[1])
+            toChangeCloth("top",1)
         }
     }
 
-    override fun onStop() {
-        super.onStop()
-        // Made save of avatar
+    override fun onResume() {
+        super.onResume()
+        getDataBaseCloths()
     }
+
+    override fun onPause() {
+        super.onPause()
+        setDataBaseCloths()
+    }
+
+
 
 }
