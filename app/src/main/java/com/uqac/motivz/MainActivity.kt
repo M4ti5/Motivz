@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.LinearLayout
+import android.widget.Toast
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
@@ -24,44 +25,57 @@ import com.google.firebase.ktx.Firebase
 import com.uqac.motivz.databinding.ActivityMainBinding
 import com.uqac.motivz.ui.home.HomeFragment
 import com.uqac.motivz.ui.stats.DataViewModel
+import kotlinx.coroutines.awaitAll
 import java.time.LocalDateTime
+import kotlin.properties.Delegates
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
-    private lateinit var pseudo: String
+
     private lateinit var database : FirebaseDatabase
     private lateinit var auth : FirebaseAuth
+
     private lateinit var user : FirebaseUser
     private lateinit var uid : String
+    private lateinit var pseudo: String
 
-    fun resetAttendance(){
-        database.reference.child("users").child(uid!!).child("assiduité").setValue(0)
-    }
+    private var attendance:Int = 0
+
 
     fun updateAttendance(){
-        val currentDay = LocalDateTime.now().dayOfYear
-        val currentYear = LocalDateTime.now().year
-        val lastConnexion = data.child("dernière connexion").getValue().toString().split("/")
-        val lastConnexionDay = lastConnexion[0].toInt()
-        val lastConnexionYear = lastConnexion[1].toInt()
-        var attendance = data.child("assiduité").getValue().toString().toInt()
-        if(lastConnexionYear == currentYear){
-            if(currentDay - lastConnexionDay == 1){
-                attendance = attendance + 1
-                database.reference.child("users").child(uid!!).child("assiduity").setValue(attendance.toString())
+        lateinit var lastConnexion:List<String>
+
+        database.reference.child("users").child(uid).get().addOnSuccessListener {
+
+            attendance = it.child("attendance").value.toString().toInt()
+
+            lastConnexion = it.child("lastLog").value.toString().split("/")
+
+            var lastConnexionDay:Int = lastConnexion.get(0).toInt()
+
+            var lastConnexionYear:Int = lastConnexion.get(1).toInt()
+
+            val currentDay = LocalDateTime.now().dayOfYear
+            val currentYear = LocalDateTime.now().year
+
+            if(lastConnexionYear == currentYear && lastConnexionDay >= currentDay -1  ){
+                attendance += 1
             } else {
-                resetAttendance()
+                attendance = 0
             }
-        } else {
-            resetAttendance()
+
+            database.reference.child("users").child(uid).child("attendance").setValue(attendance.toString())
         }
+
+
+
+
     }
 
     fun getPseudo(): String {
         return pseudo
     }
-
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -74,21 +88,9 @@ class MainActivity : AppCompatActivity() {
             uid = user.uid
         }
 
-        if(auth.currentUser != null){
-            database.reference.child("users").child(uid).get().addOnSuccessListener{
-                updateAttendance(data)
-                val lastConnexion = data.child("lastLog").getValue().toString().split("/")
-                val lastConnexionDay = lastConnexion[0].toInt()
-                val lastConnexionYear = lastConnexion[1].toInt()
-                var attendance = data.child("assiduity").getValue().toString().toInt()
-                if(lastConnexionYear == currentYear){
-                    if(currentDay - lastConnexionDay == 1){
-                        attendance = attendance + 1
-                        database.child("users").child(uid).child("assiduity").setValue(attendance.toString())
-                    }
-                }
-            }
-        }
+        ////Other
+
+        updateAttendance()
 
 
         database.reference.child("users").child(uid).child("pseudo").get().addOnSuccessListener{
@@ -110,21 +112,15 @@ class MainActivity : AppCompatActivity() {
         navView.selectedItemId = nav
     }
 
-    override fun onStop() {
-        //auth.signOut()
-        if(auth.currentUser != null){
-            database.child("users")
-                .child(uid!!)
-                .child("dernière connexion")
-                .setValue(LocalDateTime.now()
-                    .dayOfYear
-                    .toString()
-                        + "/"
-                        + LocalDateTime.now().year.toString())
-        }
+    override fun onStart() {
+        super.onStart()
 
-        super.onStop()
+        if(auth.currentUser != null){
+            database.reference.child("users").child(uid).child("lastLog").setValue(
+                LocalDateTime.now().dayOfYear.toString() + "/" + LocalDateTime.now().year.toString())
+        }
     }
+
 
     override fun onDestroy() {
 

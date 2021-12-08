@@ -46,9 +46,12 @@ class SignInFragment : Fragment(R.layout.fragment_sign_in) {
                     myRef.setValue(pseudo)
 
                     //Add avatar Cloths
-                    database.getReference("users").child(auth.uid.toString()).child("cloths").setValue(AvatarShopFragment.Cloths("0","0","0","0"))
+                    database.getReference("users").child(auth.uid.toString()).child("cloths").setValue(AvatarShopFragment.Cloths("-1","-1","-1","-1"))
                     //Add assiduity
-                    database.getReference("users").child(auth.uid.toString()).child("assiduity").setValue(0)
+                    database.getReference("users").child(auth.uid.toString()).child("attendance").setValue(0)
+
+
+
                     goToMainActivity(pseudo, R.id.navigation_home)
                 }
             }.addOnFailureListener { exception ->
