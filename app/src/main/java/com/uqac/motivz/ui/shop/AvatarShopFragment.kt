@@ -39,12 +39,13 @@ class AvatarShopFragment : Fragment() {
     private lateinit var uid:String
 
 
-
     // Layer Avatar Cloth
     private val listOfClothArea = mapOf("skin" to 0, "hair" to 1 , "top" to 2, "bottom" to 3, "shoes" to 4, "pet" to 5)
-    private var currentCloths:Cloths = setCloths("null","null","null","null")
+    private var currentCloths:Cloths = setCloths("-1","-1","-1","-1")
+    private val allCloths = arrayOf(R.drawable.ic_clothe_1, R.drawable.shirt_blue)
 
     data class Cloths(val _skin:String? = null, val _top:String? = null, val _bottom:String? = null, val _shoes:String? = null)
+    enum class AreaCloth(val area: String){skin("skin"),top("top"), bottom("bottom"), shoes("shoes")}
 
     fun setCloths(skin:String, top:String, bottom:String, shoes:String ): Cloths {
         return Cloths(skin,top,bottom,shoes)
@@ -64,8 +65,18 @@ class AvatarShopFragment : Fragment() {
         database.reference.child("users").child(uid).child("cloths").setValue(currentCloths)
     }
 
-    fun getDataBaseCloths() {
+    fun getCloths(cloths: Cloths, cloth:String):String{
+        when (cloth) {
+            "skin"-> return cloths._skin.toString()
+            "top" -> return cloths._top.toString()
+            "bottom" -> return cloths._bottom.toString()
+            "shoes" -> return cloths._shoes.toString()
+        }
+        return "null"
 
+    }
+
+    fun getDataBaseCloths() {
         database.reference.child("users").child(uid).child("cloths").get().addOnSuccessListener{
             currentCloths = setCloths(
                 it.child("_skin").value.toString(),
@@ -74,13 +85,25 @@ class AvatarShopFragment : Fragment() {
                 it.child("_shoes").value.toString()
             )
         }
+    }
 
+    fun toChangeCloth(clothArea:String , clothIndex:Int ){
+        if(clothIndex == -1){return}
+        val id : Int = avatarBundle?.getChildAt(listOfClothArea.getValue(clothArea))?.id!!
+        val imageView: ImageView? = view?.findViewById(id)
+        imageView?.setImageResource(allCloths[clothIndex])
+        currentCloths = setCloths(currentCloths ,clothArea, clothIndex.toString())
+    }
 
+    fun printCurrentCloths (){
+        enumValues<AreaCloth>().forEach {
+                //Toast.makeText(this.context, getCloths(currentCloths, it.area) ,Toast.LENGTH_SHORT).show()
+                toChangeCloth(it.area,  getCloths(currentCloths, it.area).toInt())
+        }
     }
 
 
     override fun onCreateView(inflater: LayoutInflater,container: ViewGroup?,savedInstanceState: Bundle?): View {
-
         database = Firebase.database
 
         shopViewModel = ViewModelProvider(this).get(ShopViewModel::class.java)
@@ -101,19 +124,6 @@ class AvatarShopFragment : Fragment() {
 
         avatarBundle  = view?.findViewById<RelativeLayout>(R.id.AvatarBundle)
 
-        val clothesDrawable  = arrayOf(R.drawable.ic_clothe_1, R.drawable.shirt_blue)
-
-
-        //layers Cloth Avatar
-        // 0:skin  1:hair 2:top 3:bottom 4:shoes 5:pet
-
-        fun toChangeCloth(clothArea:String , clothIndex:Int ){
-            var id : Int = avatarBundle?.getChildAt(listOfClothArea.getValue(clothArea))?.id!!
-            val imageView: ImageView? = view?.findViewById(id)
-            imageView?.setImageResource(clothesDrawable[clothIndex])
-            currentCloths = setCloths(currentCloths ,clothArea, clothIndex.toString())
-        }
-
         val button = view?.findViewById<RelativeLayout>(R.id.buttonObject1)
         button?.setOnClickListener {
             toChangeCloth("bottom", 0)
@@ -124,18 +134,18 @@ class AvatarShopFragment : Fragment() {
         button2?.setOnClickListener {
             toChangeCloth("top",1)
         }
+
+        getDataBaseCloths()
     }
 
     override fun onResume() {
         super.onResume()
-        getDataBaseCloths()
+        printCurrentCloths()
     }
 
     override fun onPause() {
         super.onPause()
         setDataBaseCloths()
     }
-
-
 
 }
