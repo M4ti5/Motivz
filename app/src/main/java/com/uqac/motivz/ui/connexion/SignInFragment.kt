@@ -45,10 +45,9 @@ class SignInFragment : Fragment(R.layout.fragment_sign_in) {
                     myRef.setValue(pseudo)
                 }
             }.addOnFailureListener { exception ->
-                //val context = context as MainActivity
-                //Toast.makeText(context,exception.localizedMessage,Toast.LENGTH_LONG).show()
+                // val context = context as MainActivity
+                Toast.makeText(this.context,exception.localizedMessage,Toast.LENGTH_LONG).show()
             }
-            goToMainActivity(pseudo, R.id.navigation_home)
         }
         // Inflate the layout for this fragment
         return view

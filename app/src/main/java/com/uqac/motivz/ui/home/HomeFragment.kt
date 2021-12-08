@@ -43,18 +43,23 @@ class HomeFragment : Fragment() {
     var goalNameList = ArrayList<String>()
     var goalDisplayNameList = ArrayList<String>()
     var goalProgressList = ArrayList<Int>()
+    var completedGoalNameList = ArrayList<String>()
+    var completedGoalDisplayNameList = ArrayList<String>()
     private lateinit var user: FirebaseUser
     private lateinit var uid:String
-    private lateinit var goalUser: DatabaseReference
     private lateinit var goalRef: DatabaseReference
+    private lateinit var goalUser: DatabaseReference
+    private lateinit var completedGoalUser: DatabaseReference
     private val homeModel : HomeViewModel by activityViewModels()
     var cache = false
 
     override fun onStop() {
         if(!homeModel.cache){
             homeModel.goalNameList = goalNameList
+            homeModel.goalNameList = goalNameList
             homeModel.goalProgressList = goalProgressList
-            homeModel.goalDisplayNameList = goalDisplayNameList
+            homeModel.completedGoalNameList = goalNameList
+            homeModel.completedGoalDisplayNameList = goalNameList
         }
 
         homeModel.cache = true
@@ -75,7 +80,7 @@ class HomeFragment : Fragment() {
                                 val progress = snapshot.child("pourcentage").getValue().toString().toInt()
                                 goalProgressList.add(progress)
                                 goalDisplayNameList.add(displayName)
-                                //goalDisplayNameList.l
+                                val index = goalDisplayNameList.size - 1;
                                 addGoal(goalName, displayName, progress, goalLinearLayout, index)
                             }
                             override fun onCancelled(error: DatabaseError) {
@@ -107,6 +112,7 @@ class HomeFragment : Fragment() {
             uid = user.uid
             goalRef = database.child("objectifs")
             goalUser = database.child("users").child(uid).child("objectifs")
+            completedGoalUser = database.child("users").child(uid).child("objectifTermines")
         }
         homeViewModel =
                 ViewModelProvider(this).get(HomeViewModel::class.java)
@@ -130,6 +136,7 @@ class HomeFragment : Fragment() {
             goToCreateGoalActivity()
         }
 
+        displayGoals(auth, goalLinearLayout)
         // Goals display
         val goalTitle: TextView = binding.goalTitle
         goalTitle.text = getString(R.string.goal_title)
@@ -137,6 +144,10 @@ class HomeFragment : Fragment() {
             getGoalsFromDatabase(goalLinearLayout,goalRef,goalUser)
 
         } else {
+            goalNameList = homeModel.goalNameList
+            goalProgressList = homeModel.goalProgressList
+            goalDisplayNameList = homeModel.goalDisplayNameList
+
             // Temporary values
 
             val lastIndex = homeModel.goalNameList.size - 1
@@ -169,6 +180,27 @@ class HomeFragment : Fragment() {
         startActivity(intent)
     }
 
+    private fun displayGoals(auth: FirebaseAuth, goalLinearLayout: LinearLayout) {
+        // Goals display
+        val goalTitle: TextView = binding.goalTitle
+        goalTitle.text = getString(R.string.goal_title)
+        if(!homeModel.cache && auth.currentUser!=null){
+            getGoalsFromDatabase(goalLinearLayout,goalRef,goalUser)
+
+        } else {
+            goalNameList = homeModel.goalNameList
+            goalProgressList = homeModel.goalProgressList
+            goalDisplayNameList = homeModel.goalDisplayNameList
+
+            // Temporary values
+
+            val lastIndex = homeModel.goalNameList.size - 1
+            for (i in 0..lastIndex) {
+                addGoal(homeModel.goalNameList.get(i), homeModel.goalDisplayNameList.get(i), homeModel.goalProgressList.get(i), goalLinearLayout, i)
+            }
+
+        }
+    }
     @SuppressLint("UseCompatLoadingForDrawables")
     private fun addGoal(goalName: String, goalDisplayName: String, progress: Int, goalLinearLayout: LinearLayout, index: Int) {
         // RelativeLayout (button and progress bar) to add to goalLinearLayout
@@ -183,6 +215,11 @@ class HomeFragment : Fragment() {
         button.setPaddingRelative(250, 10, 10, 10)
         button.gravity = Gravity.CENTER_VERTICAL
         button.text = goalDisplayName
+        if (progress == 100) {
+            toast("progress 100")
+            button.isEnabled = false
+            button.isClickable = false
+        }
         // Add Goal Button to RelativeLayout
         parent.addView(button)
 
@@ -243,7 +280,11 @@ class HomeFragment : Fragment() {
         // update database
         goalRef.child(goalName).child("pourcentage").setValue(100)
         // update cache
-        homeViewModel.goalProgressList.set(index, 100)
+        if (goalProgressList.size > 0) {
+            goalProgressList.set(index, 100)
+        } else if (homeViewModel.goalProgressList.size > 0) {
+            homeViewModel.goalProgressList.set(index, 100)
+        }
         // update progress on circle
         progressCircle.progress = 100
         // disable button click
