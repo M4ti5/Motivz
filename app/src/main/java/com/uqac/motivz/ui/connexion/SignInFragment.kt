@@ -47,6 +47,8 @@ class SignInFragment : Fragment(R.layout.fragment_sign_in) {
 
                     //Add avatar Cloths
                     database.getReference("users").child(auth.uid.toString()).child("cloths").setValue(AvatarShopFragment.Cloths("0","0","0","0"))
+                    //Add assiduity
+                    database.getReference("users").child(auth.uid.toString()).child("assiduity").setValue(0)
                     goToMainActivity(pseudo, R.id.navigation_home)
                 }
             }.addOnFailureListener { exception ->
@@ -54,7 +56,7 @@ class SignInFragment : Fragment(R.layout.fragment_sign_in) {
                 //Toast.makeText(context,exception.localizedMessage,Toast.LENGTH_LONG).show()
             }
         }
-        // Inflate the layout for this fragment
+
         return view
     }
 
