@@ -1,8 +1,5 @@
 package com.uqac.motivz.ui.home
 
-import android.annotation.SuppressLint
-import android.app.AlertDialog
-import android.content.DialogInterface
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -12,24 +9,10 @@ import androidx.lifecycle.ViewModelProvider
 import com.uqac.motivz.R
 import com.uqac.motivz.databinding.FragmentHomeBinding
 import android.content.Intent
-import android.graphics.Color
-import android.view.Gravity
 import android.widget.*
-import androidx.core.view.*
-import android.widget.LinearLayout
 import androidx.fragment.app.FragmentTransaction
-import androidx.fragment.app.activityViewModels
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.ValueEventListener
-import com.google.firebase.database.ktx.database
-import com.google.firebase.ktx.Firebase
 import com.uqac.motivz.ui.profil.ProfilActivity
 import com.uqac.motivz.MainActivity
-import com.uqac.motivz.ui.shop.AvatarShopFragment
 
 
 class HomeFragment : Fragment() {
@@ -38,34 +21,6 @@ class HomeFragment : Fragment() {
     private var _binding: FragmentHomeBinding? = null
 
     private val binding get() = _binding!!
-
-
-    var goalNameList = ArrayList<String>()
-    var goalDisplayNameList = ArrayList<String>()
-    var goalProgressList = ArrayList<Int>()
-    var completedGoalNameList = ArrayList<String>()
-    var completedGoalDisplayNameList = ArrayList<String>()
-    private lateinit var user: FirebaseUser
-    private lateinit var uid:String
-    private lateinit var goalRef: DatabaseReference
-    private lateinit var goalUser: DatabaseReference
-    private lateinit var completedGoalUser: DatabaseReference
-    private val homeModel : HomeViewModel by activityViewModels()
-    var cache = false
-
-    override fun onStop() {
-        if(!homeModel.cache){
-            homeModel.goalNameList = goalNameList
-            homeModel.goalNameList = goalNameList
-            homeModel.goalProgressList = goalProgressList
-            homeModel.completedGoalNameList = goalNameList
-            homeModel.completedGoalDisplayNameList = goalNameList
-        }
-
-        homeModel.cache = true
-
-        super.onStop()
-    }
 
 
     override fun onCreateView(inflater: LayoutInflater,container: ViewGroup?, savedInstanceState: Bundle?): View {
@@ -90,11 +45,11 @@ class HomeFragment : Fragment() {
 
         replaceFragment(GoalDisplayFragment())
 
-        binding.goalListButton.setOnClickListener() {
+        binding.goalListButton.setOnClickListener {
             replaceFragment(GoalDisplayFragment())
         }
 
-        binding.completedGoalListButton.setOnClickListener() {
+        binding.completedGoalListButton.setOnClickListener {
             replaceFragment(CompletedGoalDisplayFragment())
         }
 
