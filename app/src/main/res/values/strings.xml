@@ -10,6 +10,8 @@
     <!-- Strings related to shop -->
     <string name="title_item">Objets</string>
     <string name="title_avatar">Avatar</string>
+    <string name="yes">OUI</string>
+    <string name="no">NON</string>
 
     <!-- Strings related to login -->
     <string name="bienvenue">Bienvenue !</string>
