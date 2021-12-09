@@ -1,32 +1,22 @@
 package com.uqac.motivz.ui.home
 
 import android.annotation.SuppressLint
-import android.app.AlertDialog
-import android.content.DialogInterface
 import android.os.Bundle
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.uqac.motivz.R
-import com.uqac.motivz.databinding.FragmentHomeBinding
-import android.content.Intent
-import android.graphics.Color
-import android.view.Gravity
 import android.widget.*
-import androidx.core.view.*
 import android.widget.LinearLayout
-import androidx.fragment.app.activityViewModels
+import androidx.core.view.setPadding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.ValueEventListener
+import com.google.firebase.database.*
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
-import com.uqac.motivz.ui.profil.ProfilActivity
 import com.uqac.motivz.MainActivity
 import com.uqac.motivz.databinding.FragmentGoalDisplayBinding
 
@@ -40,20 +30,18 @@ class GoalDisplayFragment : Fragment() {
     // onDestroyView.
     private val binding get() = _binding!!
 
+    private lateinit var database: FirebaseDatabase
+    private lateinit var user: FirebaseUser
+    private lateinit var uid:String
 
-//    var goalNameList = ArrayList<String>()
-//    var goalDisplayNameList = ArrayList<String>()
-//    var goalProgressList = ArrayList<Int>()
-//    var completedGoalNameList = ArrayList<String>()
-//    var completedGoalDisplayNameList = ArrayList<String>()
-//    private lateinit var user: FirebaseUser
-//    private lateinit var uid:String
-//    private lateinit var goalRef: DatabaseReference
-//    private lateinit var goalUser: DatabaseReference
-//    private lateinit var completedGoalUser: DatabaseReference
+    private var displayLayout : LinearLayout? = null
+
+    var goalNameList = ArrayList<String>()
+    var goalDisplayNameList = ArrayList<String>()
+    var goalProgressList = ArrayList<Int>()
 //    private val homeModel : HomeViewModel by activityViewModels()
 //    var cache = false
-//
+
 //    override fun onStop() {
 //        if(!homeModel.cache){
 //            homeModel.goalNameList = goalNameList
@@ -67,83 +55,33 @@ class GoalDisplayFragment : Fragment() {
 //
 //        super.onStop()
 //    }
-//
-//    private fun getGoalsFromDatabase(goalLinearLayout: LinearLayout, goalRef: DatabaseReference, goalUser:DatabaseReference){
-//        goalUser.addValueEventListener( object : ValueEventListener {
-//            override fun onDataChange(snapshot: DataSnapshot) {
-//                for (goal in snapshot.getChildren()) {
-//                    val goalName = goal.key.toString()
-//                    if(!goalNameList.contains(goalName)){
-//                        goalNameList.add(goalName)
-//                        goalRef.child(goalName).addListenerForSingleValueEvent(object: ValueEventListener{
-//                            override fun onDataChange(snapshot: DataSnapshot) {
-//                                val displayName = snapshot.child("name").getValue().toString()
-//                                val progress = snapshot.child("pourcentage").getValue().toString().toInt()
-//                                goalProgressList.add(progress)
-//                                goalDisplayNameList.add(displayName)
-//                                val index = goalDisplayNameList.size - 1;
-//                                addGoal(goalName, displayName, progress, goalLinearLayout, index)
-//                            }
-//                            override fun onCancelled(error: DatabaseError) {
-//                                TODO("Not yet implemented")
-//                            }
-//                        })
-//                    } else {
-//
-//                    }
-//
-//                }
-//            }
-//            override fun onCancelled(error: DatabaseError) {
-//                TODO("Not yet implemented")
-//            }
-//        })
-//    }
-//
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-//
-//        val database = Firebase.database.reference
-//        val auth = FirebaseAuth.getInstance()
-//        if(auth.currentUser != null){
-//            user = auth.currentUser!!
-//            uid = user.uid
-//            goalRef = database.child("objectifs")
-//            goalUser = database.child("users").child(uid).child("objectifs")
-//            completedGoalUser = database.child("users").child(uid).child("objectifTermines")
-//        }
-        homeViewModel =
-            ViewModelProvider(this).get(HomeViewModel::class.java)
 
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+
+        homeViewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
         _binding = FragmentGoalDisplayBinding.inflate(inflater, container, false)
-        val root: View = binding.root
-//
-//
-//        // Access to profile from profileButton
-//        val profileButton: Button = binding.profileButton
-//        profileButton.setOnClickListener {
-//            val pseudo: String = (activity as MainActivity).getPseudo()
-//            goToProfilActivity(pseudo)
-//        }
-//
-//        val goalLinearLayout: LinearLayout = binding.goalLinearLayout
-//
-//        // Access goal creation fragment from + button
-//        val createGoalButton : Button = binding.createGoalButton
-//        createGoalButton.setOnClickListener {
-//            goToCreateGoalActivity()
-//        }
-//
-//        displayGoals(auth, goalLinearLayout)
-//        // Goals display
-//        /*val goalTitle: TextView = binding.goalTitle
-//        goalTitle.text = getString(R.string.goal_title)
+
+        database = Firebase.database
+        val auth = FirebaseAuth.getInstance()
+        if(auth.currentUser != null){
+            user = auth.currentUser!!
+            uid = user.uid
+        }
+
+        return binding.root
+    }
+
+    override fun onStart() {
+        super.onStart()
+
+        displayLayout = view?.findViewById<LinearLayout>(R.id.goalDisplayLinearLayout)
+
+
+        // Goals display
+        getDataBaseGoals()
+
 //        if(!homeModel.cache && auth.currentUser!=null){
-//            getGoalsFromDatabase(goalLinearLayout,goalRef,goalUser)
-//
+//            getDataBasGoals()
 //        } else {
 //            goalNameList = homeModel.goalNameList
 //            goalProgressList = homeModel.goalProgressList
@@ -153,104 +91,86 @@ class GoalDisplayFragment : Fragment() {
 //
 //            val lastIndex = homeModel.goalNameList.size - 1
 //            for (i in 0..lastIndex) {
-//                addGoal(homeModel.goalNameList.get(i), homeModel.goalDisplayNameList.get(i), homeModel.goalProgressList.get(i), goalLinearLayout, i)
+//                addGoal(homeModel.goalNameList.get(i), homeModel.goalDisplayNameList.get(i), homeModel.goalProgressList.get(i))
 //            }
-//
 //        }*/
-//
-//
-//
-        return root
+
     }
-//
+
+    private fun getDataBaseGoals() {
+        database.reference.child("users").child(uid).child("objectifs").get().addOnSuccessListener{
+            if (context != null) {
+                for (goal in it.children) {
+                    val goalName = goal.key.toString()
+                    val goalCompleted = goal.child("completed").value.toString().toBoolean()
+                    // Get only uncompleted goals
+                    if (!goalNameList.contains(goalName) && !goalCompleted) {
+                        goalNameList.add(goalName)
+
+                        database.reference.child("objectifs").child(goalName).get()
+                            .addOnSuccessListener {
+                                val displayName = it.child("name").value.toString()
+                                goalDisplayNameList.add(displayName)
+                                val progress = it.child("pourcentage").value.toString().toInt()
+                                goalProgressList.add(progress)
+                                addGoal(goalName, displayName, progress)
+
+                            }
+                    }
+                }
+            }
+        }
+    }
+
+    @SuppressLint("UseCompatLoadingForDrawables")
+    private fun addGoal(goalName: String, goalDisplayName: String, progress: Int) {
+        // RelativeLayout (button and progress bar) to add to goalLinearLayout
+        val parent = RelativeLayout(binding.root.context)
+        parent.layoutParams = RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT,
+            RelativeLayout.LayoutParams.WRAP_CONTENT)
+        parent.setPadding(15)
+
+        // Create Goal Button
+        val button = Button(binding.root.context)
+        button.layoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 250)
+        button.setPaddingRelative(250, 10, 10, 10)
+        button.gravity = Gravity.CENTER_VERTICAL
+        button.text = goalDisplayName
+        // Add Goal Button to RelativeLayout
+        parent.addView(button)
+
+        // Create ProgressCircle
+        val progressCircle = ProgressBar(binding.root.context, null, android.R.attr.progressBarStyleHorizontal)
+        //progressCircle.layoutParams = LinearLayout.LayoutParams(150, 150).setMargins(10, 10, 10, 10)
+        val layoutParams = LinearLayout.LayoutParams( 150, 150)
+        layoutParams.setMargins(50, 50, 25, 25)
+        //margin
+        progressCircle.elevation = 10.0F
+        progressCircle.background = resources.getDrawable(R.drawable.circular_shape, binding.root.context.theme)
+        progressCircle.progressDrawable = resources.getDrawable(R.drawable.circular_progress_bar, binding.root.context.theme)
+        progressCircle.isIndeterminate = false
+        progressCircle.max = 100
+        progressCircle.progress = progress
+        // Add ProgressCircle to RelativeLayout
+        parent.addView(progressCircle, layoutParams)
+
+        // Add everything to the goalLinearLayout
+        displayLayout?.addView(parent)
+
+
+        // Set button on clickMethod
+//        button.setOnClickListener {
+//            showDialog(goalName, button, progressCircle, index)
+//        }
+    }
+
+
 //    override fun onDestroyView() {
 //        super.onDestroyView()
 //        _binding = null
 //    }
-//
-//
-//    private fun goToProfilActivity(pseudo: String){
-//        val intent = Intent(activity, ProfilActivity::class.java)
-//        intent.putExtra("PSEUDONYME", pseudo)
-//        startActivity(intent)
-//    }
-//
-//    private fun goToCreateGoalActivity(){
-//        val intent = Intent(activity, GoalManagementActivity::class.java)
-//        intent.putExtra("ACTION", "create")
-//        startActivity(intent)
-//    }
-//
-//    private fun displayGoals(auth: FirebaseAuth, goalLinearLayout: LinearLayout) {
-//        // Goals display
-//        val goalTitle: TextView = binding.goalTitle
-//        goalTitle.text = getString(R.string.goal_title)
-//        if(!homeModel.cache && auth.currentUser!=null){
-//            getGoalsFromDatabase(goalLinearLayout,goalRef,goalUser)
-//
-//        } else {
-//            goalNameList = homeModel.goalNameList
-//            goalProgressList = homeModel.goalProgressList
-//            goalDisplayNameList = homeModel.goalDisplayNameList
-//            //completedGoalNameList = homeModel.goalNameList
-//            //completedGoalDisplayNameList = homeModel.goalDisplayNameList
-//
-//            // Temporary values
-//
-//            val lastIndex = homeModel.goalNameList.size - 1
-//            for (i in 0..lastIndex) {
-//                addGoal(homeModel.goalNameList.get(i), homeModel.goalDisplayNameList.get(i), homeModel.goalProgressList.get(i), goalLinearLayout, i)
-//            }
-//
-//        }
-//    }
-//    @SuppressLint("UseCompatLoadingForDrawables")
-//    private fun addGoal(goalName: String, goalDisplayName: String, progress: Int, goalLinearLayout: LinearLayout, index: Int) {
-//        // RelativeLayout (button and progress bar) to add to goalLinearLayout
-//        val parent = RelativeLayout(this.context)
-//        parent.layoutParams = RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT,
-//            RelativeLayout.LayoutParams.WRAP_CONTENT)
-//        parent.setPadding(15)
-//
-//        // Create Goal Button
-//        val button = Button(this.context)
-//        button.layoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 250)
-//        button.setPaddingRelative(250, 10, 10, 10)
-//        button.gravity = Gravity.CENTER_VERTICAL
-//        button.text = goalDisplayName
-//        if (progress == 100) {
-//            toast("progress 100")
-//            button.isEnabled = false
-//            button.isClickable = false
-//        }
-//        // Add Goal Button to RelativeLayout
-//        parent.addView(button)
-//
-//        // Create ProgressCircle
-//        val progressCircle = ProgressBar(this.context, null, android.R.attr.progressBarStyleHorizontal)
-//        //progressCircle.layoutParams = LinearLayout.LayoutParams(150, 150).setMargins(10, 10, 10, 10)
-//        val layoutParams = LinearLayout.LayoutParams( 150, 150)
-//        layoutParams.setMargins(50, 50, 25, 25)
-//        //margin
-//        progressCircle.elevation = 10.0F
-//        progressCircle.background = resources.getDrawable(R.drawable.circular_shape, requireContext().theme)
-//        progressCircle.progressDrawable = resources.getDrawable(R.drawable.circular_progress_bar, requireContext().theme)
-//        progressCircle.isIndeterminate = false
-//        progressCircle.max = 100
-//        progressCircle.progress = progress
-//        // Add ProgressCircle to RelativeLayout
-//        parent.addView(progressCircle, layoutParams)
-//
-//        // Add everything to the goalLinearLayout
-//        goalLinearLayout.addView(parent)
-//
-//
-//        // Set button on clickMethod
-//        button.setOnClickListener {
-//            showDialog(goalName, button, progressCircle, index)
-//        }
-//    }
-//
+
+
 //    private fun showDialog(goalName: String, button: Button, progressCircle: ProgressBar, index: Int) {
 //        val builder = AlertDialog.Builder(this.context)
 //        with(builder) {

@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
+import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
 import com.uqac.motivz.MainActivity
 import com.uqac.motivz.R
@@ -18,10 +19,7 @@ import com.uqac.motivz.R
 
 class LogInFragment : Fragment()  {
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
         val auth= FirebaseAuth.getInstance()
         val view = inflater.inflate(R.layout.fragment_log_in, container, false)
@@ -31,13 +29,15 @@ class LogInFragment : Fragment()  {
 
             val mail = view.findViewById<EditText>(R.id.enterEmailLI).text.toString()
             val password = view.findViewById<EditText>(R.id.enterPasswordLI).text.toString()
+            if(mail!= "" && password !=""){
 
-            auth.signInWithEmailAndPassword(mail,password).addOnCompleteListener { task ->
-                if(task.isSuccessful){
-                    goToMainActivity(R.id.navigation_home)
+                auth.signInWithEmailAndPassword(mail,password).addOnCompleteListener { task ->
+                    if(task.isSuccessful){
+                        goToMainActivity(R.id.navigation_home)
+                    }else{
+                        Toast.makeText(context, "Mauvais Identifiant", Toast.LENGTH_LONG).show()
+                    }
                 }
-            }.addOnFailureListener { exception ->
-
             }
 
 
@@ -49,11 +49,9 @@ class LogInFragment : Fragment()  {
     }
 
     private fun goToMainActivity(fragmentSelected : Int){
-        Log.e("debug","avant intent")
         val intent = Intent(activity, MainActivity::class.java)
         intent.putExtra("NAV", fragmentSelected);
         startActivity(intent)
-        Log.e("debug","après intent")
 
     }
 

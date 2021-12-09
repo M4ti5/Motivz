@@ -10,6 +10,12 @@ class GoalManagementActivity : androidx.appcompat.app.AppCompatActivity() {
     private lateinit var binding: com.uqac.motivz.databinding.ActivityGoalManagementBinding
     private lateinit var actionId: String
 
+    data class Goal (val _name:String? = null , val _type:String? = null, var _stateValue:String? = null, val _maxValue:String? = null, val _createdAt:String? = null, var _finishedAt:String? = null , var _isFinished:Boolean = false  )
+    fun setGoal( name:String, type:String, stateValue:String, maxValue:String, createdAt:String, finishedAt:String, isFinished:Boolean) : Goal{
+        return Goal(name, type , stateValue, maxValue, createdAt,finishedAt, isFinished)
+    }
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityGoalManagementBinding.inflate(layoutInflater)

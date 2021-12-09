@@ -6,11 +6,11 @@
     tools:context=".ui.home.HomeFragment">
 
     <LinearLayout
-        android:id="@+id/globalLayout"
+        android:id="@+id/goalHomeLinearLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="60dp"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:layout_marginBottom="70dp">
 
         <Button
             android:id="@+id/profileButton"
@@ -59,19 +59,25 @@
         <FrameLayout
             android:id="@+id/homeFragmentContainer"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="5dp" />
+            android:layout_height="wrap_content"
+            android:minHeight="400dp"
+            android:layout_marginTop="5dp"/>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="right">
 
-        <Button
-            android:id="@+id/createGoalButton"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_marginEnd="10dp"
-            android:backgroundTint="@color/medium_blue"
-            android:text="+"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:layout_gravity="end"/>
+            <Button
+                android:id="@+id/createGoalButton"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_marginEnd="10dp"
+                android:backgroundTint="@color/medium_blue"
+                android:text="+"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:gravity="center"/>
+        </RelativeLayout>
 
     </LinearLayout>
 
