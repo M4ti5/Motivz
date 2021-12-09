@@ -90,8 +90,6 @@ class AvatarShopFragment : Fragment() {
 
     fun toChangeCloth(clothArea:String , clothIndex:Int ){
 
-
-
         var tempIndex:Int = clothIndex
         val id : Int = avatarBundle?.getChildAt(listOfClothArea.getValue(clothArea))?.id!!
         val imageView: ImageView? = view?.findViewById(id)
@@ -155,8 +153,6 @@ class AvatarShopFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        Log.e("debug", currentCloths.toString())
-        Toast.makeText(context, "Resume" , Toast.LENGTH_LONG).show()
         printCurrentCloths()
     }
 

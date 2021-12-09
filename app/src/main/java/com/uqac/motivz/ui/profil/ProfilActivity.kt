@@ -22,6 +22,7 @@ import com.google.firebase.ktx.Firebase
 import com.uqac.motivz.MainActivity
 import com.uqac.motivz.R
 import com.uqac.motivz.databinding.ActivityProfilBinding
+import com.uqac.motivz.ui.connexion.ConnexionActivity
 
 
 class ProfilActivity  : AppCompatActivity() {
@@ -29,6 +30,12 @@ class ProfilActivity  : AppCompatActivity() {
     private lateinit var binding: ActivityProfilBinding
     private lateinit var uid: String
     private lateinit var database:FirebaseDatabase
+
+    private fun goToMainActivity(fragmentSelected : Int){
+        val intent = Intent(this,  MainActivity::class.java)
+        intent.putExtra("NAV", fragmentSelected);
+        startActivity(intent)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,16 +61,18 @@ class ProfilActivity  : AppCompatActivity() {
             goToMainActivity(R.id.navigation_home)
         }
 
+        findViewById<ImageButton>(R.id.logOutBtn).setOnClickListener() {
+            val intent = Intent(this,  ConnexionActivity::class.java)
+            startActivity(intent)
+        }
+
         findViewById<Button>(R.id.personnaliserBtn).setOnClickListener() {
             goToMainActivity(R.id.navigation_shop)
         }
 
 
+
+
     }
 
-    private fun goToMainActivity(fragmentSelected : Int){
-        val intent = Intent(this,  MainActivity::class.java)
-        intent.putExtra("NAV", fragmentSelected);
-        startActivity(intent)
-    }
 }
