@@ -1,8 +1,5 @@
 package com.uqac.motivz.ui.home
 
-import android.annotation.SuppressLint
-import android.app.AlertDialog
-import android.content.DialogInterface
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -12,12 +9,6 @@ import androidx.lifecycle.ViewModelProvider
 import com.uqac.motivz.R
 import com.uqac.motivz.databinding.FragmentHomeBinding
 import android.content.Intent
-import android.graphics.Color
-import android.util.Log
-import android.view.Gravity
-import android.widget.*
-import androidx.core.view.*
-import android.widget.LinearLayout
 import androidx.fragment.app.FragmentTransaction
 import androidx.fragment.app.activityViewModels
 import com.google.firebase.auth.FirebaseAuth
@@ -25,9 +16,9 @@ import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.*
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
+
 import com.uqac.motivz.ui.profil.ProfilActivity
 import com.uqac.motivz.MainActivity
-import com.uqac.motivz.ui.shop.AvatarShopFragment
 
 
 class HomeFragment : Fragment() {
@@ -36,7 +27,6 @@ class HomeFragment : Fragment() {
     private var _binding: FragmentHomeBinding? = null
 
     private val binding get() = _binding!!
-
     var goalNameList = ArrayList<String>()
     var goalProgressList = ArrayList<Int>()
 
@@ -83,11 +73,11 @@ class HomeFragment : Fragment() {
         super.onStart()
         replaceFragment(GoalDisplayFragment())
 
-        binding.goalListButton.setOnClickListener() {
+        binding.goalListButton.setOnClickListener {
             replaceFragment(GoalDisplayFragment())
         }
 
-        binding.completedGoalListButton.setOnClickListener() {
+        binding.completedGoalListButton.setOnClickListener {
             replaceFragment(CompletedGoalDisplayFragment())
         }
 
