@@ -9,6 +9,7 @@
         android:id="@+id/logSignBtn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:orientation="horizontal"
         android:layout_marginBottom="20dp">
 
         <Button
@@ -21,11 +22,11 @@
             android:text="@string/log_in"
             />
 
-
         <Button
             android:id="@+id/signInBtn"
             android:layout_width="150dp"
             android:layout_height="60dp"
+            android:layout_marginTop="-8dp"
             android:layout_weight="1"
             android:layout_marginHorizontal="5dp"
             android:backgroundTint="@color/medium_blue"
