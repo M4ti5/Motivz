@@ -1,8 +1,8 @@
 package com.uqac.motivz.ui.home
 
 import android.annotation.SuppressLint
+import android.graphics.Color
 import android.os.Bundle
-import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
@@ -18,7 +18,6 @@ import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.*
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
-import com.uqac.motivz.MainActivity
 import com.uqac.motivz.databinding.FragmentGoalDisplayBinding
 
 
@@ -37,7 +36,6 @@ class GoalDisplayFragment : Fragment() {
 
     private var displayLayout : LinearLayout? = null
 
-    var goalNameList = ArrayList<String>()
     var goalDisplayNameList = ArrayList<String>()
     var goalProgressList = ArrayList<Int>()
 //    private val homeModel : HomeViewModel by activityViewModels()
@@ -81,20 +79,20 @@ class GoalDisplayFragment : Fragment() {
         // Goals display
         getDataBaseGoals()
 
-//        if(!homeModel.cache && auth.currentUser!=null){
-//            getDataBasGoals()
-//        } else {
-//            goalNameList = homeModel.goalNameList
-//            goalProgressList = homeModel.goalProgressList
-//            goalDisplayNameList = homeModel.goalDisplayNameList
-//
-//            // Temporary values
-//
-//            val lastIndex = homeModel.goalNameList.size - 1
-//            for (i in 0..lastIndex) {
-//                addGoal(homeModel.goalNameList.get(i), homeModel.goalDisplayNameList.get(i), homeModel.goalProgressList.get(i))
-//            }
-//        }*/
+        /*if(!homeModel.cache && auth.currentUser!=null){
+            getDataBasGoals()
+        } else {
+            goalNameList = homeModel.goalNameList
+            goalProgressList = homeModel.goalProgressList
+            goalDisplayNameList = homeModel.goalDisplayNameList
+
+            // Temporary values
+
+            val lastIndex = homeModel.goalNameList.size - 1
+            for (i in 0..lastIndex) {
+                addGoal(homeModel.goalNameList.get(i), homeModel.goalDisplayNameList.get(i), homeModel.goalProgressList.get(i))
+            }
+        }*/
 
     }
 
@@ -129,9 +127,11 @@ class GoalDisplayFragment : Fragment() {
         // Create Goal Button
         val button = Button(binding.root.context)
         button.layoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 250)
-        button.setPaddingRelative(250, 10, 10, 10)
+        button.setPaddingRelative(250, 0, 10, 0)
         button.gravity = Gravity.CENTER_VERTICAL
         button.text = goalDisplayName
+        button.setBackgroundColor(Color.LTGRAY)
+        button.background = resources.getDrawable(R.drawable.goal_button, binding.root.context.theme)
         // Add Goal Button to RelativeLayout
         parent.addView(button)
 
