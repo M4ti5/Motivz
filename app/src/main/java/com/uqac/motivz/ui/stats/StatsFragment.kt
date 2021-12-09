@@ -20,10 +20,6 @@ import androidx.lifecycle.ViewModelProvider
 import com.github.mikephil.charting.charts.BarChart
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 
@@ -34,6 +30,7 @@ import com.uqac.motivz.ui.stats.Goal
 import com.uqac.motivz.ui.stats.StatsFragment.OnGetDataListener
 import android.os.Build
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.firebase.database.*
 
 
 class StatsFragment : Fragment() {
@@ -50,7 +47,8 @@ class StatsFragment : Fragment() {
     private var currentDrawable = 0
     private val statModel : StatsViewModel by activityViewModels()
     private val dataModel : DataViewModel by activityViewModels()
-    lateinit var database : DatabaseReference
+
+    lateinit var database : FirebaseDatabase
     private lateinit var auth : FirebaseAuth
     private lateinit var user : FirebaseUser
     private lateinit var uid : String
@@ -74,11 +72,11 @@ class StatsFragment : Fragment() {
         }
     }
     fun initDataBase(){
-        database = Firebase.database.reference
+        database = Firebase.database
         auth = FirebaseAuth.getInstance()
         if(auth.currentUser != null){
             user = auth.currentUser!!
-            uid = user?.uid
+            uid = user.uid
         }
     }
 
@@ -167,50 +165,45 @@ class StatsFragment : Fragment() {
     * */
     private fun getFinishedGoals(timeId : Int, listener : StatsFragment.OnGetDataListener){
         listener.onStart()
-        val finishedGoalsRef = database.child("users").child(uid).child("objectifs")
-        finishedGoalsRef.addListenerForSingleValueEvent(object : ValueEventListener{
-            override fun onDataChange(snapshot: DataSnapshot) {
-                var processedGoals = 0
-                for (goal in snapshot.getChildren()) {
-                    var nbGoals = snapshot.getChildren().count()
-                    var goalId = goal.key.toString()
-                    var goalRef = database.child("objectifs")
-                    var completed : Boolean = goal.child("completed").getValue() as Boolean
-                    var date = goal.child("date").getValue()
-                    var newGoal = Goal(date.toString(),goal.key.toString())
+        database.reference.child("users").child(uid).child("goals").get().addOnSuccessListener {
+            var processedGoals = 0
+            val nbGoals = it.childrenCount
 
-                    goalRef.child(goalId).addListenerForSingleValueEvent(object: ValueEventListener{
-                        override fun onDataChange(snapshot: DataSnapshot) {
-                            processedGoals ++
-                            var typeGoal = snapshot.child("type").getValue().toString()
-                            if(validGoal(timeId,date.toString().split("/")) && completed){
-                                if(goals[typeGoal] == null){
-                                    goals[typeGoal] = ArrayList()
-                                    goals[typeGoal]!!.add(newGoal)
-                                } else{
-                                    goals[typeGoal]!!.add(newGoal)
-                                }
-                            }
-                            if(processedGoals == nbGoals){
-                                listener.onSuccess(goals)
-                            }
+            for (goal in it.children) {
+                var completed : Boolean = goal.child("_isFinished").getValue() as Boolean
+                var date = goal.child("date").getValue()
+                var newGoal = Goal(date.toString(),goal.key.toString())
+
+                database.reference.child("goals").child(goal.key.toString()).get().addOnSuccessListener {
+                    processedGoals ++
+
+                    var typeGoal = it.child("_type").value.toString()
+                    if(validGoal(timeId,date.toString().split("/")) && completed){
+                        if(goals[typeGoal] == null){
+                            goals[typeGoal] = ArrayList()
+                            goals[typeGoal]!!.add(newGoal)
+                        } else{
+                            goals[typeGoal]!!.add(newGoal)
+                        }
+                    }
+                    if(processedGoals == nbGoals.toInt()){
+                        listener.onSuccess(goals)
+                    }
+                }
+        }
+
+
+
+
+
+
 
 
                         }
-                        override fun onCancelled(error: DatabaseError) {
-                            TODO("Not yet implemented")
-                        }
-                    })
 
                     //goals[goal.key.toString()] = goal.getValue().toString()
                 }
             }
-
-            override fun onCancelled(error: DatabaseError) {
-                TODO("Not yet implemented")
-            }
-
-        })
 
     }
 
@@ -322,7 +315,7 @@ class StatsFragment : Fragment() {
         if(lastConnexionYear == currentYear){
             if(currentDay - lastConnexionDay == 1){
                 attendance = attendance + 1
-                database
+                database.reference
                     .child("users")
                     .child(uid!!)
                     .child("assiduité")
@@ -336,7 +329,7 @@ class StatsFragment : Fragment() {
      * Lit et affiche assuidité
      */
     fun readAndDisplayAttendance(){
-        val attendanceRef = database.child("users")
+        val attendanceRef = database.reference.child("users")
             .addListenerForSingleValueEvent( object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
 

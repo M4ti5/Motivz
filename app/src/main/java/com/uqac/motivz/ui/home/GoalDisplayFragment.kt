@@ -103,15 +103,13 @@ class GoalDisplayFragment : Fragment() {
             if (context != null) {
                 for (goal in it.children) {
                     if(!goal.child("_isFinished").value.toString().toBoolean()){
-                        val goalName = goal.key.toString()
                         val displayName = goal.child("_name").value.toString()
                         val progress = (goal.child("_stateValue").value.toString().toFloat() / goal.child("_maxValue").value.toString().toFloat() * 100).toInt()
                         Log.e("debug2" , progress.toString())
                         goalDisplayNameList.add(displayName)
                         goalProgressList.add(progress)
 
-                        addGoal(goalName, displayName, progress)
-
+                        addGoal(displayName, progress)
                     }
                 }
             }
@@ -119,7 +117,7 @@ class GoalDisplayFragment : Fragment() {
     }
 
     @SuppressLint("UseCompatLoadingForDrawables")
-    private fun addGoal(goalName: String, goalDisplayName: String, progress: Int) {
+    private fun addGoal( goalDisplayName: String, progress: Int) {
         // RelativeLayout (button and progress bar) to add to goalLinearLayout
         val parent = RelativeLayout(binding.root.context)
         parent.layoutParams = RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT,
