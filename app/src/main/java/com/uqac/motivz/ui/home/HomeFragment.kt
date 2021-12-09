@@ -40,10 +40,12 @@ class HomeFragment : Fragment() {
     var goalNameList = ArrayList<String>()
     var goalDisplayNameList = ArrayList<String>()
     var goalProgressList = ArrayList<Int>()
+
     private lateinit var user: FirebaseUser
     private lateinit var uid:String
     private lateinit var goalUser: DatabaseReference
     private lateinit var goalRef: DatabaseReference
+
     private val homeModel : HomeViewModel by activityViewModels()
     var cache = false
 
@@ -143,8 +145,6 @@ class HomeFragment : Fragment() {
 
         }
 
-
-
         return root
     }
 
@@ -156,7 +156,7 @@ class HomeFragment : Fragment() {
 
     private fun goToProfilActivity(pseudo: String){
         val intent = Intent(activity, ProfilActivity::class.java)
-        intent.putExtra("PSEUDONYME", pseudo)
+        intent.putExtra("UID", uid)
         startActivity(intent)
     }
 

@@ -5,11 +5,16 @@ import android.content.ContentValues.TAG
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.Window
+import android.widget.Button
+import android.widget.ImageButton
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
 import com.google.firebase.database.ktx.getValue
@@ -22,55 +27,42 @@ import com.uqac.motivz.databinding.ActivityProfilBinding
 class ProfilActivity  : AppCompatActivity() {
 
     private lateinit var binding: ActivityProfilBinding
-    private lateinit var pseudo: String
+    private lateinit var uid: String
+    private lateinit var database:FirebaseDatabase
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        getSupportActionBar()?.hide()
+
         binding = ActivityProfilBinding.inflate(layoutInflater)
         setContentView(R.layout.activity_profil)
 
-        var pseudoLbl = findViewById<TextView>(R.id.pseudoProfil)
 
         val auth= FirebaseAuth.getInstance()
-
-        val database = Firebase.database
-
-        val myRef = database.getReference("users").child(auth.uid.toString()).child("pseudo")
-
-        myRef.addValueEventListener(object : ValueEventListener {
-            override fun onDataChange(dataSnapshot: DataSnapshot) {
-                // This method is called once with the initial value and again
-                // whenever data at this location is updated.
-
-                val value = dataSnapshot.getValue<String>()
-                pseudo = dataSnapshot.getValue<String>().toString()
-                pseudoLbl.setText(pseudo)
-            }
-
-            override fun onCancelled(error: DatabaseError) {
-                // Failed to read value
-                Log.w(TAG, "Failed to read value.", error.toException())
-            }
-        })
+        database = Firebase.database
+        uid = intent.getStringExtra("UID").toString()
 
 
+        var pseudoLabel = findViewById<TextView>(R.id.pseudoProfil)
 
-        /*
-        binding.goBackBtn.setOnClickListener(){
+        database.reference.child("users").child(uid).child("pseudo").get().addOnSuccessListener {
+            pseudoLabel.text =  it.value.toString()
+        }
+
+        findViewById<ImageButton>(R.id.goBackBtn).setOnClickListener() {
             goToMainActivity(R.id.navigation_home)
         }
-        */
 
-        binding.personnaliserBtn.setOnClickListener(){
+        findViewById<Button>(R.id.personnaliserBtn).setOnClickListener() {
             goToMainActivity(R.id.navigation_shop)
         }
+
 
     }
 
     private fun goToMainActivity(fragmentSelected : Int){
         val intent = Intent(this,  MainActivity::class.java)
-        intent.putExtra("PSEUDONYME", pseudo);
         intent.putExtra("NAV", fragmentSelected);
         startActivity(intent)
     }

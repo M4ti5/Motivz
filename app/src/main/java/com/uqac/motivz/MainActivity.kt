@@ -89,9 +89,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         ////Other
-
         updateAttendance()
-
 
         database.reference.child("users").child(uid).child("pseudo").get().addOnSuccessListener{
             pseudo = it.value.toString()
