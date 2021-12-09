@@ -177,7 +177,8 @@ class StatsFragment : Fragment() {
                 var newGoal = Goal(date.toString(), goal.key.toString())
 
                 processedGoals++
-                var typeGoal = it.child("_type").getValue().toString()
+                var typeGoal = goal.child("_type").getValue().toString()
+                Log.v("typeGoal",typeGoal)
                 var canAddGoal = false
                 if (date.toString() != "null") {
                     canAddGoal = validGoal(timeId, date.toString().split("/")) && completed && goal.key.toString() != "init" && date != null
