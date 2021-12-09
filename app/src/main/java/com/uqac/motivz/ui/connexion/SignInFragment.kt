@@ -15,6 +15,7 @@ import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import com.uqac.motivz.MainActivity
 import com.uqac.motivz.R
+import com.uqac.motivz.ui.home.GoalManagementActivity
 import com.uqac.motivz.ui.shop.AvatarShopFragment
 
 class SignInFragment : Fragment(R.layout.fragment_sign_in) {
@@ -45,6 +46,8 @@ class SignInFragment : Fragment(R.layout.fragment_sign_in) {
                     database.getReference("users").child(auth.uid.toString()).child("attendance").setValue(0)
                     //Add coins
                     database.getReference("users").child(auth.uid.toString()).child("coins").setValue(200)
+                    //Add goals
+                    database.getReference("users").child(auth.uid.toString()).child("goals").child("init").setValue(GoalManagementActivity().setGoal("null","null","null","null","null","null",true))
 
                     goToMainActivity(pseudo, R.id.navigation_home)
                 }
