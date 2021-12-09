@@ -11,25 +11,48 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.*
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.*
 import com.google.firebase.database.ktx.database
 import com.google.firebase.database.ktx.getValue
 import com.google.firebase.ktx.Firebase
 import com.uqac.motivz.MainActivity
 import com.uqac.motivz.R
+import java.time.LocalDateTime
 
 class CreateGoalFragment : Fragment() {
 
+    private lateinit var database: FirebaseDatabase
+    private lateinit var user: FirebaseUser
+    private lateinit var uid:String
+
+
+    private fun addToDatabase( goalCount: Int, name: String, type: String, maxValue: Int) {
+        database.reference.child("users").child(uid).child("goals").child(goalCount.toString()).setValue(
+            GoalManagementActivity().setGoal(name , type , "0", maxValue.toString(), LocalDateTime.now().dayOfMonth.toString()+"/"+LocalDateTime.now().month.toString()+"/"+LocalDateTime.now().year.toString(), "null", false )
+        )
+
+        goBackToMainActivity()
+    }
+
+
+    private fun goBackToMainActivity(){
+        val intent = Intent(activity, MainActivity::class.java)
+        startActivity(intent)
+    }
+
     @SuppressLint("SetTextI18n")
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
         val view = inflater.inflate(R.layout.fragment_create_goal, container, false)
+        activity?.actionBar?.setDisplayHomeAsUpEnabled(false)
+
+        database = Firebase.database
         val auth = FirebaseAuth.getInstance()
-        val database = Firebase.database.reference
-        val userId = auth.uid.toString()
+        if(auth.currentUser != null){
+            user = auth.currentUser!!
+            uid = user.uid
+        }
 
         // access spinner
         val spinner = view.findViewById(R.id.EnterGoalTypeCG) as Spinner
@@ -50,24 +73,13 @@ class CreateGoalFragment : Fragment() {
             }
 //        }
 
-        var goalCount = -1
-        val ref = database.child("objectifs").child("goalCount")
-        ref.addValueEventListener(object : ValueEventListener {
-            override fun onDataChange(dataSnapshot: DataSnapshot) {
-                // This method is called once with the initial value and again
-                // whenever data at this location is updated.
+        var goalCount = 0
+        val ref = database.reference.child("users").child(uid).child("goals").get().addOnSuccessListener{
+            goalCount = it.childrenCount.toInt()
+        }
 
-                goalCount = dataSnapshot.getValue<Int>()?.toInt() ?: -1
-            }
 
-            override fun onCancelled(error: DatabaseError) {
-                // Failed to read value
-                Log.w(ContentValues.TAG, "Failed to read value.", error.toException())
-            }
-        })
-
-        val saveBtn = view.findViewById<Button>(R.id.BtnSaveCG)
-        saveBtn.setOnClickListener{
+        view.findViewById<Button>(R.id.BtnSaveCG).setOnClickListener{
             val name = view.findViewById<EditText>(R.id.EnterNameCG).text.toString()
 
             val value = view.findViewById<EditText>(R.id.EnterValueCG).text.toString().toInt()
@@ -75,7 +87,7 @@ class CreateGoalFragment : Fragment() {
             //val textTest = view.findViewById<TextView>(R.id.TestCG)
             //textTest.text = "goalCount: $goalCount"
 
-            addToDatabase(database, userId, goalCount, name, selectedType, value)
+            addToDatabase( goalCount, name, selectedType, value)
         }
 
         // Inflate the layout for this fragment
@@ -83,40 +95,11 @@ class CreateGoalFragment : Fragment() {
 
     }
 
-    private fun addToDatabase(database: DatabaseReference, userId: String, goalCount: Int,
-                              name: String, type: String, value: Int) {
-        // No changes if goalCount wasn't retrieved
-        if (goalCount == -1) {
-            // TODO : error feedback, goal couldn't be created
-            return
-        }
+    override fun onStart() {
+        super.onStart()
 
-        // Create goal in database
-        // TODO : get last "objectif" id and create the next (if "objectif 2", create "objectif 3")
-        val goalId = goalCount + 1
-        val goalPath = database.child("objectifs").child("objectif $goalId")
-        goalPath.child("user").setValue(userId)
-        goalPath.child("name").setValue(name)
-        goalPath.child("type").setValue(type)
-        goalPath.child("value").setValue(value)
-        goalPath.child("pourcentage").setValue(0)
-
-        // Update goalCount
-        database.child("objectifs").child("goalCount").setValue(goalId)
-
-        // Set goal true in user's
-        database.child("users").child(userId).child("objectifs")
-            .child("objectif $goalId").setValue(true)
-
-        goBackToMainActivity()
     }
 
 
-    // TODO : peut-être possible de juste trigger le retour à l'activity parent, comme avec la flèche retour
-    private fun goBackToMainActivity(){
-        val intent = Intent(activity, MainActivity::class.java)
-        //intent.putExtra("NAV", pseudo)
-        startActivity(intent)
-    }
 
 }
