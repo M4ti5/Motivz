@@ -42,14 +42,11 @@ class SignInFragment : Fragment(R.layout.fragment_sign_in) {
                     myRef.setValue(pseudo)
 
                     //Add avatar Cloths
-
                     database.getReference("users").child(auth.uid.toString()).child("cloths").setValue(AvatarShopFragment.Cloths("-1","-1","-1","-1"))
                     //Add assiduity
                     database.getReference("users").child(auth.uid.toString()).child("attendance").setValue(0)
                     //Add coins
                     database.getReference("users").child(auth.uid.toString()).child("coins").setValue(200)
-
-
 
 
                     goToMainActivity(pseudo, R.id.navigation_home)

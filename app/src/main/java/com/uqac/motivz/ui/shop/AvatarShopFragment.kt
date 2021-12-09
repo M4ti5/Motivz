@@ -1,6 +1,7 @@
 package com.uqac.motivz.ui.shop
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -88,17 +89,31 @@ class AvatarShopFragment : Fragment() {
     }
 
     fun toChangeCloth(clothArea:String , clothIndex:Int ){
-        if(clothIndex == -1){return}
+
+
+
+        var tempIndex:Int = clothIndex
         val id : Int = avatarBundle?.getChildAt(listOfClothArea.getValue(clothArea))?.id!!
         val imageView: ImageView? = view?.findViewById(id)
-        imageView?.setImageResource(allCloths[clothIndex])
-        currentCloths = setCloths(currentCloths ,clothArea, clothIndex.toString())
+
+        if(getCloths(currentCloths,clothArea).toInt() != clothIndex ){
+            imageView?.setImageResource(allCloths[tempIndex])
+        }else{
+            tempIndex = -1
+            imageView?.setImageResource(0)
+        }
+
+        currentCloths = setCloths(currentCloths ,clothArea, tempIndex.toString())
     }
 
     fun printCurrentCloths (){
         enumValues<AreaCloth>().forEach {
-                //Toast.makeText(this.context, getCloths(currentCloths, it.area) ,Toast.LENGTH_SHORT).show()
-                toChangeCloth(it.area,  getCloths(currentCloths, it.area).toInt())
+            val clothIndex:Int = getCloths(currentCloths, it.area).toInt()
+            if(clothIndex != -1) {
+                val id: Int = avatarBundle?.getChildAt(listOfClothArea.getValue(it.area))?.id!!
+                val imageView: ImageView? = view?.findViewById(id)
+                imageView?.setImageResource(allCloths[clothIndex])
+            }
         }
     }
 
@@ -140,6 +155,8 @@ class AvatarShopFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
+        Log.e("debug", currentCloths.toString())
+        Toast.makeText(context, "Resume" , Toast.LENGTH_LONG).show()
         printCurrentCloths()
     }
 
