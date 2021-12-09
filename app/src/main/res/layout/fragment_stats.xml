@@ -52,10 +52,6 @@
                     android:layout_gravity="left"
                     android:contentDescription="attendanceFlame" />
 
-
-
-
-
             </LinearLayout>
 
         </LinearLayout>
@@ -136,6 +132,7 @@
                     android:layout_height="wrap_content"/>
 
             </RelativeLayout>
+
         </LinearLayout>
 
     </LinearLayout>
