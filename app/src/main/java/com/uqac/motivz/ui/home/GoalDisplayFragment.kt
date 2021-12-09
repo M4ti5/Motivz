@@ -105,6 +105,7 @@ class GoalDisplayFragment : Fragment() {
             if (context != null) {
                 for (goal in it.children) {
                     if(!goal.child("_isFinished").value.toString().toBoolean()){
+                        val goalName = goal.key.toString()
                         val displayName = goal.child("_name").value.toString()
                         val progress = (goal.child("_stateValue").value.toString().toFloat() / goal.child("_maxValue").value.toString().toFloat() * 100).toInt()
                         val maxValue = goal.child("_maxValue").value.toString().toInt()
@@ -204,7 +205,7 @@ class GoalDisplayFragment : Fragment() {
         val goal = database.reference.child("users").child(uid).child("goals").child(goalName)
         goal.child("_isFinished").setValue(true)
         goal.child("_stateValue").setValue(maxValue)
-        goal.child("_finishedAt").setValue(LocalDateTime.now().dayOfMonth.toString()+"/"+ LocalDateTime.now().month.toString()+"/"+ LocalDateTime.now().year.toString())
+        goal.child("_finishedAt").setValue(LocalDateTime.now().dayOfMonth.toString()+"/"+LocalDateTime.now().monthValue.toString()+"/"+LocalDateTime.now().year.toString())
     }
 
     private fun toast(text: String) = Toast.makeText(this.context, text, Toast.LENGTH_SHORT).show()
