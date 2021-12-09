@@ -17,7 +17,6 @@
             android:layout_height="60dp"
             android:layout_weight="1"
             android:layout_marginHorizontal="5dp"
-            android:layout_toEndOf="@+id/signInBtn"
             android:backgroundTint="@color/light_blue"
             android:text="@string/log_in"
             />
