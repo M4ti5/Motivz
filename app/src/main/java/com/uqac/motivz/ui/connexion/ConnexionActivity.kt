@@ -15,7 +15,7 @@ class ConnexionActivity : AppCompatActivity() {
         binding = ActivityConnexionBinding.inflate(layoutInflater)
         supportActionBar?.hide();
         setContentView(binding.root)
-        replaceFragment(SignInFragment())
+        replaceFragment(LogInFragment())
 
         binding.logInBtn.setOnClickListener(){
             replaceFragment(LogInFragment())
@@ -25,6 +25,11 @@ class ConnexionActivity : AppCompatActivity() {
             replaceFragment(SignInFragment())
         }
     }
+
+//    override fun onStart() {
+//        auth.signOut()
+//        super.onStart()
+//    }
 
     private fun replaceFragment(fragment : Fragment){
         val fragmentManager = supportFragmentManager

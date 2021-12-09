@@ -11,46 +11,56 @@
         android:layout_height="match_parent"
         android:layout_marginBottom="60dp"
         android:orientation="vertical">
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1">
-            <Button
-                android:id="@+id/profileButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:text ="@string/profil"/>
-        </RelativeLayout>
 
+        <Button
+            android:id="@+id/profileButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:text ="@string/profil"/>
 
         <TextView
             android:id="@+id/goalTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:layout_marginHorizontal="30dp"
-            android:layout_marginVertical="10dp"
             android:textSize="40sp"
             android:text="@string/title_goal"
             android:textStyle="bold"/>
 
-        <ScrollView
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center">
+            <Button
+                android:id="@+id/goalListButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/medium_blue"
+                android:layout_margin="5dp"
+                android:text="en cours"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:layout_gravity="right"/>
+
+            <Button
+                android:id="@+id/completedGoalListButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/goalListButton"
+                android:backgroundTint="@color/medium_blue"
+                android:layout_margin="5dp"
+                android:text="terminés"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:layout_gravity="end"/>
+        </RelativeLayout>
+
+        <FrameLayout
+            android:id="@+id/homeFragmentContainer"
             android:layout_width="match_parent"
-            android:layout_height="250dp"
-            android:layout_weight="15"
-            android:fillViewport="false"
-            android:layout_marginBottom="60dp">
-
-            <LinearLayout
-                android:id="@+id/goalLinearLayout"
-                android:layout_width="match_parent"
-                android:layout_height="350dp"
-                android:layout_marginHorizontal="20dp"
-                android:orientation="vertical">
-            </LinearLayout>
-
-        </ScrollView>
+            android:layout_height="match_parent"
+            android:layout_marginTop="5dp" />
 
         <Button
             android:id="@+id/createGoalButton"

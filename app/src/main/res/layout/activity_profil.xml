@@ -11,11 +11,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
-        <!-- A Changer car boutton retour redondant
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginVertical="10dp"
             android:orientation="horizontal">
 
             <ImageButton
@@ -41,38 +41,39 @@
                 android:src="@drawable/logout"
                 android:layout_weight="1"/>
         </LinearLayout>
-        -->
-        <androidx.cardview.widget.CardView
-            android:id="@+id/bordure"
-            android:layout_width="85dp"
-            android:layout_height="85dp"
-            android:layout_gravity="center_horizontal"
-            android:elevation="12dp"
-            tools:cardBackgroundColor="@color/black"
-            tools:cardCornerRadius="40dp"
-            tools:layout_constraintEnd_toEndOf="parent"
-            tools:layout_constraintStart_toStartOf="parent"
-            tools:layout_constraintTop_toBottomOf="@+id/goBackBtn">
+        <!--
+               <androidx.cardview.widget.CardView
+                   android:id="@+id/bordure"
+                   android:layout_width="85dp"
+                   android:layout_height="85dp"
+                   android:layout_gravity="center_horizontal"
+                   android:elevation="12dp"
+                   tools:cardBackgroundColor="@color/black"
+                   tools:cardCornerRadius="40dp"
+                   tools:layout_constraintEnd_toEndOf="parent"
+                   tools:layout_constraintStart_toStartOf="parent"
+                   tools:layout_constraintTop_toBottomOf="@+id/goBackBtn">
 
-            <androidx.cardview.widget.CardView
-                android:id="@+id/roundPicture"
-                android:layout_width="match_parent"
-                android:layout_height="80dp"
-                android:layout_gravity="center"
-                tools:cardCornerRadius="40dp"
-                tools:layout_constraintEnd_toEndOf="parent"
-                tools:layout_constraintStart_toStartOf="parent">
+                   <androidx.cardview.widget.CardView
+                       android:id="@+id/roundPicture"
+                       android:layout_width="match_parent"
+                       android:layout_height="80dp"
+                       android:layout_gravity="center"
+                       tools:cardCornerRadius="40dp"
+                       tools:layout_constraintEnd_toEndOf="parent"
+                       tools:layout_constraintStart_toStartOf="parent">
 
-                <ImageView
-                    android:id="@+id/iprofilPitcure"
-                    android:layout_width="match_parent"
-                    android:layout_height="80dp"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/profil_picture" />
+                       <ImageView
+                           android:id="@+id/iprofilPitcure"
+                           android:layout_width="match_parent"
+                           android:layout_height="80dp"
+                           android:scaleType="centerCrop"
+                           android:src="@drawable/profil_picture" />
 
-            </androidx.cardview.widget.CardView>
+                   </androidx.cardview.widget.CardView>
 
         </androidx.cardview.widget.CardView>
+        -->
         <TextView
             android:id="@+id/pseudoProfil"
             android:layout_width="wrap_content"
@@ -80,8 +81,7 @@
             android:layout_marginTop="10dp"
             android:text="monPseudo"
             android:textSize="18dp"
-            android:layout_gravity="center_horizontal"
-            />
+            android:layout_gravity="center_horizontal" />
 
 
         <LinearLayout

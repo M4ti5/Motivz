@@ -3,10 +3,22 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Matis_CAFFIAUX/Documents/Cours/UQAC/Motivz/app/src/main/res/drawable/ic_avatar.xml" value="0.19739583333333333" />
+        <entry key="..\:/Users/Matis_CAFFIAUX/Documents/Cours/UQAC/Motivz/app/src/main/res/drawable/ic_clothe_1.xml" value="0.26614583333333336" />
         <entry key="..\:/Users/Matis_CAFFIAUX/Documents/Cours/UQAC/Motivz/app/src/main/res/drawable/ic_dashboard_black_24dp.xml" value="0.23072916666666668" />
         <entry key="..\:/Users/Matis_CAFFIAUX/Documents/Cours/UQAC/Motivz/app/src/main/res/drawable/ic_home_black_24dp.xml" value="0.26614583333333336" />
         <entry key="..\:/Users/Matis_CAFFIAUX/Documents/Cours/UQAC/Motivz/app/src/main/res/drawable/ic_launcher_background.xml" value="0.26614583333333336" />
         <entry key="..\:/Users/Matis_CAFFIAUX/Documents/Cours/UQAC/Motivz/app/src/main/res/drawable/ic_notifications_black_24dp.xml" value="0.26614583333333336" />
+        <entry key="..\:/Users/Matis_CAFFIAUX/Documents/Cours/UQAC/Motivz/app/src/main/res/drawable/jean_blue.xml" value="0.16" />
+        <entry key="..\:/Users/Matis_CAFFIAUX/Documents/Cours/UQAC/Motivz/app/src/main/res/drawable/jean_gray.xml" value="0.26614583333333336" />
+        <entry key="..\:/Users/Matis_CAFFIAUX/Documents/Cours/UQAC/Motivz/app/src/main/res/drawable/right_pressed_button.xml" value="0.19739583333333333" />
+        <entry key="..\:/Users/Matis_CAFFIAUX/Documents/Cours/UQAC/Motivz/app/src/main/res/drawable/right_rounded_button.xml" value="0.19739583333333333" />
+        <entry key="..\:/Users/Matis_CAFFIAUX/Documents/Cours/UQAC/Motivz/app/src/main/res/drawable/shirt_blue.xml" value="0.26614583333333336" />
+        <entry key="..\:/Users/Matis_CAFFIAUX/Documents/Cours/UQAC/Motivz/app/src/main/res/drawable/shirt_red.xml" value="0.26614583333333336" />
+        <entry key="..\:/Users/Matis_CAFFIAUX/Documents/Cours/UQAC/Motivz/app/src/main/res/drawable/skin1.xml" value="0.26614583333333336" />
+        <entry key="..\:/Users/Matis_CAFFIAUX/Documents/Cours/UQAC/Motivz/app/src/main/res/drawable/skin2.xml" value="0.26614583333333336" />
+        <entry key="..\:/Users/Matis_CAFFIAUX/Documents/Cours/UQAC/Motivz/app/src/main/res/drawable/skin3.xml" value="0.26614583333333336" />
+        <entry key="..\:/Users/Matis_CAFFIAUX/Documents/Cours/UQAC/Motivz/app/src/main/res/drawable/skin4.xml" value="0.26614583333333336" />
         <entry key="..\:/Users/Matis_CAFFIAUX/Documents/Cours/UQAC/Motivz/app/src/main/res/layout/activity_connexion.xml" value="0.18125" />
         <entry key="..\:/Users/Matis_CAFFIAUX/Documents/Cours/UQAC/Motivz/app/src/main/res/layout/activity_main.xml" value="0.12708333333333333" />
         <entry key="..\:/Users/Matis_CAFFIAUX/Documents/Cours/UQAC/Motivz/app/src/main/res/layout/activity_profil.xml" value="0.18125" />
@@ -44,17 +56,26 @@
         <entry key="..\:/Users/amand/Desktop/COURS/I3 - UQAC/Automne/Programmation de plateformes mobiles/Motivz/Motivz/app/src/main/res/layout/activity_main.xml" value="0.190625" />
         <entry key="..\:/Users/amand/Desktop/COURS/I3 - UQAC/Automne/Programmation de plateformes mobiles/Motivz/Motivz/app/src/main/res/layout/activity_profil.xml" value="0.13020833333333334" />
         <entry key="..\:/Users/amand/Desktop/COURS/I3 - UQAC/Automne/Programmation de plateformes mobiles/Motivz/Motivz/app/src/main/res/layout/fragment_avatar_shop.xml" value="0.190625" />
+        <entry key="..\:/Users/amand/Desktop/COURS/I3 - UQAC/Automne/Programmation de plateformes mobiles/Motivz/Motivz/app/src/main/res/layout/fragment_completed_goal_display.xml" value="0.1" />
         <entry key="..\:/Users/amand/Desktop/COURS/I3 - UQAC/Automne/Programmation de plateformes mobiles/Motivz/Motivz/app/src/main/res/layout/fragment_createGoal.xml" value="0.165625" />
         <entry key="..\:/Users/amand/Desktop/COURS/I3 - UQAC/Automne/Programmation de plateformes mobiles/Motivz/Motivz/app/src/main/res/layout/fragment_create_goal.xml" value="0.264" />
+        <entry key="..\:/Users/amand/Desktop/COURS/I3 - UQAC/Automne/Programmation de plateformes mobiles/Motivz/Motivz/app/src/main/res/layout/fragment_goal_display.xml" value="0.1" />
         <entry key="..\:/Users/amand/Desktop/COURS/I3 - UQAC/Automne/Programmation de plateformes mobiles/Motivz/Motivz/app/src/main/res/layout/fragment_home.xml" value="0.1" />
+        <entry key="..\:/Users/amand/Desktop/COURS/I3 - UQAC/Automne/Programmation de plateformes mobiles/Motivz/Motivz/app/src/main/res/layout/fragment_item_list.xml" value="0.12360688956433637" />
         <entry key="..\:/Users/amand/Desktop/COURS/I3 - UQAC/Automne/Programmation de plateformes mobiles/Motivz/Motivz/app/src/main/res/layout/fragment_log_in.xml" value="0.165625" />
+        <entry key="..\:/Users/amand/Desktop/COURS/I3 - UQAC/Automne/Programmation de plateformes mobiles/Motivz/Motivz/app/src/main/res/layout/fragment_shop.xml" value="0.1" />
         <entry key="..\:/Users/amand/Desktop/COURS/I3 - UQAC/Automne/Programmation de plateformes mobiles/Motivz/Motivz/app/src/main/res/layout/fragment_sign_in.xml" value="0.2" />
         <entry key="..\:/Users/amand/Desktop/COURS/I3 - UQAC/Automne/Programmation de plateformes mobiles/Motivz/Motivz/app/src/main/res/layout/fragment_stats.xml" value="0.190625" />
+        <entry key="..\:/Users/amand/Desktop/COURS/I3 - UQAC/Automne/Programmation de plateformes mobiles/Motivz/Motivz/app/src/main/res/menu/bottom_nav_menu.xml" value="0.190625" />
+        <entry key="..\:/Users/hello/Documents/GitHub/Motivz/app/src/main/res/layout/activity_connexion.xml" value="0.12360688956433637" />
+        <entry key="..\:/Users/hello/Documents/GitHub/Motivz/app/src/main/res/layout/activity_main.xml" value="0.12360688956433637" />
+        <entry key="..\:/Users/hello/Documents/GitHub/Motivz/app/src/main/res/layout/activity_profil.xml" value="0.19655797101449277" />
+        <entry key="..\:/Users/hello/Documents/GitHub/Motivz/app/src/main/res/layout/fragment_shop.xml" value="0.24094202898550723" />
         <entry key="..\:/Users/amand/Desktop/COURS/I3 - UQAC/Automne/Programmation de plateformes mobiles/Motivz/Motivz/app/src/main/res/menu/bottom_nav_menu.xml" value="0.264" />
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">
