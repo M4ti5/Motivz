@@ -2,6 +2,7 @@ package com.uqac.motivz.ui.home
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
@@ -98,24 +99,19 @@ class GoalDisplayFragment : Fragment() {
     }
 
     private fun getDataBaseGoals() {
-        database.reference.child("users").child(uid).child("objectifs").get().addOnSuccessListener{
+        database.reference.child("users").child(uid).child("goals").get().addOnSuccessListener{
             if (context != null) {
                 for (goal in it.children) {
-                    val goalName = goal.key.toString()
-                    val goalCompleted = goal.child("completed").value.toString().toBoolean()
-                    // Get only uncompleted goals
-                    if (!goalNameList.contains(goalName) && !goalCompleted) {
-                        goalNameList.add(goalName)
+                    if(!goal.child("_isFinished").value.toString().toBoolean()){
+                        val goalName = goal.key.toString()
+                        val displayName = goal.child("_name").value.toString()
+                        val progress = goal.child("_stateValue").value.toString().toInt() / goal.child("_maxValue").value.toString().toInt()
 
-                        database.reference.child("objectifs").child(goalName).get()
-                            .addOnSuccessListener {
-                                val displayName = it.child("name").value.toString()
-                                goalDisplayNameList.add(displayName)
-                                val progress = it.child("pourcentage").value.toString().toInt()
-                                goalProgressList.add(progress)
-                                addGoal(goalName, displayName, progress)
+                        goalDisplayNameList.add(displayName)
+                        goalProgressList.add(progress)
 
-                            }
+                        addGoal(goalName, displayName, progress)
+
                     }
                 }
             }
