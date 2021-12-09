@@ -84,12 +84,6 @@ class MainActivity : AppCompatActivity() {
         super.onStop()
     }
 
-    override fun onDestroy() {
-
-        auth.signOut()
-        super.onDestroy()
-    }
-
     fun initDatabase(){
         database = Firebase.database.reference
         auth = FirebaseAuth.getInstance()

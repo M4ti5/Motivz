@@ -11,24 +11,18 @@
         android:layout_height="match_parent"
         android:layout_marginBottom="60dp"
         android:orientation="vertical">
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1">
-            <Button
-                android:id="@+id/profileButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:text ="@string/profil"/>
-        </RelativeLayout>
 
+        <Button
+            android:id="@+id/profileButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:text ="@string/profil"/>
 
         <TextView
             android:id="@+id/goalTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:layout_marginHorizontal="30dp"
             android:textSize="40sp"
             android:text="@string/title_goal"
@@ -50,7 +44,7 @@
                 android:layout_gravity="right"/>
 
             <Button
-                android:id="@+id/completeGoalListButton"
+                android:id="@+id/completedGoalListButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_toRightOf="@+id/goalListButton"
@@ -62,23 +56,11 @@
                 android:layout_gravity="end"/>
         </RelativeLayout>
 
-
-        <ScrollView
+        <FrameLayout
+            android:id="@+id/homeFragmentContainer"
             android:layout_width="match_parent"
-            android:layout_height="250dp"
-            android:layout_weight="15"
-            android:fillViewport="false"
-            android:layout_marginBottom="5dp">
-
-            <LinearLayout
-                android:id="@+id/goalLinearLayout"
-                android:layout_width="match_parent"
-                android:layout_height="350dp"
-                android:layout_marginHorizontal="20dp"
-                android:orientation="vertical">
-            </LinearLayout>
-
-        </ScrollView>
+            android:layout_height="match_parent"
+            android:layout_marginTop="5dp" />
 
         <Button
             android:id="@+id/createGoalButton"
