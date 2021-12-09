@@ -105,7 +105,6 @@ class GoalDisplayFragment : Fragment() {
             if (context != null) {
                 for (goal in it.children) {
                     if(!goal.child("_isFinished").value.toString().toBoolean()){
-                        val goalName = goal.key.toString()
                         val displayName = goal.child("_name").value.toString()
                         val progress = (goal.child("_stateValue").value.toString().toFloat() / goal.child("_maxValue").value.toString().toFloat() * 100).toInt()
                         val maxValue = goal.child("_maxValue").value.toString().toInt()
