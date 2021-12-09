@@ -392,6 +392,12 @@ class StatsFragment : Fragment() {
         return layout
     }
 
+    override fun onStart() {
+        super.onStart()
+        database.reference.child("users").child(uid).child("attendance").get().addOnSuccessListener {
+            view?.findViewById<TextView>(R.id.attendance)?.text = it.value.toString()
+        }
+    }
 
 
 

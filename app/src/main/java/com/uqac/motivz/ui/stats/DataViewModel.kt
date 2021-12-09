@@ -4,6 +4,7 @@ import android.graphics.drawable.Drawable
 import android.widget.Button
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.uqac.motivz.ui.shop.ShopFragment
 
 class DataViewModel :ViewModel(){
     val axis = MutableLiveData<Array<String>>()
@@ -15,6 +16,7 @@ class DataViewModel :ViewModel(){
     val previousConnexion = MutableLiveData<Int>()
     val currentConnexion = MutableLiveData<Int>()
     var goals = MutableLiveData<HashMap<String,ArrayList<Goal>>>()
+
 
     fun setSavedButton(button : Button){
         this.statButtonController = button
