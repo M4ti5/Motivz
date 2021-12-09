@@ -15,7 +15,7 @@ class ConnexionActivity : AppCompatActivity() {
         binding = ActivityConnexionBinding.inflate(layoutInflater)
         supportActionBar?.hide();
         setContentView(binding.root)
-        replaceFragment(SignInFragment())
+        replaceFragment(LogInFragment())
 
         binding.logInBtn.setOnClickListener(){
             replaceFragment(LogInFragment())
