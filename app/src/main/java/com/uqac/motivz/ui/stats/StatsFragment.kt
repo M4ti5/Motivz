@@ -121,7 +121,6 @@ class StatsFragment : Fragment() {
 
 
     private fun validGoal(timeId : Int, dateGoal : List<String>):Boolean{
-        Log.v("dategoaleuh",dateGoal.toString())
         var currentDate = LocalDateTime.now()
         var firstDayOfWeek = currentDate.dayOfMonth.toString().toInt() -
                 dayOfWeekToInt(currentDate.dayOfWeek.toString()) + 1
@@ -178,7 +177,6 @@ class StatsFragment : Fragment() {
                     var goalRef = database.child("objectifs")
                     var completed : Boolean = goal.child("completed").getValue() as Boolean
                     var date = goal.child("date").getValue()
-                    Log.v("dateeeeuh",date.toString())
                     var newGoal = Goal(date.toString(),goal.key.toString())
 
                     goalRef.child(goalId).addListenerForSingleValueEvent(object: ValueEventListener{

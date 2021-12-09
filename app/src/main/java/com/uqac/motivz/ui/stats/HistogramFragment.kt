@@ -200,8 +200,6 @@ class HistogramFragment() : Fragment() {
         dataModel.goal.observe(viewLifecycleOwner, Observer<String>{
                 goal->
             SET_LABEL = goal
-            Log.v("SET_Label",goal)
-            Log.v("Set_label1",dataGoals[SET_LABEL].toString())
             var chart = view.findViewById<BarChart>(R.id.fragment_verticalbarchart_chart)
             var data = createInitChartData()
             if(dataGoals[goal] != null){
@@ -280,10 +278,7 @@ class HistogramFragment() : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         initDatabase()
-        if(dataModel.goals.value != null){
-            Log.v("initDataModel",dataModel.goals.value.toString())
 
-        }
         var view = inflater.inflate(R.layout.fragment_histogram, container, false)
         return view
     }
@@ -294,7 +289,6 @@ class HistogramFragment() : Fragment() {
             goalObserver = Observer<HashMap<String,ArrayList<Goal>>>{
                     goal ->
                 if(dataModel.goals.value != null){
-                    Log.v("goalObserver",dataModel.goals.value.toString())
                     updateGoalHistogram(requireView(),dataModel.goals.value!!)
                     updateAxisHistogram(requireView(),dataModel.goals.value!!)
                 }
