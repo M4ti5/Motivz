@@ -26,6 +26,11 @@ class ConnexionActivity : AppCompatActivity() {
         }
     }
 
+//    override fun onStart() {
+//        auth.signOut()
+//        super.onStart()
+//    }
+
     private fun replaceFragment(fragment : Fragment){
         val fragmentManager = supportFragmentManager
         val fragmentTransaction = fragmentManager.beginTransaction()
