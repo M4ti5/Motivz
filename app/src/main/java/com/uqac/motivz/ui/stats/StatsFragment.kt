@@ -167,7 +167,7 @@ class StatsFragment : Fragment() {
     * */
     private fun getFinishedGoals(timeId : Int, listener : StatsFragment.OnGetDataListener){
         listener.onStart()
-        val finishedGoalsRef = database.child("users").child(uid).child("objectifs")
+        val finishedGoalsRef = database.child("users").child(uid).child("goals")
         finishedGoalsRef.addListenerForSingleValueEvent(object : ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
                 var processedGoals = 0
@@ -175,15 +175,21 @@ class StatsFragment : Fragment() {
                     var nbGoals = snapshot.getChildren().count()
                     var goalId = goal.key.toString()
                     var goalRef = database.child("objectifs")
-                    var completed : Boolean = goal.child("completed").getValue() as Boolean
-                    var date = goal.child("date").getValue()
+                    var _isFinished : Boolean = goal.child("_isFinished").getValue() as Boolean
+                    var date = goal.child("_finishedAt").getValue()
                     var newGoal = Goal(date.toString(),goal.key.toString())
 
-                    goalRef.child(goalId).addListenerForSingleValueEvent(object: ValueEventListener{
+                    goalRef.child("objectif " + goalId).addListenerForSingleValueEvent(object: ValueEventListener{
                         override fun onDataChange(snapshot: DataSnapshot) {
                             processedGoals ++
                             var typeGoal = snapshot.child("type").getValue().toString()
-                            if(validGoal(timeId,date.toString().split("/")) && completed){
+                            var canAddGoal = false
+                            if(date.toString()!="null"){
+                                Log.v("finishedAt",date.toString())
+                                canAddGoal = validGoal(timeId,date.toString().split("/"))
+                                        && _isFinished && goalId != "init" && date != null
+                            }
+                            if(canAddGoal){
                                 if(goals[typeGoal] == null){
                                     goals[typeGoal] = ArrayList()
                                     goals[typeGoal]!!.add(newGoal)
