@@ -163,48 +163,38 @@ class StatsFragment : Fragment() {
     * timeId : 0 pour semaine, 1 pour mois et 2 pour année
     * listener : pour détecter le moment où toutes les données ont été récupérées
     * */
-    private fun getFinishedGoals(timeId : Int, listener : StatsFragment.OnGetDataListener){
+    private fun getFinishedGoals(timeId : Int, listener : StatsFragment.OnGetDataListener) {
         listener.onStart()
+
         database.reference.child("users").child(uid).child("goals").get().addOnSuccessListener {
+
             var processedGoals = 0
             val nbGoals = it.childrenCount
 
             for (goal in it.children) {
-                var completed : Boolean = goal.child("_isFinished").getValue() as Boolean
-                var date = goal.child("date").getValue()
-                var newGoal = Goal(date.toString(),goal.key.toString())
+                var completed: Boolean = goal.child("_isFinished").getValue() as Boolean
+                var date = goal.child("_finishedAt").getValue()
+                var newGoal = Goal(date.toString(), goal.key.toString())
 
-                database.reference.child("goals").child(goal.key.toString()).get().addOnSuccessListener {
-                    processedGoals ++
-
-                    var typeGoal = it.child("_type").value.toString()
-                    if(validGoal(timeId,date.toString().split("/")) && completed){
-                        if(goals[typeGoal] == null){
-                            goals[typeGoal] = ArrayList()
-                            goals[typeGoal]!!.add(newGoal)
-                        } else{
-                            goals[typeGoal]!!.add(newGoal)
-                        }
-                    }
-                    if(processedGoals == nbGoals.toInt()){
-                        listener.onSuccess(goals)
+                processedGoals++
+                var typeGoal = it.child("_type").getValue().toString()
+                var canAddGoal = false
+                if (date.toString() != "null") {
+                    canAddGoal = validGoal(timeId, date.toString().split("/")) && completed && goal.key.toString() != "init" && date != null
+                }
+                if (canAddGoal) {
+                    if (goals[typeGoal] == null) {
+                        goals[typeGoal] = ArrayList()
+                        goals[typeGoal]!!.add(newGoal)
+                    } else {
+                        goals[typeGoal]!!.add(newGoal)
                     }
                 }
-        }
-
-
-
-
-
-
-
-
-                        }
-
-                    //goals[goal.key.toString()] = goal.getValue().toString()
+                if (processedGoals == nbGoals.toInt()) {
+                    listener.onSuccess(goals)
                 }
             }
-
+        }
     }
 
     fun sizeXaxisToInt(n:Int) : Int{

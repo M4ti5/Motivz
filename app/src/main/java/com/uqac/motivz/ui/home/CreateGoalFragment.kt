@@ -29,7 +29,7 @@ class CreateGoalFragment : Fragment() {
 
     private fun addToDatabase( goalCount: Int, name: String, type: String, maxValue: Int) {
         database.reference.child("users").child(uid).child("goals").child(goalCount.toString()).setValue(
-            GoalManagementActivity().setGoal(name , type , "0", maxValue.toString(), LocalDateTime.now().dayOfMonth.toString()+"/"+LocalDateTime.now().month.toString()+"/"+LocalDateTime.now().year.toString(), "null", false )
+            GoalManagementActivity().setGoal(name , type , "0", maxValue.toString(), LocalDateTime.now().dayOfMonth.toString()+"/"+LocalDateTime.now().monthValue.toString()+"/"+LocalDateTime.now().year.toString(), "null", false )
         )
 
         goBackToMainActivity()
