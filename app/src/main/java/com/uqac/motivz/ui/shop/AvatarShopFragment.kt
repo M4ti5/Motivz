@@ -104,12 +104,12 @@ class AvatarShopFragment : Fragment() {
 
 
     override fun onCreateView(inflater: LayoutInflater,container: ViewGroup?,savedInstanceState: Bundle?): View {
-        database = Firebase.database
 
         shopViewModel = ViewModelProvider(this).get(ShopViewModel::class.java)
-
         _binding = FragmentAvatarShopBinding.inflate(inflater, container, false)
 
+
+        database = Firebase.database
         val auth = FirebaseAuth.getInstance()
         if(auth.currentUser != null){
             user = auth.currentUser!!
