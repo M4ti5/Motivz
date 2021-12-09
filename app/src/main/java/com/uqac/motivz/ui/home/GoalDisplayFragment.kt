@@ -105,8 +105,8 @@ class GoalDisplayFragment : Fragment() {
                     if(!goal.child("_isFinished").value.toString().toBoolean()){
                         val goalName = goal.key.toString()
                         val displayName = goal.child("_name").value.toString()
-                        val progress = goal.child("_stateValue").value.toString().toInt() / goal.child("_maxValue").value.toString().toInt()
-
+                        val progress = (goal.child("_stateValue").value.toString().toFloat() / goal.child("_maxValue").value.toString().toFloat() * 100).toInt()
+                        Log.e("debug2" , progress.toString())
                         goalDisplayNameList.add(displayName)
                         goalProgressList.add(progress)
 
