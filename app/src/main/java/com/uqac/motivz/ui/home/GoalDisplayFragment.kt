@@ -1,7 +1,11 @@
 package com.uqac.motivz.ui.home
 
 import android.annotation.SuppressLint
+import android.app.AlertDialog
+import android.content.DialogInterface
+import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
@@ -17,8 +21,8 @@ import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.*
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
-import com.uqac.motivz.MainActivity
 import com.uqac.motivz.databinding.FragmentGoalDisplayBinding
+import java.time.LocalDateTime
 
 
 class GoalDisplayFragment : Fragment() {
@@ -36,7 +40,6 @@ class GoalDisplayFragment : Fragment() {
 
     private var displayLayout : LinearLayout? = null
 
-    var goalNameList = ArrayList<String>()
     var goalDisplayNameList = ArrayList<String>()
     var goalProgressList = ArrayList<Int>()
 //    private val homeModel : HomeViewModel by activityViewModels()
@@ -80,42 +83,38 @@ class GoalDisplayFragment : Fragment() {
         // Goals display
         getDataBaseGoals()
 
-//        if(!homeModel.cache && auth.currentUser!=null){
-//            getDataBasGoals()
-//        } else {
-//            goalNameList = homeModel.goalNameList
-//            goalProgressList = homeModel.goalProgressList
-//            goalDisplayNameList = homeModel.goalDisplayNameList
-//
-//            // Temporary values
-//
-//            val lastIndex = homeModel.goalNameList.size - 1
-//            for (i in 0..lastIndex) {
-//                addGoal(homeModel.goalNameList.get(i), homeModel.goalDisplayNameList.get(i), homeModel.goalProgressList.get(i))
-//            }
-//        }*/
+        /*if(!homeModel.cache && auth.currentUser!=null){
+            getDataBasGoals()
+        } else {
+            goalNameList = homeModel.goalNameList
+            goalProgressList = homeModel.goalProgressList
+            goalDisplayNameList = homeModel.goalDisplayNameList
+
+            // Temporary values
+
+            val lastIndex = homeModel.goalNameList.size - 1
+            for (i in 0..lastIndex) {
+                addGoal(homeModel.goalNameList.get(i), homeModel.goalDisplayNameList.get(i), homeModel.goalProgressList.get(i))
+            }
+        }*/
 
     }
 
     private fun getDataBaseGoals() {
-        database.reference.child("users").child(uid).child("objectifs").get().addOnSuccessListener{
+        database.reference.child("users").child(uid).child("goals").get().addOnSuccessListener{
             if (context != null) {
                 for (goal in it.children) {
-                    val goalName = goal.key.toString()
-                    val goalCompleted = goal.child("completed").value.toString().toBoolean()
-                    // Get only uncompleted goals
-                    if (!goalNameList.contains(goalName) && !goalCompleted) {
-                        goalNameList.add(goalName)
+                    if(!goal.child("_isFinished").value.toString().toBoolean()){
+                        val goalName = goal.key.toString()
+                        val displayName = goal.child("_name").value.toString()
+                        val progress = (goal.child("_stateValue").value.toString().toFloat() / goal.child("_maxValue").value.toString().toFloat() * 100).toInt()
+                        val maxValue = goal.child("_maxValue").value.toString().toInt()
+                        Log.e("debug2" , progress.toString())
+                        goalDisplayNameList.add(displayName)
+                        goalProgressList.add(progress)
 
-                        database.reference.child("objectifs").child(goalName).get()
-                            .addOnSuccessListener {
-                                val displayName = it.child("name").value.toString()
-                                goalDisplayNameList.add(displayName)
-                                val progress = it.child("pourcentage").value.toString().toInt()
-                                goalProgressList.add(progress)
-                                addGoal(goalName, displayName, progress)
+                        addGoal(goalName, displayName, progress, maxValue)
 
-                            }
                     }
                 }
             }
@@ -123,7 +122,7 @@ class GoalDisplayFragment : Fragment() {
     }
 
     @SuppressLint("UseCompatLoadingForDrawables")
-    private fun addGoal(goalName: String, goalDisplayName: String, progress: Int) {
+    private fun addGoal(goalName: String, goalDisplayName: String, progress: Int, maxValue: Int) {
         // RelativeLayout (button and progress bar) to add to goalLinearLayout
         val parent = RelativeLayout(binding.root.context)
         parent.layoutParams = RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT,
@@ -133,9 +132,11 @@ class GoalDisplayFragment : Fragment() {
         // Create Goal Button
         val button = Button(binding.root.context)
         button.layoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 250)
-        button.setPaddingRelative(250, 10, 10, 10)
+        button.setPaddingRelative(250, 0, 10, 0)
         button.gravity = Gravity.CENTER_VERTICAL
         button.text = goalDisplayName
+        button.setBackgroundColor(Color.LTGRAY)
+        button.background = resources.getDrawable(R.drawable.goal_button, binding.root.context.theme)
         // Add Goal Button to RelativeLayout
         parent.addView(button)
 
@@ -159,9 +160,9 @@ class GoalDisplayFragment : Fragment() {
 
 
         // Set button on clickMethod
-//        button.setOnClickListener {
-//            showDialog(goalName, button, progressCircle, index)
-//        }
+        button.setOnClickListener {
+            showDialog(goalName, maxValue)
+        }
     }
 
 
@@ -171,50 +172,42 @@ class GoalDisplayFragment : Fragment() {
 //    }
 
 
-//    private fun showDialog(goalName: String, button: Button, progressCircle: ProgressBar, index: Int) {
-//        val builder = AlertDialog.Builder(this.context)
-//        with(builder) {
-//            // setIcon(R.drawable.ic_hello)
-//            // setTitle("Hello")
-//            setMessage("Voulez vous valider cet objectif ?")
-//            setPositiveButton("Valider") { _, _ ->
-//                toast("clicked valider button")
-//                goalValidation(goalName, button, progressCircle, index)
-//            }
-//            setNegativeButton("Annuler", null)
-//        }
-//        val alertDialog = builder.create()
-//        alertDialog.show()
-//
-//        val buttonPositive = alertDialog.getButton(DialogInterface.BUTTON_POSITIVE)
-//        with(buttonPositive) {
-//            setBackgroundColor(Color.BLACK)
-//            setPadding(20, 0, 20, 0)
-//            setTextColor(Color.WHITE)
-//        }
-//        val buttonNegative = alertDialog.getButton(DialogInterface.BUTTON_NEGATIVE)
-//        with(buttonNegative) {
-//            setPadding(20, 0, 40, 0)
-//            setTextColor(Color.BLACK)
-//        }
-//    }
-//
-//    private fun goalValidation(goalName: String, button: Button, progressCircle: ProgressBar, index: Int) {
-//        // update database
-//        goalRef.child(goalName).child("pourcentage").setValue(100)
-//        // update cache
-//        if (goalProgressList.size > 0) {
-//            goalProgressList.set(index, 100)
-//        } else if (homeViewModel.goalProgressList.size > 0) {
-//            homeViewModel.goalProgressList.set(index, 100)
-//        }
-//        // update progress on circle
-//        progressCircle.progress = 100
-//        // disable button click
-//        //button.isEnabled = false
-//        button.isClickable = false
-//    }
-//
-//    private fun toast(text: String) = Toast.makeText(this.context, text, Toast.LENGTH_SHORT).show()
+    private fun showDialog(goalName: String, maxValue: Int) {
+        val builder = AlertDialog.Builder(this.context)
+        with(builder) {
+            // setIcon(R.drawable.ic_hello)
+            // setTitle("Hello")
+            setMessage("Voulez vous valider cet objectif ?")
+            setPositiveButton("Valider") { _, _ ->
+                toast("clicked valider button")
+                goalValidation(goalName, maxValue)
+            }
+            setNegativeButton("Annuler", null)
+        }
+        val alertDialog = builder.create()
+        alertDialog.show()
+
+        val buttonPositive = alertDialog.getButton(DialogInterface.BUTTON_POSITIVE)
+        with(buttonPositive) {
+            setBackgroundColor(Color.BLACK)
+            setPadding(20, 0, 20, 0)
+            setTextColor(Color.WHITE)
+        }
+        val buttonNegative = alertDialog.getButton(DialogInterface.BUTTON_NEGATIVE)
+        with(buttonNegative) {
+            setPadding(20, 0, 40, 0)
+            setTextColor(Color.BLACK)
+        }
+    }
+
+    private fun goalValidation(goalName: String, maxValue: Int) {
+        // update database
+        val goal = database.reference.child("users").child(uid).child("goals").child(goalName)
+        goal.child("_isFinished").setValue(true)
+        goal.child("_stateValue").setValue(maxValue)
+        goal.child("_finishedAt").setValue(LocalDateTime.now().dayOfMonth.toString()+"/"+LocalDateTime.now().monthValue.toString()+"/"+LocalDateTime.now().year.toString())
+    }
+
+    private fun toast(text: String) = Toast.makeText(this.context, text, Toast.LENGTH_SHORT).show()
 
 }

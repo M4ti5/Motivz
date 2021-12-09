@@ -24,28 +24,22 @@
         <entry key="..\:/Users/Matis_CAFFIAUX/Documents/Cours/UQAC/Motivz/app/src/main/res/layout/activity_profil.xml" value="0.18125" />
         <entry key="..\:/Users/Matis_CAFFIAUX/Documents/Cours/UQAC/Motivz/app/src/main/res/layout/fragment_avatar_shop.xml" value="0.18125" />
         <entry key="..\:/Users/Matis_CAFFIAUX/Documents/Cours/UQAC/Motivz/app/src/main/res/layout/fragment_dashboard.xml" value="0.18125" />
+        <entry key="..\:/Users/Matis_CAFFIAUX/Documents/Cours/UQAC/Motivz/app/src/main/res/layout/fragment_histogram.xml" value="0.18885869565217392" />
         <entry key="..\:/Users/Matis_CAFFIAUX/Documents/Cours/UQAC/Motivz/app/src/main/res/layout/fragment_home.xml" value="0.18125" />
         <entry key="..\:/Users/Matis_CAFFIAUX/Documents/Cours/UQAC/Motivz/app/src/main/res/layout/fragment_item_list.xml" value="0.20833333333333334" />
         <entry key="..\:/Users/Matis_CAFFIAUX/Documents/Cours/UQAC/Motivz/app/src/main/res/layout/fragment_log_in.xml" value="0.17527173913043478" />
         <entry key="..\:/Users/Matis_CAFFIAUX/Documents/Cours/UQAC/Motivz/app/src/main/res/layout/fragment_shop.xml" value="0.17527173913043478" />
         <entry key="..\:/Users/Matis_CAFFIAUX/Documents/Cours/UQAC/Motivz/app/src/main/res/layout/fragment_sign_in.xml" value="0.17527173913043478" />
         <entry key="..\:/Users/Matis_CAFFIAUX/Documents/Cours/UQAC/Motivz/app/src/main/res/layout/fragment_stats.xml" value="0.1" />
+        <entry key="..\:/Users/Matis_CAFFIAUX/Documents/Cours/UQAC/Motivz/app/src/main/res/layout/fragment_typegoals.xml" value="0.18885869565217392" />
         <entry key="..\:/Users/Matis_CAFFIAUX/Documents/Cours/UQAC/Motivz/app/src/main/res/layout/list_item_shop.xml" value="0.18125" />
         <entry key="..\:/Users/Matis_CAFFIAUX/Documents/Cours/UQAC/Motivz/app/src/main/res/menu/bottom_nav_menu.xml" value="0.21458333333333332" />
-        <entry key="..\:/Users/Nomanina/OneDrive/Bureau/Projet_Uqac/Motivz/app/src/main/res/layout/activity_connexion.xml" value="0.1" />
-        <entry key="..\:/Users/Nomanina/OneDrive/Bureau/Projet_Uqac/Motivz/app/src/main/res/layout/activity_goal_management.xml" value="0.1" />
-        <entry key="..\:/Users/Nomanina/OneDrive/Bureau/Projet_Uqac/Motivz/app/src/main/res/layout/activity_main.xml" value="0.1" />
-        <entry key="..\:/Users/Nomanina/OneDrive/Bureau/Projet_Uqac/Motivz/app/src/main/res/layout/activity_profil.xml" value="0.1" />
-        <entry key="..\:/Users/Nomanina/OneDrive/Bureau/Projet_Uqac/Motivz/app/src/main/res/layout/fragment_avatar_shop.xml" value="0.1" />
-        <entry key="..\:/Users/Nomanina/OneDrive/Bureau/Projet_Uqac/Motivz/app/src/main/res/layout/fragment_create_goal.xml" value="0.1" />
-        <entry key="..\:/Users/Nomanina/OneDrive/Bureau/Projet_Uqac/Motivz/app/src/main/res/layout/fragment_item_list.xml" value="0.1" />
-        <entry key="..\:/Users/Nomanina/OneDrive/Bureau/Projet_Uqac/Motivz/app/src/main/res/layout/fragment_shop.xml" value="0.1" />
-        <entry key="..\:/Users/Nomanina/OneDrive/Bureau/Projet_Uqac/Motivz/app/src/main/res/layout/fragment_sign_in.xml" value="0.1" />
         <entry key="..\:/Users/Nomanina/OneDrive/Bureau/Projet_Uqac/Motivz/app/src/main/res/layout/fragment_stats.xml" value="0.3333333333333333" />
-        <entry key="..\:/Users/Nomanina/OneDrive/Bureau/Projet_Uqac/Motivz/app/src/main/res/menu/bottom_nav_menu.xml" value="0.14907407407407408" />
         <entry key="..\:/Users/amand/Desktop/COURS/I3 - UQAC/Automne/Programmation de plateformes mobiles/Motivz/Motivz/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.20677083333333332" />
         <entry key="..\:/Users/amand/Desktop/COURS/I3 - UQAC/Automne/Programmation de plateformes mobiles/Motivz/Motivz/app/src/main/res/drawable/circular_progress_bar.xml" value="0.14270833333333333" />
         <entry key="..\:/Users/amand/Desktop/COURS/I3 - UQAC/Automne/Programmation de plateformes mobiles/Motivz/Motivz/app/src/main/res/drawable/circular_shape.xml" value="0.14270833333333333" />
+        <entry key="..\:/Users/amand/Desktop/COURS/I3 - UQAC/Automne/Programmation de plateformes mobiles/Motivz/Motivz/app/src/main/res/drawable/goal_button.xml" value="0.1" />
+        <entry key="..\:/Users/amand/Desktop/COURS/I3 - UQAC/Automne/Programmation de plateformes mobiles/Motivz/Motivz/app/src/main/res/drawable/goal_completed_button.xml" value="0.1" />
         <entry key="..\:/Users/amand/Desktop/COURS/I3 - UQAC/Automne/Programmation de plateformes mobiles/Motivz/Motivz/app/src/main/res/drawable/ic_dashboard_black_24dp.xml" value="0.14270833333333333" />
         <entry key="..\:/Users/amand/Desktop/COURS/I3 - UQAC/Automne/Programmation de plateformes mobiles/Motivz/Motivz/app/src/main/res/drawable/ic_home_black_24dp.xml" value="0.20677083333333332" />
         <entry key="..\:/Users/amand/Desktop/COURS/I3 - UQAC/Automne/Programmation de plateformes mobiles/Motivz/Motivz/app/src/main/res/drawable/ic_launcher_background.xml" value="0.20677083333333332" />
@@ -80,7 +74,7 @@
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">
