@@ -59,8 +59,10 @@ class MainActivity : AppCompatActivity() {
             val currentDay = LocalDateTime.now().dayOfYear
             val currentYear = LocalDateTime.now().year
 
-            if(lastConnexionYear == currentYear && lastConnexionDay >= currentDay -1  ){
-                attendance += 1
+            if(lastConnexionYear == currentYear && lastConnexionDay >= currentDay -1){
+                if(lastConnexionDay != currentDay){
+                    attendance += 1
+                }
             } else {
                 attendance = 0
             }
