@@ -16,7 +16,7 @@ import com.uqac.motivz.R
 import com.uqac.motivz.databinding.FragmentStatsBinding
 
 class TypeGoalsFragment : Fragment() {
-    private var listGoals = listOf("objectif a","objectif b","objectif c","objectif d","objectif e","objectif f", "objectif g");
+    private var listGoals = listOf("Pas","Distance parcourue","Pompes","Squats","Abdos");
     private val dataModel: DataViewModel by activityViewModels()
 
     fun updateHistogram(button: Button){
@@ -51,7 +51,6 @@ class TypeGoalsFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        Log.v("creategoals","whatever")
         var view = inflater.inflate(R.layout.fragment_typegoals, container, false)
         var listGoalLayout = view.findViewById<LinearLayout>(R.id.list_goal)
         addButtons(listGoalLayout,listGoals)
