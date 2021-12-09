@@ -13,6 +13,11 @@ import com.uqac.motivz.databinding.FragmentItemListBinding
 
 import android.widget.ListView
 import android.widget.Toast
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
 import com.uqac.motivz.Adapters.ItemListAdapter
 import com.uqac.motivz.MainActivity
 import com.uqac.motivz.Model.Item
@@ -29,6 +34,13 @@ class ItemShopFragment : Fragment() {
     private val binding get() = _binding!!
     private var listView : ListView? = null
 
+    private lateinit var database : FirebaseDatabase
+    private lateinit var auth : FirebaseAuth
+
+    private lateinit var user : FirebaseUser
+    private lateinit var uid : String
+    private var nbCoins : Int = 0
+
 
     override fun onCreateView(inflater: LayoutInflater,container: ViewGroup?,savedInstanceState: Bundle?): View {
 
@@ -37,6 +49,18 @@ class ItemShopFragment : Fragment() {
 
         _binding = FragmentItemListBinding.inflate(inflater, container, false)
 
+        ////Init database
+        database = Firebase.database
+        auth = FirebaseAuth.getInstance()
+        if(auth.currentUser != null){
+            user = auth.currentUser!!
+            uid = user.uid
+        }
+
+        database.reference.child("users").child(uid).child("coins").get().addOnSuccessListener{
+            nbCoins = it.value.toString().toInt()
+        }
+
         return binding.root
     }
 
@@ -44,7 +68,7 @@ class ItemShopFragment : Fragment() {
     override fun onStart()  {
         super.onStart()
         items.add(Item("Freeze", 300))
-        items.add(Item("Double score", 200))
+        items.add(Item("Double score", 150))
 
         listView = binding.itemList
         val context = context as MainActivity
@@ -92,7 +116,34 @@ class ItemShopFragment : Fragment() {
     }
 
     fun buyItem(item : Item){
-        Toast.makeText(context, item.name, Toast.LENGTH_SHORT).show()
+        //Toast.makeText(context, item.name, Toast.LENGTH_SHORT).show() OK
+        if (item.price <= nbCoins){
+            when (item.name) {
+                "Freeze" -> buyFreeze(item)
+                "Double score" -> buyDoubleScore(item)
+                else -> { // Note the block
+                    print("Bug")
+                }
+            }
+        }
+        else {
+            Toast.makeText(context, "Pas assez de coins ! :( ", Toast.LENGTH_SHORT).show()
+        }
     }
 
+    fun buyFreeze(item : Item){
+        Toast.makeText(context, "Freeze acheté ! :) ", Toast.LENGTH_SHORT).show()
+        updateCoin(item.price)
+    }
+
+    fun buyDoubleScore(item : Item){
+        Toast.makeText(context, "Double score acheté ! :) ", Toast.LENGTH_SHORT).show()
+        updateCoin(item.price)
+    }
+
+    fun updateCoin(price : Int){
+        database.getReference("users").child(auth.uid.toString()).child("coins").setValue(nbCoins-price)
+        nbCoins -= price
+        //Toast.makeText(context, "nb coins : " + nbCoins, Toast.LENGTH_SHORT).show()
+    }
 }

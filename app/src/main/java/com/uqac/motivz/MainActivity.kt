@@ -24,6 +24,7 @@ import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import com.uqac.motivz.databinding.ActivityMainBinding
 import com.uqac.motivz.ui.home.HomeFragment
+import com.uqac.motivz.ui.shop.ShopFragment
 import com.uqac.motivz.ui.stats.DataViewModel
 import kotlinx.coroutines.awaitAll
 import java.time.LocalDateTime
@@ -127,4 +128,5 @@ class MainActivity : AppCompatActivity() {
         auth.signOut()
         super.onDestroy()
     }
+
 }
